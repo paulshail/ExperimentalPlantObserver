@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32516.85
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExperimentalPlantObserver", "ExperimentalPlantObserver\ExperimentalPlantObserver.csproj", "{2167ED16-F61C-49E0-9D03-CF35BB69130C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExperimentalPlantObserver", "ExperimentalPlantObserver\ExperimentalPlantObserver.csproj", "{2167ED16-F61C-49E0-9D03-CF35BB69130C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExperimentalPlantObserver.ViewModels", "ExperimentalPlantObserver.ViewModels\ExperimentalPlantObserver.ViewModels.csproj", "{AA1A2B5F-52D6-43CA-96CF-C13E81DC419C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExperimentalPlantObserver.ViewModels", "ExperimentalPlantObserver.ViewModels\ExperimentalPlantObserver.ViewModels.csproj", "{AA1A2B5F-52D6-43CA-96CF-C13E81DC419C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExperimentalPlantObserver.Models", "ExperimentalPlantObserver.Models\ExperimentalPlantObserver.Models.csproj", "{4E457DDF-8848-422C-8901-C338335ED903}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExperimentalPlantObserver.Models", "ExperimentalPlantObserver.Models\ExperimentalPlantObserver.Models.csproj", "{4E457DDF-8848-422C-8901-C338335ED903}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExperimentalPlantObserver.Repository", "ExperimentalPlantObserver.Repository\ExperimentalPlantObserver.Repository.csproj", "{3C4D62B2-64C4-40FB-A393-570602952C92}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExperimentalPlantObserver.Repository", "ExperimentalPlantObserver.Repository\ExperimentalPlantObserver.Repository.csproj", "{3C4D62B2-64C4-40FB-A393-570602952C92}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExperimentalPlantObserver.Base", "ExperimentalPlantObserver.Base\ExperimentalPlantObserver.Base.csproj", "{6193BD77-2FFB-4EFA-89C3-938986BA66A2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{3C4D62B2-64C4-40FB-A393-570602952C92}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C4D62B2-64C4-40FB-A393-570602952C92}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C4D62B2-64C4-40FB-A393-570602952C92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6193BD77-2FFB-4EFA-89C3-938986BA66A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6193BD77-2FFB-4EFA-89C3-938986BA66A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6193BD77-2FFB-4EFA-89C3-938986BA66A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6193BD77-2FFB-4EFA-89C3-938986BA66A2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
