@@ -7,13 +7,46 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         WindowState="Maximized"
+        WindowStyle="None"
         Title="Experimental Plant Observer"
         Height="{x:Static SystemParameters.PrimaryScreenHeight}" 
         Width="{x:Static SystemParameters.PrimaryScreenWidth}">
     <Grid ShowGridLines="true">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.1*"/>
-            <ColumnDefinition Width="0.9*"/>
-        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="1">
+            <DockPanel LastChildFill="True">
+
+                <!-- Top bar for application description and window btns -->
+                <Grid DockPanel.Dock="Top"  Background="{StaticResource OffsetWhiteBrush}">
+                
+                    <!-- Title bar -->
+                    <Label Content="EPO" Style="{StaticResource WindowTitleStyle}" />
+
+                    <!-- Window operation buttons -->
+                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                        <Label Content="{Binding Path=ApplicationVersion, FallbackValue=Error}"
+                           HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,40,0"
+                           FontFamily="{StaticResource LatoRegular}" FontSize="{StaticResource FontSize12}"
+                           Foreground="{StaticResource DarkGreyBrush}" />
+
+                        <UniformGrid Columns="3">
+                            <!--<Button Content="-" Style="{StaticResource WindowControlButton}" window:MinimiseOnClickBehaviour.MinimiseWindowProperty="True" />
+                            <Button Content="[ ]" Style="{StaticResource WindowControlButton}" window:MaximiseOnClickBehaviour.MaximiseWindowProperty="True" />
+                            <Button Content="X" Style="{StaticResource WindowCloseButton}" window:CloseOnClickBehaviour.CloseWindowProperty="True" />-->
+                        </UniformGrid>
+                    </StackPanel>
+                </Grid>
+
+            </DockPanel>
+
+        </Border>
+            
+            <ContentControl Content="{Binding Path=DisplayedContent}"/>
+
     </Grid>
 </Window>

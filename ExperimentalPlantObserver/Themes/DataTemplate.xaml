@@ -1,0 +1,149 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- Date template for the temperature columnn on the data grids -->
+    <DataTemplate x:Key="TemperatureTemplate">
+        <Border>
+            <Label Content="{Binding Path=Temperature}" 
+                   Style="{StaticResource ListViewContentLabelStyle}">
+                <Label.ToolTip>
+                    <Border x:Name="Border"
+                            BorderThickness="1"
+                            Width="350"
+                            Height="240"
+                            Background="{StaticResource OffsetWhiteBrush}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+                            <Label Content="Reading Data" Background="{StaticResource NavyBlueBrush}" 
+                                   FontSize="{StaticResource FontSize18}" FontFamily="{StaticResource LatoRegular}"
+                                   Foreground="{StaticResource WhiteColorBrush}" FontWeight="DemiBold"
+                                   HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+
+                            <StackPanel Orientation="Vertical" Grid.Row="1">
+
+                                <!-- Temperature -->
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="Temperature: " FontSize="{StaticResource FontSize16}"/>
+                                    <Label Content="{Binding Path=Temperature}" FontSize="{StaticResource FontSize16}"/>
+                                </StackPanel>
+
+                                <!-- RecordedDateTime -->
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="DateTime: " FontSize="{StaticResource FontSize16}"/>
+                                    <Label Content="{Binding Path=RecordedDateTime}" FontSize="{StaticResource FontSize16}"
+                                           ContentStringFormat="dd/MM/yyyy HH:mm:ss"/>
+                                </StackPanel>
+
+                                <!-- Latitude -->
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="Latitude: " FontSize="{StaticResource FontSize16}"/>
+                                    <Label FontSize="{StaticResource FontSize16}">
+                                        <Label.Style>
+                                            <Style TargetType="{x:Type Label}">
+                                                <Setter Property="Content" Value="{Binding Path=Latitude}" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=Latitude}" Value="{x:Null}">
+                                                        <Setter Property="Content" Value="N/A" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Label.Style>
+                                    </Label>
+                                </StackPanel>
+
+                                <!-- Longitude -->
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="Longitude: " FontSize="{StaticResource FontSize16}"/>
+                                    <Label FontSize="{StaticResource FontSize16}">
+                                        <Label.Style>
+                                            <Style TargetType="{x:Type Label}">
+                                                <Setter Property="Content" Value="{Binding Path=Longitude}" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=Longitude}" Value="{x:Null}">
+                                                        <Setter Property="Content" Value="N/A" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Label.Style>
+                                    </Label>
+                                </StackPanel>
+
+                                <!-- Comment -->
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="Comment: " FontSize="{StaticResource FontSize16}"/>
+                                    <Label FontSize="{StaticResource FontSize16}">
+                                        <Label.Style>
+                                            <Style TargetType="{x:Type Label}">
+                                                <Setter Property="Content" Value="{Binding Path=Comment}" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=Comment}" Value="{x:Null}">
+                                                        <Setter Property="Content" Value="N/A" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Label.Style>
+                                    </Label>
+                                </StackPanel>
+
+                                <!-- Position -->
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="Position: " FontSize="{StaticResource FontSize16}"/>
+                                    <Label FontSize="{StaticResource FontSize16}">
+                                        <Label.Style>
+                                            <Style TargetType="{x:Type Label}">
+                                                <Setter Property="Content" Value="{Binding Path=Position}" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=Position}" Value="{x:Null}">
+                                                        <Setter Property="Content" Value="N/A" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Label.Style>
+                                    </Label>
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+
+
+                    </Border>
+                </Label.ToolTip>
+            </Label>
+        </Border>
+    </DataTemplate>
+
+    <!-- Date time data template for the DateTime columns on the datagrid -->
+    <DataTemplate x:Key="RecordedDateTimeTemplate">
+        <Border>
+            <Label Content="{Binding Path=RecordedDateTime}" 
+                   Style="{StaticResource ListViewContentLabelStyle}" 
+                   ContentStringFormat="dd/MM/yyyy HH:mm:ss tt"/>
+        </Border>
+    </DataTemplate>
+
+    <!-- Add comment -->
+    <DataTemplate x:Key="CommentTemplate">
+        <Border>
+            <Button 
+                    Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl, Mode=FindAncestor},
+                    Path=DataContext.CommentCommand}" 
+                    CommandParameter="{Binding}">
+                <Label Content="+" FontSize="{StaticResource FontSize20}" Foreground="{StaticResource OffsetWhiteBrush}">
+                </Label>
+
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource DefaultButton}">
+                        <Setter Property="Background" Value="Green" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=Comment}" Value="{x:Null}">
+                                <Setter Property="Background" Value="{StaticResource NavyBlueBrush}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </Border>
+    </DataTemplate>
+</ResourceDictionary>

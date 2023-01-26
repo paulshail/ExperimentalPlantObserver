@@ -1,13 +1,7 @@
 ﻿using ExperimentalPlantObserver.ViewModels.ViewModels.MainWindow;
 using Prism.Ioc;
+using Prism.Mvvm;
 using Prism.Unity;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace ExperimentalPlantObserver
@@ -25,6 +19,7 @@ namespace ExperimentalPlantObserver
 
         protected override  Window CreateShell()
         {
+
             MainWindow window = Container.Resolve<MainWindow>();
             return window;
         }

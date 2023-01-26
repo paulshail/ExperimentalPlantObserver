@@ -4,6 +4,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.2.32516.85
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExperimentalPlantObserver", "ExperimentalPlantObserver\ExperimentalPlantObserver.csproj", "{2167ED16-F61C-49E0-9D03-CF35BB69130C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3C4D62B2-64C4-40FB-A393-570602952C92} = {3C4D62B2-64C4-40FB-A393-570602952C92}
+		{4E457DDF-8848-422C-8901-C338335ED903} = {4E457DDF-8848-422C-8901-C338335ED903}
+		{6193BD77-2FFB-4EFA-89C3-938986BA66A2} = {6193BD77-2FFB-4EFA-89C3-938986BA66A2}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExperimentalPlantObserver.ViewModels", "ExperimentalPlantObserver.ViewModels\ExperimentalPlantObserver.ViewModels.csproj", "{AA1A2B5F-52D6-43CA-96CF-C13E81DC419C}"
 EndProject
@@ -11,7 +16,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExperimentalPlantObserver.M
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExperimentalPlantObserver.Repository", "ExperimentalPlantObserver.Repository\ExperimentalPlantObserver.Repository.csproj", "{3C4D62B2-64C4-40FB-A393-570602952C92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExperimentalPlantObserver.Base", "ExperimentalPlantObserver.Base\ExperimentalPlantObserver.Base.csproj", "{6193BD77-2FFB-4EFA-89C3-938986BA66A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExperimentalPlantObserver.Base", "ExperimentalPlantObserver.Base\ExperimentalPlantObserver.Base.csproj", "{6193BD77-2FFB-4EFA-89C3-938986BA66A2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
