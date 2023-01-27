@@ -18,4 +18,10 @@
     <PackageReference Include="Prism.Wpf" Version="8.1.97" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ExperimentalPlantObserver.Base\ExperimentalPlantObserver.Base.csproj" />
+    <ProjectReference Include="..\ExperimentalPlantObserver.Models\ExperimentalPlantObserver.Models.csproj" />
+    <ProjectReference Include="..\ExperimentalPlantObserver.Repository\ExperimentalPlantObserver.Repository.csproj" />
+  </ItemGroup>
+
 </Project>

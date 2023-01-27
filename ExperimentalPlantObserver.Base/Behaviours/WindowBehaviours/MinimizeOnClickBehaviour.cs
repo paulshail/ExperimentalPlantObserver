@@ -12,7 +12,7 @@ namespace ExperimentalPlantObserver.Base.Behaviours.WindowBehaviours
     /// MinimizeOnClickBehaviour is an attached proeprty that can be attached to buttons
     /// to minimize the buttons host window.
     /// </summary>
-    public static class MinimiseOnClickBehaviour
+    public static class MinimizeOnClickBehaviour
     {
         /// <summary>
         /// Attach property to minimuze host window
@@ -22,7 +22,7 @@ namespace ExperimentalPlantObserver.Base.Behaviours.WindowBehaviours
             (
                 "IsWindowMinimized",
                 typeof(bool),
-                typeof(MinimiseOnClickBehaviour),
+                typeof(MinimizeOnClickBehaviour),
                 new PropertyMetadata(false, MinimizeWindowPropertyChanged)
             );
 

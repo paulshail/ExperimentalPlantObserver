@@ -12,7 +12,7 @@ namespace ExperimentalPlantObserver.Base.Behaviours.WindowBehaviours
     /// MaximizeOnClickBehaviour is an attached proeprty that can be attached to buttons
     /// to maximize the buttons host window.
     /// </summary>
-    public static class MaximiseOnClickBehaviour
+    public static class MaximizeOnClickBehaviour
     {
         /// <summary>
         /// Attach property to minimuze host window
@@ -22,7 +22,7 @@ namespace ExperimentalPlantObserver.Base.Behaviours.WindowBehaviours
             (
                 "IsWindowMaximized",
                 typeof(bool),
-                typeof(MaximiseOnClickBehaviour),
+                typeof(MaximizeOnClickBehaviour),
                 new PropertyMetadata(false, MaximizeWindowPropertyChanged)
             );
 

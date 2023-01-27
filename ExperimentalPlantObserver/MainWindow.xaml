@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ExperimentalPlantObserver"
+        xmlns:window="clr-namespace:ExperimentalPlantObserver.Base.Behaviours.WindowBehaviours;assembly=ExperimentalPlantObserver.Base"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         WindowState="Maximized"
@@ -18,7 +19,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Border Grid.Row="1">
+        <Border Grid.Row="0">
             <DockPanel LastChildFill="True">
 
                 <!-- Top bar for application description and window btns -->
@@ -29,15 +30,11 @@
 
                     <!-- Window operation buttons -->
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                        <Label Content="{Binding Path=ApplicationVersion, FallbackValue=Error}"
-                           HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,40,0"
-                           FontFamily="{StaticResource LatoRegular}" FontSize="{StaticResource FontSize12}"
-                           Foreground="{StaticResource DarkGreyBrush}" />
-
+                      
                         <UniformGrid Columns="3">
-                            <!--<Button Content="-" Style="{StaticResource WindowControlButton}" window:MinimiseOnClickBehaviour.MinimiseWindowProperty="True" />
-                            <Button Content="[ ]" Style="{StaticResource WindowControlButton}" window:MaximiseOnClickBehaviour.MaximiseWindowProperty="True" />
-                            <Button Content="X" Style="{StaticResource WindowCloseButton}" window:CloseOnClickBehaviour.CloseWindowProperty="True" />-->
+                            <Button Content="-" Style="{StaticResource WindowControlButton}" window:MinimizeOnClickBehaviour.MinimizeWindowProperty="True" />
+                            <Button Content="[ ]" Style="{StaticResource WindowControlButton}" window:MaximizeOnClickBehaviour.MaximizeWindowProperty="True" />
+                            <Button Content="X" Style="{StaticResource WindowCloseButton}" window:CloseOnClickBehaviour.CloseWindowProperty="True" />
                         </UniformGrid>
                     </StackPanel>
                 </Grid>
@@ -46,7 +43,7 @@
 
         </Border>
             
-            <ContentControl Content="{Binding Path=DisplayedContent}"/>
+            <ContentControl Content="{Binding Path=DisplayedContent}" Grid.Row="1"/>
 
     </Grid>
 </Window>

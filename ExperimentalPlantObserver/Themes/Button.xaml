@@ -50,7 +50,7 @@
 
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{StaticResource OffsetBlackBrush}" />
+                <Setter Property="Background" Value="Gray" />
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -60,14 +60,14 @@
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="Red" />
-                <Setter Property="Foreground" Value="{StaticResource WhiteColorBrush}" />
+                <Setter Property="Foreground" Value="White" />
             </Trigger>
         </Style.Triggers>
     </Style>
 
     <Style x:Key="DefaultButton" TargetType="{x:Type Button}">
-        <Setter Property="Background" Value="{StaticResource NavyBlueBrush}" />
-        <Setter Property="Foreground" Value="{StaticResource WhiteColorBrush}" />
+        <Setter Property="Background" Value="Navy" />
+        <Setter Property="Foreground" Value="White" />
         <Setter Property="FontSize" Value="{StaticResource FontSize22}" />
         <Setter Property="FontFamily" Value="{StaticResource LatoBold}" />
         <Setter Property="FontWeight" Value="SemiBold" />

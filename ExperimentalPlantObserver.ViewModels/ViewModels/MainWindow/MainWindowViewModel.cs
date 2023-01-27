@@ -17,7 +17,7 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.MainWindow
 
         #region Properties
 
-        private ViewModelBase _displayedContent = new MainPageViewModel();
+        private ViewModelBase _displayedContent;
 
         public ViewModelBase DisplayedContent
         {
