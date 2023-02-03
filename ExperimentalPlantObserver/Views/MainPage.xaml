@@ -6,9 +6,121 @@
              xmlns:local="clr-namespace:ExperimentalPlantObserver.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <!-- Hamburger menu animation. -->
+        <Storyboard x:Key="OpenMenu">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)" Storyboard.TargetName="rectangle">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="43.5"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)" Storyboard.TargetName="rectangle1">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="-43.5"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="rectangle2">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="200"/>
+            </DoubleAnimationUsingKeyFrames>
+
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Opacity)" Storyboard.TargetName="NavigationSelectionArea">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+
+        </Storyboard>
+        <Storyboard x:Key="CloseMenu">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)" Storyboard.TargetName="rectangle">
+                <EasingDoubleKeyFrame KeyTime="0" Value="43.5"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)" Storyboard.TargetName="rectangle1">
+                <EasingDoubleKeyFrame KeyTime="0" Value="-43.5"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="rectangle2">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="200"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="00"/>
+            </DoubleAnimationUsingKeyFrames>
+
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Opacity)" Storyboard.TargetName="NavigationSelectionArea">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+    </UserControl.Resources>
+    
     <Grid>
-            
-        
-        
+
+        <Border>
+            <DockPanel LastChildFill="True">
+
+              
+                <!-- Navigation Area MinWidth="160" MaxWidth="220" -->
+                <Grid x:Name="GridMenu" Background="{StaticResource NavyBlueBrush}" DockPanel.Dock="Left">
+                    <Grid x:Name="NavigationSelectionArea" VerticalAlignment="Top">
+                        <StackPanel>
+                            <!-- Btn for displaying the live shell data -->
+                            <Button Content="Live Shell Data" Style="{StaticResource NavigationButtonStyle}" Command="{Binding Path=LiveShellDataViewCommand}" />
+                            <!-- Btn for displaying the shell history -->
+                            <Button Content="Shell History" Style="{StaticResource NavigationButtonStyle}" Command="{Binding Path=ShellHistoryViewCommand}" />
+
+                            <!-- Btn for report history -->
+                            <Button Content="Report" Style="{StaticResource NavigationButtonStyle}" Command="{Binding Path=ReportHistoryViewCommand}" />
+
+                            <!-- Manage comments and positions -->
+                            <Button Content="Management" Style="{StaticResource NavigationButtonStyle}" Command="{Binding Path=ManagementViewCommand}"/>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+
+                <!-- Main Content Area -->
+                <Grid>
+                    <DockPanel LastChildFill="True">
+                        <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top">
+
+                            <Button x:Name="ButtonMenu" Background="{StaticResource NavyBlueBrush}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0.2,0,0" Width="75" Height="45" Click="ButtonMenu_OnClick">
+                                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                    <Rectangle x:Name="rectangle" Width="40" Height="9" Margin="0 0 0 0" Fill="{StaticResource WhiteColorBrush}" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="-0,0.5">
+                                        <Rectangle.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform/>
+                                                <SkewTransform/>
+                                                <RotateTransform/>
+                                                <TranslateTransform/>
+                                            </TransformGroup>
+                                        </Rectangle.RenderTransform>
+                                    </Rectangle>
+                                    <Rectangle x:Name="rectangle1" Fill="{StaticResource WhiteColorBrush}" Width="40" Height="9" Margin="0 25 0 0 " HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="-0,0.5">
+                                        <Rectangle.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform/>
+                                                <SkewTransform/>
+                                                <RotateTransform/>
+                                                <TranslateTransform/>
+                                            </TransformGroup>
+                                        </Rectangle.RenderTransform>
+                                    </Rectangle>
+                                    <Rectangle x:Name="rectangle2" Width="40" Height="9" Margin="0 12.2 0 0" Fill="{StaticResource WhiteColorBrush}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                                </Grid>
+                            </Button>
+
+                        </DockPanel>
+
+                        <ContentControl  Content="{Binding Path=CurrentView}" />
+                    </DockPanel>
+                </Grid>
+            </DockPanel>
+        </Border>
+
     </Grid>
 </UserControl>

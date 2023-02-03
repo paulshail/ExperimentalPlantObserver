@@ -12,7 +12,7 @@
         Title="Experimental Plant Observer"
         Height="{x:Static SystemParameters.PrimaryScreenHeight}" 
         Width="{x:Static SystemParameters.PrimaryScreenWidth}">
-    <Grid ShowGridLines="true">
+    <Grid>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>

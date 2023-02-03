@@ -11,5 +11,20 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels
 
         public Task Initialise { get; set; }
 
+        #region Properties
+
+        private ViewModelBase _currentView;
+
+        public ViewModelBase CurrentView
+        {
+            get => _currentView;
+            set
+            {
+
+            }
+        }
+
+        #endregion
+
     }
 }

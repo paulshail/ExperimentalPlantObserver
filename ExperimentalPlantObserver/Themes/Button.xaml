@@ -92,7 +92,7 @@
                         <EventTrigger RoutedEvent="MouseEnter">
                             <BeginStoryboard>
                                 <Storyboard>
-                                    <ColorAnimation Storyboard.TargetName="Border" Storyboard.TargetProperty="Background.Color" To="Orange" From="{StaticResource NavyBlue}" Duration="0:0:0.4" />
+                                    <ColorAnimation Storyboard.TargetName="Border" Storyboard.TargetProperty="Background.Color" To="Orange" From="Navy" Duration="0:0:0.4" />
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger>
@@ -100,7 +100,7 @@
                         <EventTrigger RoutedEvent="MouseLeave">
                             <BeginStoryboard>
                                 <Storyboard>
-                                    <ColorAnimation Storyboard.TargetName="Border" Storyboard.TargetProperty="Background.Color" To="{StaticResource NavyBlue}" From="Orange" Duration="0:0:0.4" />
+                                    <ColorAnimation Storyboard.TargetName="Border" Storyboard.TargetProperty="Background.Color" To="Navy" From="Orange" Duration="0:0:0.4" />
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger>
