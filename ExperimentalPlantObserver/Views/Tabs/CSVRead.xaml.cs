@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace ExperimentalPlantObserver.Views.Tabs
 {
     /// <summary>
-    /// Interaction logic for CSVViewer.xaml
+    /// Interaction logic for CSVRead.xaml
     /// </summary>
-    public partial class CSVViewer : UserControl
+    public partial class CSVRead : UserControl
     {
-        public CSVViewer()
+        public CSVRead()
         {
             InitializeComponent();
         }

@@ -22,6 +22,24 @@
             <DataTemplate DataType="{x:Type TabVMs:HomeViewModel}">
                 <TabViews:Home DataContext="{Binding}"/>
             </DataTemplate>
+
+            <DataTemplate DataType="{x:Type TabVMs:LiveViewModel}">
+                <TabViews:Live DataContext="{Binding}"/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type TabVMs:CSVReadViewModel}">
+                <TabViews:CSVRead DataContext="{Binding}"/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type TabVMs:HistoryViewModel}">
+                <TabViews:History DataContext="{Binding}"/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type TabVMs:SettingsViewModel}">
+                <TabViews:Settings DataContext="{Binding}"/>
+            </DataTemplate>
+            
+            <!-- TABS FIN-->
             
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="./Themes/Border.xaml"/>

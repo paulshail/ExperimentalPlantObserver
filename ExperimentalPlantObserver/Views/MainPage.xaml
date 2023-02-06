@@ -69,16 +69,16 @@
                 <Grid x:Name="GridMenu" Background="{StaticResource NavyBlueBrush}" DockPanel.Dock="Left">
                     <Grid x:Name="NavigationSelectionArea" VerticalAlignment="Top">
                         <StackPanel>
-                            <!-- Btn for displaying the live shell data -->
-                            <Button Content="Live Shell Data" Style="{StaticResource NavigationButtonStyle}" Command="{Binding Path=LiveShellDataViewCommand}" />
-                            <!-- Btn for displaying the shell history -->
-                            <Button Content="Shell History" Style="{StaticResource NavigationButtonStyle}" Command="{Binding Path=ShellHistoryViewCommand}" />
-
-                            <!-- Btn for report history -->
-                            <Button Content="Report" Style="{StaticResource NavigationButtonStyle}" Command="{Binding Path=ReportHistoryViewCommand}" />
-
-                            <!-- Manage comments and positions -->
-                            <Button Content="Management" Style="{StaticResource NavigationButtonStyle}" Command="{Binding Path=ManagementViewCommand}"/>
+                            <!-- Home Page -->
+                            <Button Content="Home" Style="{StaticResource NavigationButtonStyle}" Command="{Binding Path=HomeViewCommand}" />
+                            <!-- Live View -->
+                            <Button Content="Live" Style="{StaticResource NavigationButtonStyle}" Command="{Binding Path=LiveViewCommand}" />
+                            <!-- History View -->
+                            <Button Content="History" Style="{StaticResource NavigationButtonStyle}" Command="{Binding Path=HistoryViewCommand}"/>
+                            <!-- Import CSV View -->
+                            <Button Content="Read CSV" Style="{StaticResource NavigationButtonStyle}" Command="{Binding Path=CSVReadViewCommand}" />
+                            <!-- Settings -->
+                            <Button Content="Settings" Style="{StaticResource NavigationButtonStyle}" Command="{Binding Path=SettingsViewCommand}"/>
                         </StackPanel>
                     </Grid>
                 </Grid>
