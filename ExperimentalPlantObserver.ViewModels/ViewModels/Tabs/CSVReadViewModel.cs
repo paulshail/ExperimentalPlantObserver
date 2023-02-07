@@ -1,6 +1,8 @@
 ﻿using ExperimentalPlantObserver.ViewModels.Commands;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -55,11 +57,31 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
 
 
         public RelayCommand OpenFileExplorerCommand =>
-            new RelayCommand(delegate 
-            { 
-            
-                
-            
+            new RelayCommand(delegate
+            {
+                try
+                {
+                    OpenFileDialog OpenFile = new OpenFileDialog();
+                    string fileName = "";
+                    OpenFile.Filter = "Comma Separated Variable(*.csv)|*.csv";
+                    OpenFile.ShowDialog();
+                    fileName = OpenFile.FileName;
+
+                    if (String.IsNullOrEmpty(fileName))
+                    {
+                        
+                    }
+                    else
+                    {
+                        Debug.WriteLine("No file found");
+                    }
+
+                }
+                catch(Exception ex)
+                {
+                    Debug.Write(ex.Message);
+                }
+
             });
 
         #endregion
