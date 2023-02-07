@@ -11,7 +11,10 @@ namespace MessageHandler
 
         public Message(string title, string description, MessageTypes messageTypes)
         {
-            title = title;
+            this.Title = title;
+            this.Description = description;
+            this.MessageTypes = messageTypes;
+
         }
 
         public string Title { get; }

@@ -68,7 +68,9 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
                     OpenFile.ShowDialog();
                     fileName = OpenFile.FileName;
 
-                    if (String.IsNullOrEmpty(fileName))
+
+                    // TODO fix toast messages
+                    if (!String.IsNullOrEmpty(fileName))
                     {
                         NotificationMessageHandler.AddSuccess("Success", "File was loaded");
                     }
