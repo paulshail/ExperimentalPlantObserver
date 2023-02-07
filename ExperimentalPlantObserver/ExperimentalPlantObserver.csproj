@@ -19,6 +19,7 @@
     <ProjectReference Include="..\ExperimentalPlantObserver.Models\ExperimentalPlantObserver.Models.csproj" />
     <ProjectReference Include="..\ExperimentalPlantObserver.Repository\ExperimentalPlantObserver.Repository.csproj" />
     <ProjectReference Include="..\ExperimentalPlantObserver.ViewModels\ExperimentalPlantObserver.ViewModels.csproj" />
+    <ProjectReference Include="..\MessageHandler\MessageHandler.csproj" />
   </ItemGroup>
 
 </Project>

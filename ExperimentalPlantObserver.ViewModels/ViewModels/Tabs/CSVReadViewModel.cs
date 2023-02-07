@@ -1,4 +1,5 @@
 ﻿using ExperimentalPlantObserver.ViewModels.Commands;
+using ExperimentalPlantObserver.ViewModels.Tools;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -69,17 +70,17 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
 
                     if (String.IsNullOrEmpty(fileName))
                     {
-                        
+                        NotificationMessageHandler.AddSuccess("Success", "File was loaded");
                     }
                     else
                     {
-                        Debug.WriteLine("No file found");
+                        NotificationMessageHandler.AddInfo("Info", "No file was selected");
                     }
 
                 }
                 catch(Exception ex)
                 {
-                    Debug.Write(ex.Message);
+                    NotificationMessageHandler.AddError("Error", "There was an error opening the file");
                 }
 
             });
