@@ -1,4 +1,5 @@
-﻿using ExperimentalPlantObserver.ViewModels.Commands;
+﻿using ExperimentalPlantObserver.Base.Helpers.CSVHelper.Implementation;
+using ExperimentalPlantObserver.ViewModels.Commands;
 using ExperimentalPlantObserver.ViewModels.Tools;
 using Microsoft.Win32;
 using System;
@@ -72,7 +73,21 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
                     // TODO fix toast messages
                     if (!String.IsNullOrEmpty(fileName))
                     {
-                        NotificationMessageHandler.AddSuccess("Success", "File was loaded");
+
+                        CSVReader reader = new CSVReader(fileName);    
+
+                        var csvHeaders = reader.GetHeaders();
+
+                        if(csvHeaders == null)
+                        {
+                            NotificationMessageHandler.AddError("Error", "The CSV file contained no data");
+                        }
+                        else
+                        {
+                            NotificationMessageHandler.AddSuccess("Success", "File was loaded");
+                        }
+
+                        
                     }
                     else
                     {
@@ -82,7 +97,7 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
                 }
                 catch(Exception ex)
                 {
-                    NotificationMessageHandler.AddError("Error", "There was an error opening the file");
+                    NotificationMessageHandler.AddError("Error", "There was an exception opening the file");
                 }
 
             });

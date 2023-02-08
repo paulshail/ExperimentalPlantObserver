@@ -24,13 +24,42 @@ namespace ExperimentalPlantObserver.Base.Helpers.CSVHelper.Implementation
             this.filePath = filePath;
         }
 
+     
         #endregion
 
         #region methods
         public ObservableCollection<string> GetHeaders()
         {
-            throw new NotImplementedException();
+            try
+            {
+                using(var reader = new StreamReader(filePath))
+                {
+
+
+                    string headerString = reader.ReadLine();
+
+                    if (!String.IsNullOrEmpty(headerString))
+                    {
+
+                        ObservableCollection<string> headers = new ObservableCollection<string>(headerString.Split(","));
+
+                        return headers;
+                    
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+            catch
+            {
+                return null;
+            }
         }
+
+
+
 
         #endregion
     }
