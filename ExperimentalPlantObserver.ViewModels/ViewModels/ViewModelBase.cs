@@ -17,24 +17,5 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels
             OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
         }
 
-        private DelegateCommand? _errorToastCommand;
-        private DelegateCommand? _successToastCommand;
-
-        public DelegateCommand ErrorToastCommand =>
-            _errorToastCommand ??= new DelegateCommand(ShowErrorToastMessage);
-
-        public DelegateCommand SuccessToastCommand =>
-            _successToastCommand ??= new DelegateCommand(ShowSuccessToastMessage);
-
-        private static void ShowErrorToastMessage()
-        {
-            NotificationMessageHandler.AddError("Error", "I am an error toast message");
-        }
-
-        private static void ShowSuccessToastMessage()
-        {
-            NotificationMessageHandler.AddSuccess("Success", "I am a success toast message");
-        }
-
     }
 }

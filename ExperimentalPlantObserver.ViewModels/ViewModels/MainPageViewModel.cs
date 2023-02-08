@@ -24,8 +24,6 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels
 
         #endregion
 
-
-
         #region Properties
 
         private ViewModelBase _currentView;
