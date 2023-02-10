@@ -9,15 +9,19 @@ namespace ExperimentalPlantObserver.Base.Helpers.CSVHelper.Objects
 {
     public class CSVColumn
     {
-        public CSVColumn(string header, ObservableCollection<double> recordedValues)
+        public CSVColumn(string header, ObservableCollection<string> recordedValues)
         {
             Header = header;
             RecordedValues = recordedValues;
         }
+        public CSVColumn()
+        {
+
+        }
 
         public string Header { get; set; }
 
-        public ObservableCollection<double> RecordedValues { get; set; }
+        public ObservableCollection<string> RecordedValues { get; set; }
 
     }
 }

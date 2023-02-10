@@ -1,7 +1,9 @@
 ﻿using ExperimentalPlantObserver.Base.Helpers.CSVHelper.Interface;
+using ExperimentalPlantObserver.Base.Helpers.CSVHelper.Objects;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -58,7 +60,47 @@ namespace ExperimentalPlantObserver.Base.Helpers.CSVHelper.Implementation
             }
         }
 
+        public ObservableCollection<CSVColumn> GetData(ObservableCollection<string> headers)
+        {
 
+            try
+            {
+
+                ObservableCollection<CSVColumn> toReturn = new ObservableCollection<CSVColumn>();
+
+                foreach (string header in headers)
+                {
+                    CSVColumn newColumn = new CSVColumn();
+
+                    newColumn.Header = header;
+                    newColumn.RecordedValues = new ObservableCollection<string>();
+
+                    toReturn.Add(newColumn);
+                }
+
+                using (var reader = new StreamReader(filePath))
+                {
+                    // ignore headers
+                    reader.ReadLine();
+
+                    while (!reader.EndOfStream)
+                    {
+                        var values = reader.ReadLine().Split(",");
+
+                        for (int i = 0; i < values.Length; i++)
+                        {
+                            toReturn[i].RecordedValues.Add(values[i]);
+                        }
+                    }
+                }
+
+                return toReturn;
+            }
+            catch
+            {
+                return null;
+            }
+         }
 
 
         #endregion

@@ -1,9 +1,12 @@
 ﻿using ExperimentalPlantObserver.Base.Helpers.CSVHelper.Implementation;
+using ExperimentalPlantObserver.Base.Helpers.CSVHelper.Objects;
 using ExperimentalPlantObserver.ViewModels.Commands;
 using ExperimentalPlantObserver.ViewModels.Tools;
 using Microsoft.Win32;
+using OxyPlot;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -11,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
 {
-    public class  CSVReadViewModel : ViewModelBase
+    public class CSVReadViewModel : ViewModelBase
     {
 
         public Task Initialise { get; set; }
@@ -21,13 +24,32 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
         public CSVReadViewModel()
         {
 
+            // Reset the page
             this.ReadCSVButtonText = "Open CSV";
+            this.IsLoadingSpinnerVisible = false;
+            this.CSVHeadersVisible = false;
 
         }
 
         #endregion
 
         #region Properties
+
+        #region LoadingSpinner
+
+        private bool _isLoadingSpinnerVisible;
+
+        public bool IsLoadingSpinnerVisible
+        {
+            get => _isLoadingSpinnerVisible;
+            set
+            {
+                _isLoadingSpinnerVisible = value;
+                OnPropertyChanged(nameof(IsLoadingSpinnerVisible));
+            }
+        }
+
+        #endregion
 
         private bool _isReadCSVEnabled;
 
@@ -53,6 +75,69 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
             }
         }
 
+        // to hold he list of CSV headings for checkboxes
+        private ObservableCollection<string> _csvHeaders;
+
+        public ObservableCollection<string> CSVHeaders
+        {
+            get => _csvHeaders;
+            set
+            {
+                _csvHeaders = value;
+                OnPropertyChanged(nameof(CSVHeaders));
+            }
+
+        }
+
+        private ObservableCollection<CSVColumn> _csvData;
+
+        public ObservableCollection<CSVColumn> CSVData
+        {
+            get => _csvData;
+            set
+            {
+                _csvData = value;
+                OnPropertyChanged(nameof(CSVData));
+            }
+        }
+
+        private bool _csvHeadersVisible;
+        public bool CSVHeadersVisible
+        {
+            get => _csvHeadersVisible;
+            set
+            {
+                _csvHeadersVisible = value;
+                OnPropertyChanged(nameof(CSVHeadersVisible));
+            }
+        }
+
+        #region OxyPlot
+
+        private IList<DataPoint> _dataPoints;
+        public IList<DataPoint> DataPoints
+        {
+            get => _dataPoints;
+            set
+            {
+                _dataPoints = value;
+                OnPropertyChanged(nameof(DataPoints));
+            }
+        }
+
+        private string _graphName;
+        public string GraphName
+        {
+            get => _graphName;
+            set
+            {
+                _graphName = value;
+                OnPropertyChanged(nameof(GraphName));
+            }   
+        }
+
+        #endregion
+
         #endregion
 
         #region Commands
@@ -74,20 +159,24 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
                     if (!String.IsNullOrEmpty(fileName))
                     {
 
-                        CSVReader reader = new CSVReader(fileName);    
+                        CSVReader reader = new CSVReader(fileName);
 
-                        var csvHeaders = reader.GetHeaders();
+                        CSVHeaders = reader.GetHeaders();
 
-                        if(csvHeaders == null)
+                        if (CSVHeaders == null)
                         {
                             NotificationMessageHandler.AddError("Error", "The CSV file contained no data");
                         }
                         else
                         {
+
+                            CSVData = reader.GetData(CSVHeaders);
+
                             NotificationMessageHandler.AddSuccess("Success", "File was loaded");
+
                         }
 
-                        
+
                     }
                     else
                     {
@@ -95,12 +184,22 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
                     }
 
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     NotificationMessageHandler.AddError("Error", "There was an exception opening the file");
                 }
 
             });
+
+        public RelayCommand PlotGraphCommand =>
+        new RelayCommand(delegate
+        {
+
+
+
+
+        });
+            
 
         #endregion
 
