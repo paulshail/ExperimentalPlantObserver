@@ -6,11 +6,12 @@
              xmlns:local="clr-namespace:ExperimentalPlantObserver.Views.Tabs"
              xmlns:messageHandler="clr-namespace:MessageHandler;assembly=MessageHandler"
              xmlns:tools="clr-namespace:ExperimentalPlantObserver.ViewModels.Tools;assembly=ExperimentalPlantObserver.ViewModels"
+             xmlns:oxy="http://oxyplot.org/wpf"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
 
-        <Grid>
+        <Grid ShowGridLines="True">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.5*"/>
                 <ColumnDefinition Width="1*"/>
@@ -23,6 +24,12 @@
             </Grid.RowDefinitions>
 
             <Button Style="{StaticResource DefaultButton}" Command="{Binding Path=OpenFileExplorerCommand}" Content="{Binding Path=ReadCSVButtonText}"/>
+
+            <Button Style="{StaticResource DefaultButton}" Command="{Binding Path=PlotGraphCommand}" Content="Plot Graph" Grid.Row="1"/>
+
+            <Button Style="{StaticResource DefaultButton}" Command="{Binding Path= ClearPlotCommand}" Content="Clear Plot" Grid.Row="2"/>
+
+            <oxy:PlotView Model="{Binding Path= PlotModel}" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
 
         </Grid>
 

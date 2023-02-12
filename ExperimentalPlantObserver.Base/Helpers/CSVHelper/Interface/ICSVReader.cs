@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ExperimentalPlantObserver.Base.Helpers.CSVHelper.Objects;
+using OxyPlot;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -12,7 +14,8 @@ namespace ExperimentalPlantObserver.Base.Helpers.CSVHelper.Interface
 
         public ObservableCollection<string> GetHeaders();
 
+        public ObservableCollection<CSVColumn> GetData(ObservableCollection<string> headers);
 
-
+        public GraphPlot CreateDataPoints(ObservableCollection<CSVColumn> selectedColumns);
     }
 }

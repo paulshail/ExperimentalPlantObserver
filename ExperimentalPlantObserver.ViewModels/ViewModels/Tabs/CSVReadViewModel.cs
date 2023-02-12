@@ -4,6 +4,7 @@ using ExperimentalPlantObserver.ViewModels.Commands;
 using ExperimentalPlantObserver.ViewModels.Tools;
 using Microsoft.Win32;
 using OxyPlot;
+using OxyPlot.Series;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -28,6 +29,7 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
             this.ReadCSVButtonText = "Open CSV";
             this.IsLoadingSpinnerVisible = false;
             this.CSVHeadersVisible = false;
+            this.PlotModel = new PlotModel();
 
         }
 
@@ -75,6 +77,18 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
             }
         }
 
+        private string _fileName;
+
+        public string FileName
+        {
+            get => _fileName;
+            set
+            {
+                _fileName = value;
+                OnPropertyChanged(nameof(FileName));
+            }
+        }
+
         // to hold he list of CSV headings for checkboxes
         private ObservableCollection<string> _csvHeaders;
 
@@ -114,27 +128,29 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
 
         #region OxyPlot
 
-        private IList<DataPoint> _dataPoints;
-        public IList<DataPoint> DataPoints
+        private GraphPlot _graphPlot;
+
+        public GraphPlot GraphPlot
         {
-            get => _dataPoints;
+            get => _graphPlot;
             set
             {
-                _dataPoints = value;
-                OnPropertyChanged(nameof(DataPoints));
+                _graphPlot = value;
+                OnPropertyChanged(nameof(GraphPlot));
+            }
+        }
+        
+        private PlotModel _plotModel;
+        public PlotModel PlotModel
+        {
+            get => _plotModel;
+            set
+            {
+                _plotModel = value;
+                OnPropertyChanged(nameof(PlotModel));
             }
         }
 
-        private string _graphName;
-        public string GraphName
-        {
-            get => _graphName;
-            set
-            {
-                _graphName = value;
-                OnPropertyChanged(nameof(GraphName));
-            }   
-        }
 
         #endregion
 
@@ -154,6 +170,7 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
                     OpenFile.ShowDialog();
                     fileName = OpenFile.FileName;
 
+                    FileName = fileName;
 
                     // TODO fix toast messages
                     if (!String.IsNullOrEmpty(fileName))
@@ -171,6 +188,8 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
                         {
 
                             CSVData = reader.GetData(CSVHeaders);
+
+                            Debug.WriteLine("Test");
 
                             NotificationMessageHandler.AddSuccess("Success", "File was loaded");
 
@@ -195,11 +214,24 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
         new RelayCommand(delegate
         {
 
+            CSVReader reader = new CSVReader(FileName);
 
-
-
-        });
+            CSVData.Where(x => x.Header.Equals("X")).FirstOrDefault().IsXAxis = true;
             
+            GraphPlot =  reader.CreateDataPoints(CSVData);
+
+            // Graph Plot contains object of type oxy series
+            PlotModel.Series.Add(GraphPlot.GetDataPoints());
+            PlotModel.InvalidatePlot(true);
+        });
+
+        public RelayCommand ClearPlotCommand =>
+            new RelayCommand(delegate
+            {
+
+                PlotModel.Series.Clear();
+
+            });
 
         #endregion
 
