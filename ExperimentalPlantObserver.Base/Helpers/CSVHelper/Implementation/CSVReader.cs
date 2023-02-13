@@ -31,7 +31,7 @@ namespace ExperimentalPlantObserver.Base.Helpers.CSVHelper.Implementation
         #endregion
 
         #region methods
-        public ObservableCollection<string> GetHeaders()
+        public ObservableCollection<CSVHeader> GetHeaders()
         {
             try
             {
@@ -44,7 +44,12 @@ namespace ExperimentalPlantObserver.Base.Helpers.CSVHelper.Implementation
                     if (!String.IsNullOrEmpty(headerString))
                     {
 
-                        ObservableCollection<string> headers = new ObservableCollection<string>(headerString.Split(","));
+                        ObservableCollection<CSVHeader> headers = new ObservableCollection<CSVHeader>();
+
+                        foreach(string header in headerString.Split(","))
+                        {
+                            headers.Add(new CSVHeader(header));
+                        };
 
                         return headers;
                     
@@ -61,7 +66,7 @@ namespace ExperimentalPlantObserver.Base.Helpers.CSVHelper.Implementation
             }
         }
 
-        public ObservableCollection<CSVColumn> GetData(ObservableCollection<string> headers)
+        public ObservableCollection<CSVColumn> GetData(ObservableCollection<CSVHeader> headers)
         {
 
             try
@@ -69,11 +74,11 @@ namespace ExperimentalPlantObserver.Base.Helpers.CSVHelper.Implementation
 
                 ObservableCollection<CSVColumn> toReturn = new ObservableCollection<CSVColumn>();
 
-                foreach (string header in headers)
+                foreach (CSVHeader header in headers)
                 {
                     CSVColumn newColumn = new CSVColumn();
 
-                    newColumn.Header = header;
+                    newColumn.Header = header.csvHeader;
                     newColumn.RecordedValues = new ObservableCollection<string>();
                     newColumn.IsXAxis = false;
 

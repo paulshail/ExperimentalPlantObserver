@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:ExperimentalPlantObserver.Views"
              xmlns:messageHandler="clr-namespace:MessageHandler;assembly=MessageHandler"
              xmlns:tools="clr-namespace:ExperimentalPlantObserver.ViewModels.Tools;assembly=ExperimentalPlantObserver.ViewModels"
+             xmlns:window="clr-namespace:ExperimentalPlantObserver.Base.Behaviours.WindowBehaviours;assembly=ExperimentalPlantObserver.Base"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
@@ -84,6 +85,9 @@
                             <Button Content="Read CSV" Style="{StaticResource NavigationButtonStyle}" Command="{Binding Path=CSVReadViewCommand}" />
                             <!-- Settings -->
                             <Button Content="Settings" Style="{StaticResource NavigationButtonStyle}" Command="{Binding Path=SettingsViewCommand}"/>
+                            <!-- Close App -->
+                            <Button Content="Exit" Style="{StaticResource NavigationButtonStyle}" window:CloseOnClickBehaviour.CloseWindowProperty="true"/>
+
                         </StackPanel>
                     </Grid>
                 </Grid>

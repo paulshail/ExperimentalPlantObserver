@@ -12,9 +12,9 @@ namespace ExperimentalPlantObserver.Base.Helpers.CSVHelper.Interface
     public interface ICSVReader
     {
 
-        public ObservableCollection<string> GetHeaders();
+        public ObservableCollection<CSVHeader> GetHeaders();
 
-        public ObservableCollection<CSVColumn> GetData(ObservableCollection<string> headers);
+        public ObservableCollection<CSVColumn> GetData(ObservableCollection<CSVHeader> headers);
 
         public GraphPlot CreateDataPoints(ObservableCollection<CSVColumn> selectedColumns);
     }

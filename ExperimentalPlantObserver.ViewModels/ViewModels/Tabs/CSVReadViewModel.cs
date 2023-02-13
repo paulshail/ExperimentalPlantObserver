@@ -90,9 +90,9 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
         }
 
         // to hold he list of CSV headings for checkboxes
-        private ObservableCollection<string> _csvHeaders;
+        private ObservableCollection<CSVHeader> _csvHeaders;
 
-        public ObservableCollection<string> CSVHeaders
+        public ObservableCollection<CSVHeader> CSVHeaders
         {
             get => _csvHeaders;
             set
