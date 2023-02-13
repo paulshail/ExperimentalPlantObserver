@@ -23,11 +23,22 @@
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
 
-            <Button Style="{StaticResource DefaultButton}" Command="{Binding Path=OpenFileExplorerCommand}" Content="{Binding Path=ReadCSVButtonText}"/>
+
+            <Grid Grid.Row="0" Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+           
+            
+            <Button Style="{StaticResource DefaultButton}" Command="{Binding Path=OpenFileExplorerCommand}" Content="{Binding Path=ReadCSVButtonText}" Grid.Row="0"/>
 
             <Button Style="{StaticResource DefaultButton}" Command="{Binding Path=PlotGraphCommand}" Content="Plot Graph" Grid.Row="1"/>
 
             <Button Style="{StaticResource DefaultButton}" Command="{Binding Path= ClearPlotCommand}" Content="Clear Plot" Grid.Row="2"/>
+
+            </Grid>
 
             <oxy:PlotView Model="{Binding Path= PlotModel}" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
 
