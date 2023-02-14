@@ -186,6 +186,8 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
                         }
                         else
                         {
+                            // show the list view
+                            CSVHeadersVisible = true;
 
                             CSVData = reader.GetData(CSVHeaders);
 
@@ -194,7 +196,6 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
                             NotificationMessageHandler.AddSuccess("Success", "File was loaded");
 
                         }
-
 
                     }
                     else

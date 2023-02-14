@@ -38,9 +38,9 @@
             <DataTemplate DataType="{x:Type TabVMs:SettingsViewModel}">
                 <TabViews:Settings DataContext="{Binding}"/>
             </DataTemplate>
-            
-            <!-- TABS FIN-->
-            
+
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="./Themes/Border.xaml"/>
                 <ResourceDictionary Source="./Themes/Button.xaml"/>
