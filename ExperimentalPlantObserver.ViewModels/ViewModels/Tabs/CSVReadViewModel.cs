@@ -218,7 +218,7 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
             CSVReader reader = new CSVReader(FileName);
 
             //For testing
-            CSVData.Where(x => x.Header.Equals("X")).FirstOrDefault().IsXAxis = true;
+            //CSVData.Where(x => x.Header.Equals("X")).FirstOrDefault().IsXAxis = true;
             
             GraphPlot =  reader.CreateDataPoints(CSVData);
 

@@ -43,9 +43,16 @@
 
             </Grid>
 
-            <ListView Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" ItemsSource="{Binding Path=CSVHeaders}">
-
-                <!--Visibility="{Binding Path=CSVHeadersVisible, Converter={StaticResource BooleanToVisibilityConverter}}"-->
+            <ListView Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" ItemsSource="{Binding CSVHeaders}" Visibility="{Binding Path=CSVHeadersVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <ListView.View>
+                    <GridView AllowsColumnReorder="False">
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=HeaderName}" Header="Column Name"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=IsSelectedX}" Header="X Axis"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=IsSelectedY}" Header="Y Axis"/>
+                    </GridView>
+                </ListView.View>
+                
+                
 
             </ListView>
 

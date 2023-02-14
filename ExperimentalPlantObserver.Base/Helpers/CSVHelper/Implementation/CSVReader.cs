@@ -78,7 +78,7 @@ namespace ExperimentalPlantObserver.Base.Helpers.CSVHelper.Implementation
                 {
                     CSVColumn newColumn = new CSVColumn();
 
-                    newColumn.Header = header.csvHeader;
+                    newColumn.Header = header.HeaderName;
                     newColumn.RecordedValues = new ObservableCollection<string>();
                     newColumn.IsXAxis = false;
 
