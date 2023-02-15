@@ -231,7 +231,11 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
             new RelayCommand(delegate
             {
 
-                PlotModel.Series.Clear();
+                Debug.WriteLine("Test");
+
+                int test = CSVHeaders.Count();
+
+                //PlotModel.Series.Clear();
 
             });
 
