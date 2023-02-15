@@ -80,7 +80,6 @@ namespace ExperimentalPlantObserver.Base.Helpers.CSVHelper.Implementation
 
                     newColumn.Header = header.HeaderName;
                     newColumn.RecordedValues = new ObservableCollection<string>();
-                    newColumn.IsXAxis = false;
 
                     toReturn.Add(newColumn);
                 }
@@ -109,20 +108,11 @@ namespace ExperimentalPlantObserver.Base.Helpers.CSVHelper.Implementation
             }
          }
 
-        public GraphPlot CreateDataPoints(ObservableCollection<CSVColumn> selectedColumns)
+        public GraphPlot CreateDataPoints(CSVColumn x, CSVColumn y)
         {
-            // Only two columns should be selected
-            if(!(selectedColumns.Count == 2))
-            {
-                return null;
-            }
-            else
-            {
+            
                 // Zero missing points passed to the contructor;
                 GraphPlot toReturn = new GraphPlot(0, filePath);
-
-                CSVColumn x = selectedColumns.Where(x => x.IsXAxis == true).FirstOrDefault();
-                CSVColumn y = selectedColumns.Where(y => y.IsXAxis == false).FirstOrDefault();
 
                 if(x == null || y == null)
                 {
@@ -150,8 +140,6 @@ namespace ExperimentalPlantObserver.Base.Helpers.CSVHelper.Implementation
                 return toReturn;
 
             }
-        }
-
         #endregion
     }
 }

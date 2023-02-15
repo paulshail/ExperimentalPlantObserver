@@ -9,11 +9,10 @@ namespace ExperimentalPlantObserver.Base.Helpers.CSVHelper.Objects
 {
     public class CSVColumn
     {
-        public CSVColumn(string header, ObservableCollection<string> recordedValues, bool isXAxis)
+        public CSVColumn(string header, ObservableCollection<string> recordedValues)
         {
             Header = header;
             RecordedValues = recordedValues;
-            IsXAxis = isXAxis;
         }
         public CSVColumn()
         {
@@ -24,7 +23,6 @@ namespace ExperimentalPlantObserver.Base.Helpers.CSVHelper.Objects
 
         public ObservableCollection<string> RecordedValues { get; set; }
 
-        public bool IsXAxis { get; set; }
 
     }
 }

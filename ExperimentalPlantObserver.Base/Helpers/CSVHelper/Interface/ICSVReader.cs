@@ -16,6 +16,6 @@ namespace ExperimentalPlantObserver.Base.Helpers.CSVHelper.Interface
 
         public ObservableCollection<CSVColumn> GetData(ObservableCollection<CSVHeader> headers);
 
-        public GraphPlot CreateDataPoints(ObservableCollection<CSVColumn> selectedColumns);
+        public GraphPlot CreateDataPoints(CSVColumn x, CSVColumn y);
     }
 }

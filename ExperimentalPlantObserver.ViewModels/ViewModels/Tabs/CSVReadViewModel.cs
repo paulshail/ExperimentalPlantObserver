@@ -217,25 +217,30 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
 
             CSVReader reader = new CSVReader(FileName);
 
-            //For testing
-            CSVData.Where(x => x.Header.Equals("X")).FirstOrDefault().IsXAxis = true;
-            
-            GraphPlot =  reader.CreateDataPoints(CSVData);
+        //For testing
+        if (CSVHeaders.Where(x => x.IsSelectedY == true).Count() == 1 && CSVHeaders.Where(x => x.IsSelectedX == true).Count() == 1)
+        {
+                // Get CSV data from object stored in CSV data without creating new object
+                GraphPlot = reader.CreateDataPoints(CSVData.Where(x => x.Header.Equals(CSVHeaders.Where(x => x.IsSelectedX == true).FirstOrDefault().HeaderName)).FirstOrDefault()
+                    , CSVData.Where(x => x.Header.Equals(CSVHeaders.Where(x => x.IsSelectedY == true).FirstOrDefault().HeaderName)).FirstOrDefault());
 
-            // Graph Plot contains object of type oxy series
-            PlotModel.Series.Add(GraphPlot.GetDataPoints());
-            PlotModel.InvalidatePlot(true);
+
+                // Graph Plot contains object of type oxy series
+                PlotModel.Series.Add(GraphPlot.GetDataPoints());
+                PlotModel.InvalidatePlot(true);
+        }
+            else
+            {
+                NotificationMessageHandler.AddInfo("Info", "Only one checkbox should be selected for each axis");
+            }   
+          
         });
 
         public RelayCommand ClearPlotCommand =>
             new RelayCommand(delegate
             {
 
-                Debug.WriteLine("Test");
-
-                int test = CSVHeaders.Count();
-
-                //PlotModel.Series.Clear();
+                PlotModel.Series.Clear();
 
             });
 

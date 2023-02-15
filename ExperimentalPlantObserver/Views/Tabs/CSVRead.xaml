@@ -44,7 +44,7 @@
             </Grid>
 
 
-            <ListBox ItemsSource="{Binding Path=CSVHeaders}" Grid.Column="0" Grid.Row="1">
+            <ListBox ItemsSource="{Binding Path=CSVHeaders}" Grid.Column="0" Grid.Row="1" Visibility="{Binding Path=CSVHeadersVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <ListBox.Template>
                     <ControlTemplate>
                         <DockPanel LastChildFill="True">
@@ -65,11 +65,18 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid>
-                        <DockPanel>
-                            <Label Content="{Binding Path=HeaderName}"/>
-                            <CheckBox Style="{StaticResource CheckBoxStyle1}" IsChecked="{Binding Path=IsXAxis,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                            <CheckBox Style="{StaticResource CheckBoxStyle1}" IsChecked="{Binding Path=IsYAxis,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        </DockPanel>
+                        <DockPanel LastChildFill="true">
+                                <Grid DockPanel.Dock="Top">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.7*"/>
+                                        <ColumnDefinition Width="0.15*"/>
+                                        <ColumnDefinition Width="0.15*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Content="{Binding Path=HeaderName}"/>
+                                    <CheckBox Grid.Column="1" Style="{StaticResource CheckBoxStyle1}" IsChecked="{Binding Path=IsSelectedX,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <CheckBox Grid.Column="2"  Style="{StaticResource CheckBoxStyle1}" IsChecked="{Binding Path=IsSelectedY,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                </Grid>
+                            </DockPanel>
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
