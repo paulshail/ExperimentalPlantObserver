@@ -10,6 +10,7 @@ namespace ExperimentalPlantObserver.Models.DataContext
 {
     public class PlantDataContext : DbContext
     {
+
         //Entity framework creation of database
         public DbSet<Cluster> Clusters { get; init; }
         public DbSet<ClusterCrop> ClusterCrops { get; init; }
@@ -23,12 +24,18 @@ namespace ExperimentalPlantObserver.Models.DataContext
         public DbSet<SensorMeasurement> SensorMeasurements { get; init; }
         public DbSet<SensorType> SensorTypes { get; init; }
 
-        public PlantDataContext(DbContextOptions<PlantDataContext> options) : base(options){}
+        public PlantDataContext(DbContextOptions<PlantDataContext> options) : base(options)
+        {
+           
+        }
         
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            // TODO add foreign keys
+            
+            // Foreign keys definitions
+
+
         }
 
 
