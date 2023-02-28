@@ -59,8 +59,6 @@ namespace ExperimentalPlantObserver.Models.DataContext
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-           optionsBuilder.UseSqlServer(_connString);
-
         }
 
         #endregion

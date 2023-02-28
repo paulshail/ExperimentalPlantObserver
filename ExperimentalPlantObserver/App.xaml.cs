@@ -1,4 +1,6 @@
-﻿using ExperimentalPlantObserver.ViewModels.ViewModels.MainWindow;
+﻿using ExperimentalPlantObserver.Models.DataContext;
+using ExperimentalPlantObserver.ViewModels.ViewModels.MainWindow;
+using Microsoft.Extensions.DependencyInjection;
 using Prism.Ioc;
 using Prism.Mvvm;
 using Prism.Unity;
@@ -18,8 +20,7 @@ namespace ExperimentalPlantObserver
         }
 
         protected override  Window CreateShell()
-        {
-
+        { 
             MainWindow window = Container.Resolve<MainWindow>();
             return window;
         }
