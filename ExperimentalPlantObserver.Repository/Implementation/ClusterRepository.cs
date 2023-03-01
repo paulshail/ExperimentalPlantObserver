@@ -23,8 +23,6 @@ namespace ExperimentalPlantObserver.Repository.Implementation
 
         }
 
-
-
         public ClusterAM Get(int id)
         {
 
@@ -52,10 +50,9 @@ namespace ExperimentalPlantObserver.Repository.Implementation
                             join location in _plantDatabase.ClusterLocations on cluster.FK_clusterLocation_Id equals location.PK_clusterLocation_Id
                             join soil in _plantDatabase.ClusterSoil on cluster.FK_clusterSoil_Id equals soil.PK_clusterSoil_Id
                             join crop in _plantDatabase.ClusterCrops on cluster.FK_clusterCrop_Id equals crop.PK_clusterCrop_Id
-                            where cluster.PK_cluster_Id == id
                             select new ClusterAM
                             {
-                                ClusterId = id,
+                                ClusterId = cluster.PK_cluster_Id,
                                 ClusterName = cluster.clusterName,
                                 ClusterLocation = location.clusterLocationName,
                                 ClusterSoil = soil.clusterSoilType,

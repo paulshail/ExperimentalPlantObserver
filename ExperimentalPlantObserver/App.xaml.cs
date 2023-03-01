@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Prism.Ioc;
 using Prism.Mvvm;
 using Prism.Unity;
+using System.Diagnostics;
 using System.Windows;
 
 namespace ExperimentalPlantObserver
@@ -13,6 +14,9 @@ namespace ExperimentalPlantObserver
     /// </summary>
     public partial class App : PrismApplication
     {
+
+
+
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
