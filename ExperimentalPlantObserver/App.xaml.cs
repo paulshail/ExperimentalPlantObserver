@@ -15,6 +15,12 @@ namespace ExperimentalPlantObserver
     public partial class App : PrismApplication
     {
 
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+
+
+        }
 
 
 
@@ -27,6 +33,11 @@ namespace ExperimentalPlantObserver
         { 
             MainWindow window = Container.Resolve<MainWindow>();
             return window;
+        }
+
+        protected void RegisterServices()
+        {
+
         }
 
     }
