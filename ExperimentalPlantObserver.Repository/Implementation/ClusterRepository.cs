@@ -1,5 +1,5 @@
-﻿using ExperimentalPlantObserver.Models.AppModels;
-using ExperimentalPlantObserver.Models.DataContext;
+﻿using ExperimentalPlantObserver.Models.DataContext;
+using ExperimentalPlantObserver.Models.DTOs;
 using ExperimentalPlantObserver.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ using Xceed.Wpf.Toolkit;
 
 namespace ExperimentalPlantObserver.Repository.Implementation
 {
-    public class ClusterRepository : IClusterRepository<int, ClusterAM>
+    public class ClusterRepository : IClusterRepository<int, ClusterDTO>
     {
 
         private PlantDataContext _plantDatabase;
@@ -23,7 +23,7 @@ namespace ExperimentalPlantObserver.Repository.Implementation
 
         }
 
-        public ClusterAM Get(int id)
+        public ClusterDTO Get(int id)
         {
 
             var toReturn = (from cluster in _plantDatabase.Clusters
@@ -31,26 +31,27 @@ namespace ExperimentalPlantObserver.Repository.Implementation
                            join soil in _plantDatabase.ClusterSoil on cluster.FK_clusterSoil_Id equals soil.PK_clusterSoil_Id
                            join crop in _plantDatabase.ClusterCrops on cluster.FK_clusterCrop_Id equals crop.PK_clusterCrop_Id
                            where cluster.PK_cluster_Id == id
-                           select new ClusterAM
+                           select new ClusterDTO
                            {
                                ClusterId = id,
                                ClusterName = cluster.clusterName,
                                ClusterLocation = location.clusterLocationName,
                                ClusterSoil = soil.clusterSoilType,
-                               ClusterCrop = crop.cropName
+                               ClusterCrop = crop.cropName,
+                               ClusterSensors = GetSensors(id)
                            }).FirstOrDefault();
 
             return toReturn;
 
         }
 
-        public ObservableCollection<ClusterAM> GetAll()
+        public ObservableCollection<ClusterDTO> GetAll()
         {
             var toReturn = from cluster in _plantDatabase.Clusters
                             join location in _plantDatabase.ClusterLocations on cluster.FK_clusterLocation_Id equals location.PK_clusterLocation_Id
                             join soil in _plantDatabase.ClusterSoil on cluster.FK_clusterSoil_Id equals soil.PK_clusterSoil_Id
                             join crop in _plantDatabase.ClusterCrops on cluster.FK_clusterCrop_Id equals crop.PK_clusterCrop_Id
-                            select new ClusterAM
+                            select new ClusterDTO
                             {
                                 ClusterId = cluster.PK_cluster_Id,
                                 ClusterName = cluster.clusterName,
@@ -59,8 +60,24 @@ namespace ExperimentalPlantObserver.Repository.Implementation
                                 ClusterCrop = crop.cropName
                             };
 
-            return new ObservableCollection<ClusterAM>(toReturn);
+            return new ObservableCollection<ClusterDTO>(toReturn);
 
         }
+
+
+        public ObservableCollection<int> GetSensors(int clusterId) 
+        {
+
+
+            var toReturn = from sensorClusters in _plantDatabase.SensorClusters
+                           where sensorClusters.FK_cluster_Id == clusterId
+                           select sensorClusters.FK_sensor_Id;
+
+            return new ObservableCollection<int>(toReturn);                        
+
+        }
+
+
+
     }
 }

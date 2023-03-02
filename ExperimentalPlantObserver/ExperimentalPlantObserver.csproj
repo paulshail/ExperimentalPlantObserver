@@ -15,6 +15,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
     <PackageReference Include="OxyPlot.Wpf" Version="2.1.2" />
     <PackageReference Include="Prism.Core" Version="8.1.97" />
     <PackageReference Include="Prism.Unity" Version="8.1.97" />
@@ -25,6 +26,7 @@
     <ProjectReference Include="..\ExperimentalPlantObserver.Base\ExperimentalPlantObserver.Base.csproj" />
     <ProjectReference Include="..\ExperimentalPlantObserver.Models\ExperimentalPlantObserver.Models.csproj" />
     <ProjectReference Include="..\ExperimentalPlantObserver.Repository\ExperimentalPlantObserver.Repository.csproj" />
+    <ProjectReference Include="..\ExperimentalPlantObserver.Services\ExperimentalPlantObserver.Services.csproj" />
     <ProjectReference Include="..\ExperimentalPlantObserver.ViewModels\ExperimentalPlantObserver.ViewModels.csproj" />
     <ProjectReference Include="..\MessageHandler\MessageHandler.csproj" />
   </ItemGroup>

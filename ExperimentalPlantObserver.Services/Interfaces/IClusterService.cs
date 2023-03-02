@@ -1,4 +1,4 @@
-﻿using ExperimentalPlantObserver.Models.AppModels;
+﻿using ExperimentalPlantObserver.Models.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,7 +11,9 @@ namespace ExperimentalPlantObserver.Services.Interfaces
     public interface IClusterService
     {
 
-        public Task<ObservableCollection<ClusterAM>> GetAllClusters();
+        public Task<ObservableCollection<ClusterDTO>> GetAllClusters();
+
+        public Task<ClusterDTO> GetCluster(int id);
 
     }
 }

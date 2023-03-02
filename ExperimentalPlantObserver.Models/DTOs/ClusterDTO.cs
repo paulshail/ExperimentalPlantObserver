@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExperimentalPlantObserver.Models.AppModels
+namespace ExperimentalPlantObserver.Models.DTOs
 {
-    public class ClusterAM
+    public class ClusterDTO
     {
         public int ClusterId { get; set; }
 
@@ -17,5 +18,8 @@ namespace ExperimentalPlantObserver.Models.AppModels
         public string ClusterCrop { get; set; }
 
         public string ClusterSoil { get; set; }
+
+        public ObservableCollection<int> ClusterSensors { get; set; }
+
     }
 }

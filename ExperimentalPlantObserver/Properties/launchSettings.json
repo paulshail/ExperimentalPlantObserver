@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ExperimentalPlantObserver": {
+      "commandName": "Project",
+      "commandLineArgs": "-config Test"
+    }
+  }
+}

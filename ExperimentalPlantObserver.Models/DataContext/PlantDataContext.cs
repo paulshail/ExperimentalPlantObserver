@@ -12,7 +12,7 @@ namespace ExperimentalPlantObserver.Models.DataContext
     public class PlantDataContext : DbContext
     {
 
-        private string _connString = "Data Source=RONLAPTOP;Initial Catalog=EPODatabase;Integrated Security=True";
+        
 
         #region Tables
 
