@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ExperimentalPlantObserver.Base\ExperimentalPlantObserver.Base.csproj" />
     <ProjectReference Include="..\ExperimentalPlantObserver.Models\ExperimentalPlantObserver.Models.csproj" />
     <ProjectReference Include="..\ExperimentalPlantObserver.Repository\ExperimentalPlantObserver.Repository.csproj" />

@@ -22,13 +22,17 @@ namespace ExperimentalPlantObserver
 
         private string _environmentTag;
 
+        private IConfiguration _configuration;
+
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            base.OnStartup(e);
+            
 
             string env = null;
 
+
+            // Check for env in startup args
             for (int i = 0; i < e.Args.Length; i++)
             {
                 if(e.Args[i].Equals("-config"))
@@ -40,7 +44,7 @@ namespace ExperimentalPlantObserver
                             env = "appsettings.json";
                             break;
                         case "Test":
-                            env = "appsettings.json";
+                            env = "appsettings.Development.json";
                             break;
                         default:
                             env = null;
@@ -48,11 +52,15 @@ namespace ExperimentalPlantObserver
                     }
                 }
 
-                //var builder = new ConfigurationBuilder()
-                 //   .SetBasePath(Environment.CurrentDirectory)
 
+                //
+                var builder = new ConfigurationBuilder()
+                    .SetBasePath(Environment.CurrentDirectory)
+                    .AddJsonFile(env, optional: false, reloadOnChange: false);
 
+                _configuration = builder.Build();
 
+                base.OnStartup(e);
 
             }
 
