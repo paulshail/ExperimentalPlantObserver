@@ -26,12 +26,28 @@
 
             <DockPanel Grid.Row="0" Margin="10">
                 <Label Content="Cluster:" Style="{StaticResource DefaultDescriptorLabelStyle}" FontSize="10"/>
-                <ComboBox Style="{StaticResource ComboBoxStyle}" ItemsSource="{Binding Clusters}" Height="50"/>
+                <ComboBox Style="{StaticResource ComboBoxStyle}" ItemsSource="{Binding Clusters}" Height="50" SelectedItem="{Binding SelectedCluster}"/>
             </DockPanel>
 
-            <DockPanel Grid.Row="1" Margin="10">
+            <DockPanel Grid.Row="1" Margin="10" Visibility="{Binding Path=IsMeasurementsVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <Label Content="Measurement:" Style="{StaticResource DefaultDescriptorLabelStyle}" FontSize="10"/>
-                <ComboBox Style="{StaticResource ComboBoxStyle}" ItemsSource="{Binding Measurements}" Height="50"/>
+                <ComboBox Style="{StaticResource ComboBoxStyle}" ItemsSource="{Binding Measurements}" Height="50" SelectedItem="{Binding SelectedMeasurement}"/>
+            </DockPanel>
+
+            <DockPanel Grid.Row="2" Margin="5" Visibility="{Binding Path=IsPlotSelectionVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Button Style="{StaticResource BaseButtonStyle}" Content="Cluster Average" Margin="5" Height="50"/>
+                <Button Style="{StaticResource BaseButtonStyle}" Content="Sensors" Margin="5" Height="50"/>
+            </DockPanel>
+
+            <DockPanel Grid.Row="3" Margin="5" Visibility="{Binding Path=IsTimeSelectionVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Button Style="{StaticResource BaseButtonStyle}" Content="24 hours" Margin="5" Height="50"/>
+                <Button Style="{StaticResource BaseButtonStyle}" Content="7 days" Margin="5" Height="50"/>
+                <Button Style="{StaticResource BaseButtonStyle}" Content="1 month" Margin="5" Height="50"/>
+            </DockPanel>
+
+
+            <DockPanel Grid.Row="4" Margin="10" Visibility="{Binding Path=IsPlotVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Button Style="{StaticResource BaseButtonStyle}" Content="PLOT" Height="50"/>
             </DockPanel>
             
         </Grid>
@@ -42,6 +58,9 @@
                 <RowDefinition Height="0.2*"/>
                 <RowDefinition Height="0.8*"/>
             </Grid.RowDefinitions>
+
+            
+
         </Grid>
 
         

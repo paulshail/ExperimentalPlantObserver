@@ -42,7 +42,7 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
 
         private ObservableCollection<ClusterDTO> _clusters;
 
-        public  ObservableCollection<ClusterDTO> Clusters
+        public ObservableCollection<ClusterDTO> Clusters
         {
             get => _clusters;
             set
@@ -50,6 +50,68 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
                 _clusters = value;
                 OnPropertyChanged(nameof(Clusters));
             }
+        }
+
+        private ClusterDTO _selectedCluster;
+
+        public ClusterDTO SelectedCluster
+        {
+            get => _selectedCluster;
+            set
+            {
+                _selectedCluster = value;
+                OnPropertyChanged(nameof(SelectedCluster));
+            }
+        }
+
+        private bool _isMeasurementsVisible;
+
+        public bool IsMeasurementsVisible
+        {
+            get => _isMeasurementsVisible;
+            set
+            {
+                _isMeasurementsVisible = value;
+                OnPropertyChanged(nameof(IsMeasurementsVisible));
+            }
+        }
+
+        private bool _isPlotSelectionVisible;
+
+        public bool IsPlotSelectionVisible
+        {
+            get => _isPlotSelectionVisible;
+            set
+            {
+                _isPlotSelectionVisible = value;
+                OnPropertyChanged(nameof(IsPlotSelectionVisible));
+            }
+        }
+
+        private bool _isTimeSelectionVisible;
+
+        public bool IsTimeSelectionVisible
+        {
+            get => _isTimeSelectionVisible;
+            set
+            {
+                _isTimeSelectionVisible = value;
+                OnPropertyChanged(nameof(IsTimeSelectionVisible));
+            }
+        }
+
+        private bool _isPlotVisible;
+
+        public bool IsPlotVisible
+        {
+            get => _isPlotVisible;
+            set
+            {
+                _isPlotVisible = value;
+                OnPropertyChanged(nameof(IsPlotVisible));
+            }
+
+                
         }
 
         #endregion
