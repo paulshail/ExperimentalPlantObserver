@@ -55,8 +55,6 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels
         public RelayCommand LiveViewCommand =>
             new RelayCommand(delegate
             {
-
-
                 this.CurrentView = new LiveViewModel();
             });
 

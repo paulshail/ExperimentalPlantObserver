@@ -9,7 +9,7 @@ namespace ExperimentalPlantObserver.Models.DTOs
     public class MeasurementDTO
     {
 
-        public float MeasurementValue { get; set; }
+        public double MeasurementValue { get; set; }
 
         public DateTime DateOfMeasurement { get; set; }
 

@@ -1,7 +1,11 @@
 ﻿using ExperimentalPlantObserver.Models.DataContext;
+using ExperimentalPlantObserver.Models.DTOs;
+using ExperimentalPlantObserver.Repository.Implementation;
+using ExperimentalPlantObserver.Repository.Interfaces;
 using ExperimentalPlantObserver.Services.Implementation;
 using ExperimentalPlantObserver.Services.Interfaces;
 using ExperimentalPlantObserver.ViewModels.ViewModels.MainWindow;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Prism.Ioc;
@@ -27,7 +31,8 @@ namespace ExperimentalPlantObserver
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            
+
+            base.OnStartup(e);
 
             string env = null;
 
@@ -35,10 +40,10 @@ namespace ExperimentalPlantObserver
             // Check for env in startup args
             for (int i = 0; i < e.Args.Length; i++)
             {
-                if(e.Args[i].Equals("-config"))
+                if (e.Args[i].Equals("-config"))
                 {
                     _environmentTag = e.Args[i + 1];
-                    switch(e.Args[i+1])
+                    switch (e.Args[i + 1])
                     {
                         case "Live":
                             env = "appsettings.json";
@@ -60,7 +65,7 @@ namespace ExperimentalPlantObserver
 
                 _configuration = builder.Build();
 
-                base.OnStartup(e);
+                OnInitialized();
 
             }
 
@@ -71,9 +76,23 @@ namespace ExperimentalPlantObserver
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+
+            // Register View model
             containerRegistry.Register<MainWindowViewModel>();
+
+            // Register Services
             containerRegistry.Register<IClusterService, ClusterService>();
             containerRegistry.Register<ISensorService, SensorService>();
+
+            // Register Repositories
+            containerRegistry.Register<IClusterRepository<int, ClusterDTO>, ClusterRepository>();
+            containerRegistry.Register<ISensorRepository<int, SensorDTO>, SensorRepository>();
+
+            // Register DB with connection string
+            var builder = new DbContextOptionsBuilder<PlantDataContext>();
+            builder.UseSqlServer(_configuration.GetConnectionString(_environmentTag));
+            containerRegistry.RegisterInstance(builder.Options);
+            containerRegistry.Register<PlantDataContext>();
         }
 
         protected override Window CreateShell()

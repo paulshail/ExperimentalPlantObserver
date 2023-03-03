@@ -14,9 +14,12 @@ namespace ExperimentalPlantObserver.Models.DTOs
 
         public string SensorType { get; set; }
 
+        public string SensorName { get; set; }
+
         // Unique object for each type of measurement
         public ObservableCollection<SensorMeasurementDTO> SensorMeasurements{ get; set;}
 
+        public ObservableCollection<int> MeasurementTypes { get; set; }
 
     }
 }

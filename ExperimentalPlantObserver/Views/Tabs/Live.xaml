@@ -6,10 +6,44 @@
              xmlns:local="clr-namespace:ExperimentalPlantObserver.Views.Tabs"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="Orange">
+    <Grid ShowGridLines="True">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.3*"/>
+            <ColumnDefinition Width="0.7*"/>
+        </Grid.ColumnDefinitions>
+
+        
+        <!-- User controls for selecting plot -->
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
 
 
+            <DockPanel Grid.Row="0" Margin="10">
+                <Label Content="Cluster:" Style="{StaticResource DefaultDescriptorLabelStyle}" FontSize="10"/>
+                <ComboBox Style="{StaticResource ComboBoxStyle}" ItemsSource="{Binding Clusters}" Height="50"/>
+            </DockPanel>
 
-        <Label Content="LIVE"/>
+            <DockPanel Grid.Row="1" Margin="10">
+                <Label Content="Measurement:" Style="{StaticResource DefaultDescriptorLabelStyle}" FontSize="10"/>
+                <ComboBox Style="{StaticResource ComboBoxStyle}" ItemsSource="{Binding Measurements}" Height="50"/>
+            </DockPanel>
+            
+        </Grid>
+
+        <!-- Graph plot -->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.2*"/>
+                <RowDefinition Height="0.8*"/>
+            </Grid.RowDefinitions>
+        </Grid>
+
+        
     </Grid>
 </UserControl>

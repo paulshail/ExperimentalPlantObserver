@@ -10,7 +10,7 @@ namespace ExperimentalPlantObserver.Repository.Interfaces
     public interface ISensorRepository<Tid, Tdomain> : IRepository<Tid, Tdomain>
     {
 
-        public SensorMeasurementDTO GetSensoReadingsForDate(int sensorId, DateTime startDate, DateTime endDate);
+        public SensorMeasurementDTO GetSensorReadingsForDate(int sensorId, DateTime startDate, DateTime endDate);
 
         
     }

@@ -11,7 +11,7 @@ namespace ExperimentalPlantObserver.Services.Interfaces
     public interface IClusterService
     {
 
-        public Task<ObservableCollection<ClusterDTO>> GetAllClusters();
+        public Task<ObservableCollection<ClusterDTO>> GetAllClustersAsync();
 
         public Task<ClusterDTO> GetCluster(int id);
 
