@@ -18,10 +18,10 @@ namespace ExperimentalPlantObserver.Services.Implementation
         private readonly IClusterRepository<int, ClusterDTO> _clusterRepository;
 
 
-        public ClusterService()
+        public ClusterService(IClusterRepository<int, ClusterDTO> clusterRepository)
         {
 
-            _clusterRepository = ContainerLocator.Current.Resolve<IClusterRepository<int, ClusterDTO>>();
+            _clusterRepository = clusterRepository;
 
         }
 

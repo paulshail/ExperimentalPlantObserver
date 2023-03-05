@@ -27,10 +27,10 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
 
         #region Ctor
 
-        public LiveViewModel()
+        public LiveViewModel(IClusterService clusterService)
         {
 
-            _clusterService = ContainerLocator.Current.Resolve<IClusterService>();
+            _clusterService = clusterService;
 
             Initialise = LoadClusters();
 

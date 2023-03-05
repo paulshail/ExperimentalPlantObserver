@@ -41,6 +41,8 @@
 
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
 
+            
+            
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="./Themes/Border.xaml"/>
                 <ResourceDictionary Source="./Themes/Button.xaml"/>
