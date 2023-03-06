@@ -23,54 +23,58 @@ namespace ExperimentalPlantObserver
     public partial class App : PrismApplication
     {
 
+        private string _connString = "Data Source=RONLAPTOP;Initial Catalog=EPODatabase;Integrated Security=True; Trust Server Certificate=true";
 
         private string _environmentTag;
 
         private IConfiguration _configuration;
 
 
-        protected override void OnStartup(StartupEventArgs e)
-        {
+        //protected override void OnStartup(StartupEventArgs e)
+        //{
 
-            base.OnStartup(e);
+            
 
-            string env = null;
-
-
-            // Check for env in startup args
-            for (int i = 0; i < e.Args.Length; i++)
-            {
-                if (e.Args[i].Equals("-config"))
-                {
-                    _environmentTag = e.Args[i + 1];
-                    switch (e.Args[i + 1])
-                    {
-                        case "Live":
-                            env = "appsettings.json";
-                            break;
-                        case "Test":
-                            env = "appsettings.Development.json";
-                            break;
-                        default:
-                            env = null;
-                            break;
-                    }
-                }
+        //    string env = null;
 
 
-                //
-                var builder = new ConfigurationBuilder()
-                    .SetBasePath(Environment.CurrentDirectory)
-                    .AddJsonFile(env, optional: false, reloadOnChange: false);
+        //    // Check for env in startup args
+        //    for (int i = 0; i < e.Args.Length; i++)
+        //    {
+        //        if (e.Args[i].Equals("-config"))
+        //        {
+        //            _environmentTag = e.Args[i + 1];
+        //            switch (e.Args[i + 1])
+        //            {
+        //                case "Live":
+        //                    env = "appsettings.json";
+        //                    break;
+        //                case "Test":
+        //                    env = "appsettings.Development.json";
+        //                    break;
+        //                default:
+        //                    env = null;
+        //                    break;
+        //            }
+        //        }
 
-                _configuration = builder.Build();
 
-                OnInitialized();
+        //        //
+        //        var builder = new ConfigurationBuilder()
+        //            .SetBasePath(Environment.CurrentDirectory)
+        //            .AddJsonFile(env, optional: false, reloadOnChange: false);
 
-            }
+        //        _configuration = builder.Build();
 
 
-        }
+        //        OnInitialized();
+
+        //        base.OnStartup(e);
+
+        //    }
+
+
+        //}
 
 
 
@@ -90,7 +94,8 @@ namespace ExperimentalPlantObserver
 
             // Register DB with connection string
             var builder = new DbContextOptionsBuilder<PlantDataContext>();
-            builder.UseSqlServer(_configuration.GetConnectionString(_environmentTag));
+            builder.UseSqlServer(_connString);
+            //_configuration.GetConnectionString(_environmentTag)
             containerRegistry.RegisterInstance(builder.Options);
             containerRegistry.Register<PlantDataContext>();
         }

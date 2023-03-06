@@ -26,10 +26,10 @@ namespace ExperimentalPlantObserver.Repository.Implementation
         public ClusterDTO Get(int id)
         {
 
-            var toReturn = (from cluster in _plantDatabase.Clusters
-                           join location in _plantDatabase.ClusterLocations on cluster.FK_clusterLocation_Id equals location.PK_clusterLocation_Id
+            var toReturn = (from cluster in _plantDatabase.Cluster
+                           join location in _plantDatabase.ClusterLocation on cluster.FK_clusterLocation_Id equals location.PK_clusterLocation_Id
                            join soil in _plantDatabase.ClusterSoil on cluster.FK_clusterSoil_Id equals soil.PK_clusterSoil_Id
-                           join crop in _plantDatabase.ClusterCrops on cluster.FK_clusterCrop_Id equals crop.PK_clusterCrop_Id
+                           join crop in _plantDatabase.ClusterCrop on cluster.FK_clusterCrop_Id equals crop.PK_clusterCrop_Id
                            where cluster.PK_cluster_Id == id
                            select new ClusterDTO
                            {
@@ -47,10 +47,10 @@ namespace ExperimentalPlantObserver.Repository.Implementation
 
         public ObservableCollection<ClusterDTO> GetAll()
         {
-            var toReturn = from cluster in _plantDatabase.Clusters
-                            join location in _plantDatabase.ClusterLocations on cluster.FK_clusterLocation_Id equals location.PK_clusterLocation_Id
+            var toReturn = from cluster in _plantDatabase.Cluster
+                            join location in _plantDatabase.ClusterLocation on cluster.FK_clusterLocation_Id equals location.PK_clusterLocation_Id
                             join soil in _plantDatabase.ClusterSoil on cluster.FK_clusterSoil_Id equals soil.PK_clusterSoil_Id
-                            join crop in _plantDatabase.ClusterCrops on cluster.FK_clusterCrop_Id equals crop.PK_clusterCrop_Id
+                            join crop in _plantDatabase.ClusterCrop on cluster.FK_clusterCrop_Id equals crop.PK_clusterCrop_Id
                             select new ClusterDTO
                             {
                                 ClusterId = cluster.PK_cluster_Id,
@@ -69,7 +69,7 @@ namespace ExperimentalPlantObserver.Repository.Implementation
         {
 
 
-            var toReturn = from sensorClusters in _plantDatabase.SensorClusters
+            var toReturn = from sensorClusters in _plantDatabase.SensorCluster
                            where sensorClusters.FK_cluster_Id == clusterId
                            select sensorClusters.FK_sensor_Id;
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ExperimentalPlantObserver.Models.Models
 {
-    public class ClusterDataType
+    public class ClusterDataType : ModelBase
     {
         [Key]
         public int PK_clusterDataType_Id { get; init; }

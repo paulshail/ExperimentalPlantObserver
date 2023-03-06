@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ExperimentalPlantObserver.Services.Interfaces;
+using System.Diagnostics;
 
 namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
 {
@@ -122,7 +123,7 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
         {
 
             _clusters = await _clusterService.GetAllClustersAsync();
-
+            Debug.Write("test");
         }
 
         #endregion

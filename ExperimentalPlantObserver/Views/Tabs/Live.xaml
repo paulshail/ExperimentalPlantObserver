@@ -26,7 +26,7 @@
 
             <DockPanel Grid.Row="0" Margin="10">
                 <Label Content="Cluster:" Style="{StaticResource DefaultDescriptorLabelStyle}" FontSize="10"/>
-                <ComboBox Style="{StaticResource ComboBoxStyle}" ItemsSource="{Binding Clusters}" Height="50" SelectedItem="{Binding SelectedCluster}"/>
+                <ComboBox Style="{StaticResource ComboBoxStyle}" ItemsSource="{Binding Clusters}" Height="50" SelectedItem="{Binding SelectedCluster}" Text="{Binding Clusters.ClusterName}"/>
             </DockPanel>
 
             <DockPanel Grid.Row="1" Margin="10" Visibility="{Binding Path=IsMeasurementsVisible, Converter={StaticResource BooleanToVisibilityConverter}}">

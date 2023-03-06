@@ -1,5 +1,6 @@
 ﻿using ExperimentalPlantObserver.Base.Helpers.CSVHelper.Implementation;
 using ExperimentalPlantObserver.Base.Helpers.CSVHelper.Objects;
+using ExperimentalPlantObserver.Base.Helpers.PlotViewHelper;
 using ExperimentalPlantObserver.ViewModels.Commands;
 using ExperimentalPlantObserver.ViewModels.Tools;
 using Microsoft.Win32;
@@ -29,7 +30,7 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
             this.ReadCSVButtonText = "Open CSV";
             this.IsLoadingSpinnerVisible = false;
             this.CSVHeadersVisible = false;
-            this.PlotModel = new PlotModel();
+            this.PlotModel = new ViewResolvingPlotModel();
 
         }
 
@@ -140,8 +141,8 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
             }
         }
         
-        private PlotModel _plotModel;
-        public PlotModel PlotModel
+        private ViewResolvingPlotModel _plotModel;
+        public ViewResolvingPlotModel PlotModel
         {
             get => _plotModel;
             set
@@ -231,7 +232,7 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
         }
             else
             {
-                NotificationMessageHandler.AddInfo("Info", "Only one checkbox should be selected for each axis");
+                NotificationMessageHandler.AddInfo("Info", "One checkbox should be selected for each axis");
             }   
           
         });

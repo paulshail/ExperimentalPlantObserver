@@ -19,8 +19,8 @@ namespace ExperimentalPlantObserver.Repository.Implementation
 
         public SensorDTO Get(int id)
         {
-            var sensor = (from sensors in _plantDatabase.Sensors
-                          join sensorTypes in _plantDatabase.SensorTypes on sensors.FK_sensorType_Id equals sensorTypes.PK_sensorType_Id
+            var sensor = (from sensors in _plantDatabase.Sensor
+                          join sensorTypes in _plantDatabase.SensorType on sensors.FK_sensorType_Id equals sensorTypes.PK_sensorType_Id
                           where sensors.PK_sensor_Id == id
                           select new SensorDTO
                           {
@@ -40,8 +40,8 @@ namespace ExperimentalPlantObserver.Repository.Implementation
         public SensorDTO GetWithMeasurements(int id)
         {
 
-            var sensor = (from sensors in _plantDatabase.Sensors
-                          join sensorTypes in _plantDatabase.SensorTypes on sensors.FK_sensorType_Id equals sensorTypes.PK_sensorType_Id
+            var sensor = (from sensors in _plantDatabase.Sensor
+                          join sensorTypes in _plantDatabase.SensorType on sensors.FK_sensorType_Id equals sensorTypes.PK_sensorType_Id
                           where sensors.PK_sensor_Id == id
                           select new SensorDTO
                           {
@@ -66,7 +66,7 @@ namespace ExperimentalPlantObserver.Repository.Implementation
         public ObservableCollection<int> GetMeasurementTypes(int sensorId)
         {
 
-            var measurementTypes = _plantDatabase.SensorMeasurements.Where(s => s.FK_sensor_Id == sensorId).DistinctBy(x => x.FK_measurementUnit_Id).Select(m => m.FK_measurementUnit_Id);
+            var measurementTypes = _plantDatabase.SensorMeasurement.Where(s => s.FK_sensor_Id == sensorId).DistinctBy(x => x.FK_measurementUnit_Id).Select(m => m.FK_measurementUnit_Id);
 
             return new ObservableCollection<int>(measurementTypes);
 
@@ -75,7 +75,7 @@ namespace ExperimentalPlantObserver.Repository.Implementation
         public ObservableCollection<MeasurementDTO> GetMeasurements(int sensorId, int measurementId)
         {
 
-            var measurementValues = from measurements in _plantDatabase.SensorMeasurements
+            var measurementValues = from measurements in _plantDatabase.SensorMeasurement
                                     where measurements.FK_sensor_Id == sensorId
                                     where measurements.FK_measurementUnit_Id == measurementId
                                     orderby measurements.dateOfMeasurement

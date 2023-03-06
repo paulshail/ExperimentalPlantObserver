@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ExperimentalPlantObserver.Models.Models
 {
-    public class SensorType
+    public class SensorType : ModelBase
     {
         [Key]
         public int PK_sensorType_Id { get; init; }

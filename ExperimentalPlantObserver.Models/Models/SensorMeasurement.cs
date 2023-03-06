@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ExperimentalPlantObserver.Models.Models
 {
-    public class SensorMeasurement
+    public class SensorMeasurement : ModelBase
     {
         [Key]
         public int PK_sensorMeasurement_Id { get; init; }

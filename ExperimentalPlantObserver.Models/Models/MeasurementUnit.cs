@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ExperimentalPlantObserver.Models.Models
 {
-    public class MeasurementUnit
+    public class MeasurementUnit : ModelBase
     {
         [Key]
         public int PK_measurementUnit_Id { get; init; }

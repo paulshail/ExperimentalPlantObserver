@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ExperimentalPlantObserver.Models.Models
 {
-    public class Sensor
+    public class Sensor : ModelBase
     {
 
         [Key]
