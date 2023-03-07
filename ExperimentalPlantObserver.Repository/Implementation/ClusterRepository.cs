@@ -77,7 +77,14 @@ namespace ExperimentalPlantObserver.Repository.Implementation
 
         }
 
+        public ObservableCollection<string> GetClusterMeasurementTypes(int clusterId)
+        {
 
+            //var toReturn = from 
+
+            throw new NotImplementedException();
+
+        }
 
     }
 }

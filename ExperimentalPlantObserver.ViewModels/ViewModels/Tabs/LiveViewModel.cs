@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ExperimentalPlantObserver.Services.Interfaces;
 using System.Diagnostics;
+using System.Windows.Navigation;
 
 namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
 {
@@ -35,12 +36,15 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
 
             Initialise = LoadClusters();
 
+            RefreshTimer = "";
+
         }
 
         #endregion
 
         #region Properties
 
+        // Combo boxes
         private ObservableCollection<ClusterDTO> _clusters;
 
         public ObservableCollection<ClusterDTO> Clusters
@@ -53,6 +57,30 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
             }
         }
 
+        private ObservableCollection<SensorMeasurementDTO> _sensorMeasurements;
+
+        public ObservableCollection<SensorMeasurementDTO> SensorMeasurements
+        {
+            get => _sensorMeasurements;
+            set
+            {
+                _sensorMeasurements = value;
+                OnPropertyChanged(nameof(SensorMeasurements));
+            }
+        }
+
+        private string _refreshTimer;
+
+        public string RefreshTimer
+        {
+            get => _refreshTimer;
+            set
+            {
+                _refreshTimer = value;
+                OnPropertyChanged(nameof(RefreshTimer));
+            }
+        }
+
         private ClusterDTO _selectedCluster;
 
         public ClusterDTO SelectedCluster
@@ -60,8 +88,14 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
             get => _selectedCluster;
             set
             {
+                
                 _selectedCluster = value;
                 OnPropertyChanged(nameof(SelectedCluster));
+
+                if(_selectedCluster != null)
+                {
+                    IsMeasurementsVisible = true;
+                }
             }
         }
 
@@ -98,6 +132,18 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
             {
                 _isTimeSelectionVisible = value;
                 OnPropertyChanged(nameof(IsTimeSelectionVisible));
+            }
+        }
+
+        private bool _isRefreshTimerVisible;
+
+        public bool IsRefreshTimerVisible
+        {
+            get => _isRefreshTimerVisible;
+            set
+            {
+                _isRefreshTimerVisible= value;
+                OnPropertyChanged(nameof(IsRefreshTimerVisible));
             }
         }
 

@@ -100,7 +100,7 @@ namespace ExperimentalPlantObserver
                 }
             }
 
-                //
+               
                 var configBuilder = new ConfigurationBuilder()
                     .SetBasePath(Environment.CurrentDirectory)
                     .AddJsonFile(env, optional: false, reloadOnChange: false);

@@ -12,9 +12,6 @@ namespace ExperimentalPlantObserver.Repository.Implementation
 {
     public class SensorRepository : BaseRepository, ISensorRepository<int, SensorDTO>
     {
-
-        
-
         public SensorRepository(PlantDataContext _plantDatabase) : base(_plantDatabase){}
 
         public SensorDTO Get(int id)
