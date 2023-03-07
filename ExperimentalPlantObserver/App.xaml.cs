@@ -33,8 +33,6 @@ namespace ExperimentalPlantObserver
         //protected override void OnStartup(StartupEventArgs e)
         //{
 
-            
-
         //    string env = null;
 
 
@@ -66,9 +64,6 @@ namespace ExperimentalPlantObserver
 
         //        _configuration = builder.Build();
 
-
-        //        OnInitialized();
-
         //        base.OnStartup(e);
 
         //    }
@@ -77,12 +72,44 @@ namespace ExperimentalPlantObserver
         //}
 
 
-
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            // Registering App settings file
+            // Check for env in startup args
 
-            // Register View model
-            containerRegistry.Register<MainWindowViewModel>();
+            var e = Environment.GetCommandLineArgs();
+            string env = null;
+
+            for (int i = 0; i < e.Length; i++)
+            {
+                if (e[i].Equals("-config"))
+                {
+                    _environmentTag = e[i + 1];
+                    switch (e[i + 1])
+                    {
+                        case "Live":
+                            env = "appsettings.json";
+                            break;
+                        case "Test":
+                            env = "appsettings.Development.json";
+                            break;
+                        default:
+                            env = null;
+                            break;
+                    }
+                }
+            }
+
+                //
+                var configBuilder = new ConfigurationBuilder()
+                    .SetBasePath(Environment.CurrentDirectory)
+                    .AddJsonFile(env, optional: false, reloadOnChange: false);
+
+                _configuration = configBuilder.Build();
+
+
+                // Register View model
+                containerRegistry.Register<MainWindowViewModel>();
 
             // Register Services
             containerRegistry.Register<IClusterService, ClusterService>();
@@ -94,8 +121,7 @@ namespace ExperimentalPlantObserver
 
             // Register DB with connection string
             var builder = new DbContextOptionsBuilder<PlantDataContext>();
-            builder.UseSqlServer(_connString);
-            //_configuration.GetConnectionString(_environmentTag)
+            builder.UseSqlServer(_configuration.GetConnectionString(_environmentTag));
             containerRegistry.RegisterInstance(builder.Options);
             containerRegistry.Register<PlantDataContext>();
         }

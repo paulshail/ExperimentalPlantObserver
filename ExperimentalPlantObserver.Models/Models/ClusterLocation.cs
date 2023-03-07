@@ -12,6 +12,6 @@ namespace ExperimentalPlantObserver.Models.Models
         [Key]
         public int PK_clusterLocation_Id { get; init; }
 
-        public string clusterLocationName { get; init; }
+        public string clusterLocation { get; init; }
     }
 }

@@ -35,7 +35,7 @@ namespace ExperimentalPlantObserver.Repository.Implementation
                            {
                                ClusterId = id,
                                ClusterName = cluster.clusterName,
-                               ClusterLocation = location.clusterLocationName,
+                               ClusterLocation = location.clusterLocation,
                                ClusterSoil = soil.clusterSoilType,
                                ClusterCrop = crop.cropName,
                                ClusterSensors = GetSensors(id)
@@ -55,7 +55,7 @@ namespace ExperimentalPlantObserver.Repository.Implementation
                             {
                                 ClusterId = cluster.PK_cluster_Id,
                                 ClusterName = cluster.clusterName,
-                                ClusterLocation = location.clusterLocationName,
+                                ClusterLocation = location.clusterLocation,
                                 ClusterSoil = soil.clusterSoilType,
                                 ClusterCrop = crop.cropName
                             };

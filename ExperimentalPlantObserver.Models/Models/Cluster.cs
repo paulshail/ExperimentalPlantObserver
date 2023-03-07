@@ -11,6 +11,7 @@ namespace ExperimentalPlantObserver.Models.Models
     
     public class Cluster : ModelBase
     {
+        [Key]
         public int PK_cluster_Id { get; init; }
 
         public string clusterName { get; init; }
