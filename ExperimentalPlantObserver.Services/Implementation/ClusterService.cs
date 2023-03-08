@@ -34,5 +34,10 @@ namespace ExperimentalPlantObserver.Services.Implementation
         {
             throw new NotImplementedException();
         }
+
+        public async Task<ObservableCollection<MeasurementUnitDTO>> GetMeasurementUnitsForCluster(int clusterId)
+        {
+            return await Task.FromResult(_clusterRepository.GetMeasurementUnitsForCluster(clusterId));
+        }
     }
 }

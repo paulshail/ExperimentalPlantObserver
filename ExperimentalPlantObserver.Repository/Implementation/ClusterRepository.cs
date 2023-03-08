@@ -77,12 +77,23 @@ namespace ExperimentalPlantObserver.Repository.Implementation
 
         }
 
-        public ObservableCollection<string> GetClusterMeasurementTypes(int clusterId)
+        public ObservableCollection<MeasurementUnitDTO> GetMeasurementUnitsForCluster(int clusterId)
         {
 
-            //var toReturn = from 
+            var measurementUnits = (from measurements in _plantDatabase.MeasurementUnit
+                                    join sensorMeasurements in _plantDatabase.SensorMeasurement on measurements.PK_measurementUnit_Id equals sensorMeasurements.FK_measurementUnit_Id
+                                    join sensor in _plantDatabase.Sensor on sensorMeasurements.FK_sensor_Id equals sensor.PK_sensor_Id
+                                    join sensorCluster in _plantDatabase.SensorCluster on sensor.PK_sensor_Id equals sensorCluster.FK_sensor_Id
+                                    join cluster in _plantDatabase.Cluster on sensorCluster.FK_cluster_Id equals cluster.PK_cluster_Id
+                                    where cluster.PK_cluster_Id == clusterId
+                                    select new MeasurementUnitDTO
+                                    {
+                                        MeasurementSymbol = measurements.measurementSymbol,
+                                        MeasurementUnit = measurements.measurementUnit,
+                                        PK_measurementUnit_Id = measurements.PK_measurementUnit_Id
+                                    }).Distinct();
 
-            throw new NotImplementedException();
+            return new ObservableCollection<MeasurementUnitDTO>(measurementUnits);
 
         }
 

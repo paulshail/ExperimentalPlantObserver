@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 using ExperimentalPlantObserver.Services.Interfaces;
 using System.Diagnostics;
 using System.Windows.Navigation;
+using ExperimentalPlantObserver.ViewModels.Tools;
+using ExperimentalPlantObserver.ViewModels.Commands;
 
 namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
 {
@@ -22,8 +24,6 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
         private readonly IClusterService _clusterService;
 
         #endregion
-
-
 
         public Task Initialise { get; set; }
 
@@ -57,6 +57,18 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
             }
         }
 
+        private ObservableCollection<MeasurementUnitDTO> _measurements;
+
+        public ObservableCollection<MeasurementUnitDTO> Measurements
+        {
+            get => _measurements;
+            set
+            {
+                _measurements = value;
+                OnPropertyChanged(nameof(Measurements));
+            }
+        }
+
         private ObservableCollection<SensorMeasurementDTO> _sensorMeasurements;
 
         public ObservableCollection<SensorMeasurementDTO> SensorMeasurements
@@ -78,6 +90,28 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
             {
                 _refreshTimer = value;
                 OnPropertyChanged(nameof(RefreshTimer));
+
+                if (!String.IsNullOrEmpty(RefreshTimer))
+                {
+                    IsPlotSelectionVisible = true;
+                }
+            }
+        }
+
+        private string _timerSelection;
+
+        public string TimerSelection
+        {
+            get => _timerSelection;
+            set
+            {
+                _timerSelection = value;
+                OnPropertyChanged(nameof(TimerSelection));
+            
+                if(TimerSelection != null)
+                {
+                    IsRefreshTimerVisible = true;
+                }
             }
         }
 
@@ -88,17 +122,75 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
             get => _selectedCluster;
             set
             {
-                
+
                 _selectedCluster = value;
                 OnPropertyChanged(nameof(SelectedCluster));
 
-                if(_selectedCluster != null)
+                if (_selectedCluster != null)
                 {
-                    IsMeasurementsVisible = true;
+
+                    LoadMeasurments(SelectedCluster.ClusterId);
+
+                    if (Measurements.Count() > 0)
+                    {
+                        IsMeasurementsVisible = true;
+                    }
+                    else
+                    {
+                        NotificationMessageHandler.AddError("No data", "This cluster has no sensor measurements associated");
+                    }
+
+                    // Cluster selection would mean everything else needs to be nulled
+                    SelectedMeasurementUnit = null;
+                    IsPlotAverage = false;
+
+                    // Hide UI components
+                    IsPlotSelectionVisible = false;
+                    IsTimeSelectionVisible = false;
+                    IsRefreshTimerVisible = false;
+                    IsPlotVisible = false;
+
                 }
             }
         }
 
+        private MeasurementUnitDTO _selectedMeasurementUnit;
+
+        public MeasurementUnitDTO SelectedMeasurementUnit
+        {
+            get => _selectedMeasurementUnit;
+            set
+            {
+
+                _selectedMeasurementUnit = value;
+                OnPropertyChanged(nameof(SelectedMeasurementUnit));
+
+                if (_selectedMeasurementUnit != null)
+                {
+                    IsTimeSelectionVisible = true;
+                }
+            }
+        }
+
+        private bool _isPlotAverage;
+
+        public bool IsPlotAverage
+        {
+            get => _isPlotAverage;
+            set
+            {
+                _isPlotAverage = value;
+                OnPropertyChanged(nameof(IsPlotAverage));
+
+                if(IsPlotAverage != null)
+                {
+                    IsPlotVisible = true;
+                }
+            }
+        }
+
+
+        #region Component visibility
         private bool _isMeasurementsVisible;
 
         public bool IsMeasurementsVisible
@@ -108,18 +200,6 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
             {
                 _isMeasurementsVisible = value;
                 OnPropertyChanged(nameof(IsMeasurementsVisible));
-            }
-        }
-
-        private bool _isPlotSelectionVisible;
-
-        public bool IsPlotSelectionVisible
-        {
-            get => _isPlotSelectionVisible;
-            set
-            {
-                _isPlotSelectionVisible = value;
-                OnPropertyChanged(nameof(IsPlotSelectionVisible));
             }
         }
 
@@ -142,8 +222,22 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
             get => _isRefreshTimerVisible;
             set
             {
-                _isRefreshTimerVisible= value;
+                _isRefreshTimerVisible = value;
                 OnPropertyChanged(nameof(IsRefreshTimerVisible));
+            }
+        }
+
+        
+
+        private bool _isPlotSelectionVisible;
+
+        public bool IsPlotSelectionVisible
+        {
+            get => _isPlotSelectionVisible;
+            set
+            {
+                _isPlotSelectionVisible = value;
+                OnPropertyChanged(nameof(IsPlotSelectionVisible));
             }
         }
 
@@ -157,19 +251,55 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
                 _isPlotVisible = value;
                 OnPropertyChanged(nameof(IsPlotVisible));
             }
-
-                
         }
+
+        #endregion
+
+        #endregion
+
+        #region Commands
+
+        public RelayCommand TimeSelectionCommmand =>
+            new RelayCommand(param => 
+            {
+
+                // return if command param is null (shouldn't happen)
+                if(param== null) { return; }
+                string interval = param.ToString();
+
+                TimerSelection = interval;
+
+            });
+
+        public RelayCommand PlotAverageCommand =>
+            new RelayCommand(delegate
+            {
+
+                IsPlotAverage = true;
+
+            });
+
+        public RelayCommand PlotSensorsCommand =>
+            new RelayCommand(delegate 
+            {
+
+                IsPlotAverage = false;
+
+            });
+
 
         #endregion
 
         #region Methods
 
         private async Task LoadClusters()
-        {
+        { 
+            Clusters = await _clusterService.GetAllClustersAsync();
+        }
 
-            _clusters = await _clusterService.GetAllClustersAsync();
-            Debug.Write("test");
+        private async Task LoadMeasurments(int clusterId)
+        {
+            Measurements = await _clusterService.GetMeasurementUnitsForCluster(clusterId);
         }
 
         #endregion
