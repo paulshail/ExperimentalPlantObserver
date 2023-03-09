@@ -13,10 +13,6 @@ namespace ExperimentalPlantObserver.Repository.Interfaces
 
         public ObservableCollection<MeasurementUnitDTO> GetMeasurementUnitsForCluster(Tid clusterId);
 
-        public ObservableCollection<SensorMeasurementDTO> GetMeasurementsForSensorClusterWithMeasurementId(Tid clusterId, Tid measurementId);
-
-        public SensorMeasurementDTO GetClusterAverageWithMeasurementId(Tid clusterId, Tid measurementId);
-
         public ObservableCollection<int> GetSensorIdsInCluster(Tid clusterId);
 
     }

@@ -95,7 +95,7 @@
             </Grid>
 
             <DockPanel Grid.Row="5" Margin="10" Visibility="{Binding Path=IsPlotVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <Button Style="{StaticResource BaseButtonStyle}" Content="PLOT" Height="50"/>
+                <Button Style="{StaticResource BaseButtonStyle}" Content="PLOT" Height="50" Command="{Binding Path=PlotDataCommand}"/>
             </DockPanel>
             
         </Grid>

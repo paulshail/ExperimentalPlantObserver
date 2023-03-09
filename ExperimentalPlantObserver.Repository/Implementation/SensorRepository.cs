@@ -88,7 +88,7 @@ namespace ExperimentalPlantObserver.Repository.Implementation
 
         }
 
-        public ObservableCollection<MeasurementDTO> GetDataPointsForSensor(int sensorId, int measurementId, DateTime startDate, DateTime endDate)
+        public ObservableCollection<MeasurementDTO> GetMeasurementsForSensor(int sensorId, int measurementId, DateTime startDate, DateTime endDate)
         {
 
             var measurementValues = from measurements in _plantDatabase.SensorMeasurement

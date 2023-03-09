@@ -15,6 +15,6 @@ namespace ExperimentalPlantObserver.Repository.Interfaces
 
       // public SensorMeasurementDTO GetMeasurementsForSensorWithMeasurementIdStartDateEndDate(Tid sensorId, Tid measurementId, DateTime startDate, DateTime endDate);
     
-        public IList<MeasurementDTO> GetMeasurementsForSensor(Tid sensorId, Tid measurementId, DateTime startDate, DateTime endDate);
+        public ObservableCollection<MeasurementDTO> GetMeasurementsForSensor(Tid sensorId, Tid measurementId, DateTime startDate, DateTime endDate);
     }
 }

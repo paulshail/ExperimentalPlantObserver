@@ -305,6 +305,14 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
 
              });
 
+        public RelayCommand PlotLiveDataCommand =>
+            new RelayCommand(delegate
+            {
+                
+
+
+
+            });
 
         #endregion
 

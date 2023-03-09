@@ -45,10 +45,5 @@ namespace ExperimentalPlantObserver.Services.Implementation
             throw new NotImplementedException();
         }
 
-        public async Task<ObservableCollection<SensorMeasurementDTO>> GetMeasurementsForSensorClusterWithMeasurementIds(int clusterId, int measurementId)
-        {
-            return await Task.FromResult(_clusterRepository.GetMeasurementsForSensorClusterWithMeasurementId(clusterId, measurementId));
-        }
-
     }
 }

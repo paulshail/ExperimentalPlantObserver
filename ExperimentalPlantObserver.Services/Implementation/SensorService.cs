@@ -6,6 +6,7 @@ using System;
 using System.CodeDom;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,7 +32,26 @@ namespace ExperimentalPlantObserver.Services.Implementation
             };
 
             toReturn.Measurements = await Task.FromResult(_sensorRepository.GetMeasurementsForSensor(sensorId, measurementId, startDate, endDate));
-s
+
+            return toReturn;        
+        }
+
+
+        public async Task<ObservableCollection<SensorMeasurementDTO>> GetAllSensorMeasurements(ObservableCollection<int> sensorsInCluster, int measurementId, DateTime startDate, DateTime endDate)
+        {
+
+            var toReturn = new ObservableCollection<SensorMeasurementDTO>();
+
+            foreach(int sensorId in sensorsInCluster)
+            {
+
+
+                toReturn.Add(await GetMeasurementsForSensorWithMeasurementIdStartDateEndDate(sensorId, measurementId, startDate, endDate));
+
+            }
+
+            return toReturn;
+
         }
     }
 }
