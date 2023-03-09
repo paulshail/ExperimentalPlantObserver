@@ -1,6 +1,8 @@
 ﻿using ExperimentalPlantObserver.Models.DataContext;
 using ExperimentalPlantObserver.Models.DTOs;
 using ExperimentalPlantObserver.Repository.Interfaces;
+using OxyPlot;
+using OxyPlot.Series;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -82,6 +84,24 @@ namespace ExperimentalPlantObserver.Repository.Implementation
                                         MeasurementValue = measurements.measurementValue
                                     };
 
+            return new ObservableCollection<MeasurementDTO>(measurementValues);
+
+        }
+
+        public ObservableCollection<MeasurementDTO> GetDataPointsForSensor(int sensorId, int measurementId, DateTime startDate, DateTime endDate)
+        {
+
+            var measurementValues = from measurements in _plantDatabase.SensorMeasurement
+                              where measurements.FK_sensor_Id == sensorId
+                              where measurements.FK_measurementUnit_Id == measurementId
+                              where measurements.dateOfMeasurement >= startDate && measurements.dateOfMeasurement <= endDate
+                              orderby measurements.dateOfMeasurement
+                              select new MeasurementDTO
+                              {
+                                  DateOfMeasurement = measurements.dateOfMeasurement,
+                                  MeasurementValue=  measurements.measurementValue
+                              };
+            
             return new ObservableCollection<MeasurementDTO>(measurementValues);
 
         }

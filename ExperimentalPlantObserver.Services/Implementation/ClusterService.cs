@@ -39,5 +39,16 @@ namespace ExperimentalPlantObserver.Services.Implementation
         {
             return await Task.FromResult(_clusterRepository.GetMeasurementUnitsForCluster(clusterId));
         }
+
+        public async Task<SensorMeasurementDTO> GetClusterAverageWithMeasurementIds(int clusterId, int measurementId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<ObservableCollection<SensorMeasurementDTO>> GetMeasurementsForSensorClusterWithMeasurementIds(int clusterId, int measurementId)
+        {
+            return await Task.FromResult(_clusterRepository.GetMeasurementsForSensorClusterWithMeasurementId(clusterId, measurementId));
+        }
+
     }
 }

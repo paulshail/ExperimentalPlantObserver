@@ -22,5 +22,16 @@ namespace ExperimentalPlantObserver.Services.Implementation
             this._sensorRepository = _sensorRepository;
         }
 
+        public async Task<SensorMeasurementDTO> GetMeasurementsForSensorWithMeasurementIdStartDateEndDate(int sensorId, int measurementId, DateTime startDate, DateTime endDate)
+        {
+
+            SensorMeasurementDTO toReturn = new SensorMeasurementDTO
+            {
+                FK_sensor_Id = sensorId
+            };
+
+            toReturn.Measurements = await Task.FromResult(_sensorRepository.GetMeasurementsForSensor(sensorId, measurementId, startDate, endDate));
+s
+        }
     }
 }

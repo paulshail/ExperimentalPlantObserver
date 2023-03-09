@@ -16,11 +16,5 @@ namespace ExperimentalPlantObserver.Models.DTOs
         // Hold all data points in measurement DTO object
         public ObservableCollection<MeasurementDTO> Measurements { get; set; }
 
-        // Unit only held in memory once
-        public string MeasurementUnit { get; set; }
-
-        // Symbol only held in memory once
-        public string MeasurementSymbol { get; set; }
-
     }
 }

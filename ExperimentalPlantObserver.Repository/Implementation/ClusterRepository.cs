@@ -97,5 +97,19 @@ namespace ExperimentalPlantObserver.Repository.Implementation
 
         }
 
+
+        public SensorMeasurementDTO GetClusterAverageWithMeasurementId(int clusterId, int measurementId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ObservableCollection<int> GetSensorIdsInCluster(int clusterId)
+        {
+            var toReturn = from sensorCluster in _plantDatabase.SensorCluster
+                           where sensorCluster.FK_cluster_Id == clusterId
+                           select sensorCluster.FK_sensor_Id;
+
+            return new ObservableCollection<int>(toReturn);
+        }
     }
 }
