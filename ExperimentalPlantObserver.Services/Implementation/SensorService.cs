@@ -37,7 +37,7 @@ namespace ExperimentalPlantObserver.Services.Implementation
         }
 
 
-        public async Task<ObservableCollection<SensorMeasurementDTO>> GetAllSensorMeasurements(ObservableCollection<int> sensorsInCluster, int measurementId, DateTime startDate, DateTime endDate)
+        public async Task<ObservableCollection<SensorMeasurementDTO>> GetMeasurementsForAllSensorsWithMeasurementIdStartDateEndDate(ObservableCollection<int> sensorsInCluster, int measurementId, DateTime startDate, DateTime endDate)
         {
 
             var toReturn = new ObservableCollection<SensorMeasurementDTO>();

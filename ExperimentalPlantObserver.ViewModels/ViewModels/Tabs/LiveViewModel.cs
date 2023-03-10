@@ -22,6 +22,7 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
         #region Services
 
         private readonly IClusterService _clusterService;
+        private readonly ISensorService _sensorService;
 
         #endregion
 
@@ -29,10 +30,11 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
 
         #region Ctor
 
-        public LiveViewModel(IClusterService clusterService)
+        public LiveViewModel(IClusterService clusterService, ISensorService sensorService)
         {
 
             _clusterService = clusterService;
+            _sensorService = sensorService;
 
             Initialise = LoadClusters();
 
@@ -268,6 +270,22 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
 
         #endregion
 
+        #region Graph Plot Properties
+
+        private ObservableCollection<SensorMeasurementDTO> _sensorMeasurements;
+
+        public ObservableCollection<SensorMeasurementDTO> SensorMeasurements
+        {
+            get => _sensorMeasurements;
+            set
+            {
+                _sensorMeasurements = value;
+                OnPropertyChanged(nameof(SensorMeasurements));
+            }
+        }
+
+        #endregion
+
         #endregion
 
         #region Commands
@@ -296,7 +314,8 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
                          IsPlotAverage = true;
                          break;
                      case "sensor":
-                         IsPlotAverage = false;
+                         IsPlotAverage = null;
+                         NotificationMessageHandler.AddInfo("Not Implemented", "Cluster average has not been implemented");
                          break;
                      default:
                          IsPlotAverage = null;
@@ -308,9 +327,17 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
         public RelayCommand PlotLiveDataCommand =>
             new RelayCommand(delegate
             {
+
+                if (GetStartDate() != null)
+                {
+
+                    SensorMeasurements = _sensorService.GetMeasurementsForAllSensorsWithMeasurementIdStartDateEndDate(SelectedCluster.ClusterSensors, SelectedMeasurementUnit.PK_measurementUnit_Id, GetStartDate(), DateTime.Now);
                 
-
-
+                }
+                else
+                {
+                    NotificationMessageHandler.AddError("Error", "Error setting start date");
+                }
 
             });
 
@@ -326,6 +353,26 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
         private async Task LoadMeasurments(int clusterId)
         {
             Measurements = await _clusterService.GetMeasurementUnitsForCluster(clusterId);
+        }
+
+        public DateTime? GetStartDate()
+        {
+
+            switch (TimeScaleSelection)
+            {
+                case "day":
+                    return DateTime.Now.AddDays(-1);
+                    break;
+                case "week":
+                    return DateTime.Now.AddDays(-7);
+                case "month":
+                    return DateTime.Now.AddMonths(-1);
+                default:
+                    return null;
+                    break;
+            }
+
+
         }
 
         #endregion
