@@ -17,5 +17,7 @@ namespace ExperimentalPlantObserver.Services.Interfaces
 
         public Task<ObservableCollection<MeasurementUnitDTO>> GetMeasurementUnitsForCluster(int id);
 
+        public Task<ObservableCollection<int>> GetSensorsForCluster(int id);
+
     }
 }

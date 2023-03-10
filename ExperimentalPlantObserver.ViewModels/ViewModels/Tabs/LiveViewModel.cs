@@ -13,6 +13,9 @@ using System.Diagnostics;
 using System.Windows.Navigation;
 using ExperimentalPlantObserver.ViewModels.Tools;
 using ExperimentalPlantObserver.ViewModels.Commands;
+using System.Diagnostics.Metrics;
+using ExperimentalPlantObserver.Services.Interfaces.DataPlot;
+using ExperimentalPlantObserver.Base.Helpers.PlotViewHelper;
 
 namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
 {
@@ -23,6 +26,7 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
 
         private readonly IClusterService _clusterService;
         private readonly ISensorService _sensorService;
+        private readonly IPlotHelperService _plotHelperService;
 
         #endregion
 
@@ -30,11 +34,14 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
 
         #region Ctor
 
-        public LiveViewModel(IClusterService clusterService, ISensorService sensorService)
+        public LiveViewModel(IClusterService clusterService, ISensorService sensorService, IPlotHelperService plotHelperService)
         {
 
             _clusterService = clusterService;
             _sensorService = sensorService;
+            _plotHelperService = plotHelperService;
+
+            IsPlotting = false;
 
             Initialise = LoadClusters();
 
@@ -87,7 +94,8 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
                 if (_selectedCluster != null)
                 {
 
-                    LoadMeasurments(SelectedCluster.ClusterId);
+                    LoadMeasurements(SelectedCluster.ClusterId);
+                    LoadSensorCluster(SelectedCluster.ClusterId);
 
                     if (Measurements.Count() > 0)
                     {
@@ -160,7 +168,7 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
                 _refreshTimer = value;
                 OnPropertyChanged(nameof(RefreshTimer));
 
-                
+
 
                 if (!String.IsNullOrEmpty(RefreshTimer))
                 {
@@ -177,12 +185,12 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
                         IsPlotTypeSelectionVisible = false;
                         IsPlotVisible = false;
                     }
-                    
+
                 }
             }
         }
 
-        
+
         // Selecting if cluster average or individual sensors are used
         private bool? _isPlotAverage;
 
@@ -194,7 +202,7 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
                 _isPlotAverage = value;
                 OnPropertyChanged(nameof(IsPlotAverage));
 
-                if(IsPlotAverage != null)
+                if (IsPlotAverage != null)
                 {
                     IsPlotVisible = true;
                 }
@@ -203,7 +211,6 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
 
 
         #region Component visibility
-
 
         // In order of appearance
 
@@ -272,6 +279,18 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
 
         #region Graph Plot Properties
 
+        private bool _isPlotting;
+
+        public bool IsPlotting
+        {
+            get => _isPlotting;
+            set
+            {
+                _isPlotting = value;
+                OnPropertyChanged(nameof(IsPlotting));
+            }
+        }
+
         private ObservableCollection<SensorMeasurementDTO> _sensorMeasurements;
 
         public ObservableCollection<SensorMeasurementDTO> SensorMeasurements
@@ -284,6 +303,18 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
             }
         }
 
+
+        private ViewResolvingPlotModel _liveDataPlot;
+        public ViewResolvingPlotModel LiveDataPlot
+        {
+            get => _liveDataPlot;
+            set
+            {
+                _liveDataPlot = value;
+                OnPropertyChanged(nameof(LiveDataPlot));
+            }
+        }
+
         #endregion
 
         #endregion
@@ -291,31 +322,34 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
         #region Commands
 
         public RelayCommand TimeSelectionCommand =>
-            new RelayCommand(param => 
+            new RelayCommand(param =>
             {
 
                 // return if command param is null (shouldn't happen)
-                if(param== null) { return; }
+                if (param == null) { return; }
                 string interval = param.ToString();
 
                 TimeScaleSelection = interval;
 
+                NotificationMessageHandler.AddInfo("Time Scale", "Time scale set to " + interval);
+
             });
 
         public RelayCommand PlotTypeCommand =>
-             new RelayCommand(param => 
+             new RelayCommand(param =>
              {
-                if(param== null) { return; }
+                 if (param == null) { return; }
                  string plotType = param.ToString();
 
                  switch (plotType)
                  {
                      case "avg":
-                         IsPlotAverage = true;
-                         break;
-                     case "sensor":
                          IsPlotAverage = null;
                          NotificationMessageHandler.AddInfo("Not Implemented", "Cluster average has not been implemented");
+                         break;
+                     case "sensor":
+                         IsPlotAverage = false;
+                         NotificationMessageHandler.AddInfo("Sensors", "Plot type set to individual sensors");
                          break;
                      default:
                          IsPlotAverage = null;
@@ -325,20 +359,31 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
              });
 
         public RelayCommand PlotLiveDataCommand =>
-            new RelayCommand(delegate
+            new RelayCommand(async delegate
             {
-
-                if (GetStartDate() != null)
+                if (!IsPlotting)
                 {
+                    if (IsPlotAverage == true)
+                    {
+                        NotificationMessageHandler.AddInfo("Not Implemented", "Cluster average has not been implemented");
+                    }
+                    else
+                    {
+                        if (GetStartDate() != DateTime.Now)
+                        {
 
-                    SensorMeasurements = _sensorService.GetMeasurementsForAllSensorsWithMeasurementIdStartDateEndDate(SelectedCluster.ClusterSensors, SelectedMeasurementUnit.PK_measurementUnit_Id, GetStartDate(), DateTime.Now);
-                
-                }
-                else
-                {
-                    NotificationMessageHandler.AddError("Error", "Error setting start date");
-                }
+                            SensorMeasurements = await _sensorService.GetMeasurementsForAllSensorsWithMeasurementIdStartDateEndDate(SelectedCluster.ClusterSensors, SelectedMeasurementUnit.PK_measurementUnit_Id, GetStartDate(), DateTime.Now);
+                            if (SensorMeasurements.Count() > 0)
+                            {
 
+                            }
+                        }
+                        else
+                        {
+                            NotificationMessageHandler.AddError("Error", "Error setting start date");
+                        }
+                    }
+                }
             });
 
         #endregion
@@ -346,16 +391,21 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
         #region Methods
 
         private async Task LoadClusters()
-        { 
+        {
             Clusters = await _clusterService.GetAllClustersAsync();
         }
 
-        private async Task LoadMeasurments(int clusterId)
+        private async Task LoadSensorCluster(int clusterId)
+        {
+             SelectedCluster.ClusterSensors = await _clusterService.GetSensorsForCluster(clusterId);
+        }
+
+    private async Task LoadMeasurements(int clusterId)
         {
             Measurements = await _clusterService.GetMeasurementUnitsForCluster(clusterId);
         }
 
-        public DateTime? GetStartDate()
+        public DateTime GetStartDate()
         {
 
             switch (TimeScaleSelection)
@@ -368,7 +418,7 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
                 case "month":
                     return DateTime.Now.AddMonths(-1);
                 default:
-                    return null;
+                    return DateTime.Now;
                     break;
             }
 

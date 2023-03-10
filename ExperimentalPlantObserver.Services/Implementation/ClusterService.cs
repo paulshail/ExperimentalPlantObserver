@@ -45,5 +45,10 @@ namespace ExperimentalPlantObserver.Services.Implementation
             throw new NotImplementedException();
         }
 
+        public async Task<ObservableCollection<int>> GetSensorsForCluster(int clusterId)
+        {
+            return await Task.FromResult(_clusterRepository.GetSensorIdsInCluster(clusterId));
+        }
+
     }
 }
