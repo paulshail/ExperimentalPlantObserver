@@ -66,26 +66,29 @@
 
                 
                 <!-- Date Selection -->
-                <Grid Grid.Row="2" Margin="5" Visibility="{Binding Path=IsTimeScaleSelectionVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Grid Grid.Row="2" Margin="5" Visibility="{Binding Path=IsTimeScaleSelectionVisible, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.RowSpan="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0" Style="{StaticResource BaseButtonStyle}" Content="24 hours" Margin="5" Height="50" Command="{Binding Path=TimeSelectionCommand}" CommandParameter="day"/>
-                    <Button Grid.Column="1" Style="{StaticResource BaseButtonStyle}" Content="7 days" Margin="5" Height="50" Command="{Binding Path=TimeSelectionCommand}" CommandParameter="week"/>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Content="Start date:" Style="{StaticResource ListViewContentLabelStyle}"/>
+                        <Calendar Grid.Row="1" Style="{StaticResource DatePickerCalendarStyle}" SelectedDate="{Binding Path=StartDate,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Content="End date:" Style="{StaticResource ListViewContentLabelStyle}"/>
+                        <Calendar Grid.Row="1" Style="{StaticResource DatePickerCalendarStyle}" SelectedDate="{Binding Path=EndDate,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    </Grid>
                 </Grid>
 
-                <Grid Grid.Row="3" Margin="10" Visibility="{Binding Path=IsRefreshTimerVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.3*"/>
-                        <ColumnDefinition Width="0.7*"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" Content="Refresh Timer:" Style="{StaticResource DefaultDescriptorLabelStyle}" FontSize="16" HorizontalAlignment="Left"/>
-
-                    <TextBox Grid.Column="1"  Text="{Binding Path=RefreshTimer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="50" Margin="5,0,0,0" FontSize="16"
-                          VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
-
-                </Grid>
 
                 <Grid Grid.Row="4" Margin="5" Visibility="{Binding Path=IsPlotTypeSelectionVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <Grid.ColumnDefinitions>

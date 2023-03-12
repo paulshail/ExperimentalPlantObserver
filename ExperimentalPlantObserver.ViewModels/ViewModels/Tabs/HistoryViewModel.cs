@@ -39,6 +39,10 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
 
             Initialise = LoadClusters();
 
+            // Default to a week
+            StartDate = DateTime.Now.AddDays(-7);
+            EndDate = DateTime.Now;
+            
         }
 
         #endregion
@@ -106,7 +110,6 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
                     // Hide UI components
                     IsPlotTypeSelectionVisible = false;
                     IsTimeScaleSelectionVisible = false;
-                    IsRefreshTimerVisible = false;
                     IsPlotVisible = false;
 
                 }
@@ -143,6 +146,14 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
             {
                 _startDate = value;
                 OnPropertyChanged(nameof(StartDate));
+                if (StartDate < EndDate)
+                {
+                  //  NotificationMessageHandler.AddError("Error", "Start date must be less and end date");
+                }
+                else
+                {
+                    // TODO logic if valid date
+                }
             }
         }
 
@@ -150,11 +161,19 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
         private DateTime _endDate;
         public DateTime EndDate
         {
-            get => EndDate;
+            get => _endDate;
             set
             {
                 _endDate = value;
                 OnPropertyChanged(nameof(EndDate));
+                if (EndDate > StartDate)
+                {
+                   // NotificationMessageHandler.AddError("Error", "Start date must be less and end date");
+                }
+                else
+                {
+                    // TODO logic if date is valid
+                }
             }
         }
 
@@ -204,19 +223,6 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
                 OnPropertyChanged(nameof(IsTimeScaleSelectionVisible));
             }
         }
-
-        private bool _isRefreshTimerVisible;
-
-        public bool IsRefreshTimerVisible
-        {
-            get => _isRefreshTimerVisible;
-            set
-            {
-                _isRefreshTimerVisible = value;
-                OnPropertyChanged(nameof(IsRefreshTimerVisible));
-            }
-        }
-
 
         private bool _isPlotTypeSelectionVisible;
 
@@ -288,20 +294,6 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
 
         #region Commands
 
-        public RelayCommand TimeSelectionCommand =>
-            new RelayCommand(param =>
-            {
-
-                // return if command param is null (shouldn't happen)
-                if (param == null) { return; }
-                string interval = param.ToString();
-
-                TimeScaleSelection = interval;
-
-                NotificationMessageHandler.AddInfo("Time Scale", "Time scale set to " + interval);
-
-            });
-
         public RelayCommand PlotTypeCommand =>
              new RelayCommand(param =>
              {
@@ -336,7 +328,7 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
                     }
                     else
                     {
-                        SensorMeasurements = await _sensorService.GetMeasurementsForAllSensorsWithMeasurementIdStartDateEndDate(SelectedCluster.ClusterSensors, SelectedMeasurementUnit.PK_measurementUnit_Id, GetStartDate(), DateTime.Now);
+                        SensorMeasurements = await _sensorService.GetMeasurementsForAllSensorsWithMeasurementIdStartDateEndDate(SelectedCluster.ClusterSensors, SelectedMeasurementUnit.PK_measurementUnit_Id, StartDate, EndDate);
                         if (SensorMeasurements.Count() > 0)
                         {
                         }

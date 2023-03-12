@@ -52,7 +52,7 @@
                 <ResourceDictionary Source="./Themes/DataGrid.xaml"/>
                 <ResourceDictionary Source="./Themes/DataTemplate.xaml"/>
                 <ResourceDictionary Source="./Themes/Font.xaml"/>
-                <!--<ResourceDictionary Source="./Themes/DateTimePicker.xaml"/>-->
+                <ResourceDictionary Source="./Themes/DateTimePicker.xaml"/>
                 <ResourceDictionary Source="./Themes/Label.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

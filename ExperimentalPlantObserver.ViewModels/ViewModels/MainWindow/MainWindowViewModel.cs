@@ -1,4 +1,5 @@
 ﻿using ExperimentalPlantObserver.Services.Interfaces;
+using ExperimentalPlantObserver.Services.Interfaces.DataPlot;
 using ExperimentalPlantObserver.ViewModels.ViewModels.Tabs;
 using Prism.Mvvm;
 using System;
@@ -29,6 +30,7 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.MainWindow
 
         private IClusterService _clusterService;
         private ISensorService _sensorService;
+        private IPlotHelperService _plotHelperService;
 
         #endregion
 
@@ -41,7 +43,8 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.MainWindow
                                 SettingsViewModel settingsViewModel,
                                 MainPageViewModel mainPageViewModel,
                                 ISensorService sensorService,
-                                IClusterService clusterSevice)
+                                IClusterService clusterSevice,
+                                IPlotHelperService plotHelperService)
         {
 
             // Main page
@@ -57,6 +60,7 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.MainWindow
             // sevices
             _sensorService = sensorService;
             _clusterService = clusterSevice;
+            _plotHelperService = plotHelperService;
 
             DisplayedContent = new MainPageViewModel(
             _csvReadViewModel,
@@ -65,7 +69,8 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.MainWindow
             _liveViewModel,
             _settingsViewModel,
             _sensorService,
-            _clusterService);
+            _clusterService,
+            _plotHelperService);
 
         }
 
