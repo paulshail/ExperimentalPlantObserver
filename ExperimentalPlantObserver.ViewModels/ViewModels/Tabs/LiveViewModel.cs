@@ -45,8 +45,6 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
 
             Initialise = LoadClusters();
 
-            RefreshTimer = "";
-
         }
 
         #endregion

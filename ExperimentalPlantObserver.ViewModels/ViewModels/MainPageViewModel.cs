@@ -1,4 +1,5 @@
 ﻿using ExperimentalPlantObserver.Services.Interfaces;
+using ExperimentalPlantObserver.Services.Interfaces.DataPlot;
 using ExperimentalPlantObserver.ViewModels.Commands;
 using ExperimentalPlantObserver.ViewModels.ViewModels.Tabs;
 using System;
@@ -28,6 +29,7 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels
 
         private readonly IClusterService _clusterService;
         private readonly ISensorService _sensorService;
+        private readonly IPlotHelperService _plotHelperService;
 
         #endregion
 
@@ -39,17 +41,23 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels
                                 LiveViewModel liveViewModel,
                                 SettingsViewModel settingsViewModel,
                                 ISensorService sensorService,
-                                IClusterService cluster)
+                                IClusterService clusterService,
+                                IPlotHelperService plotHelperService)
         {
 
             IsLoadingSpinnerVisible = false;
 
+            // ViewModels
             _csvReadViewModel = csvReadViewModel;
             _historyViewModel = historyViewModel;
             _homeViewModel = homeViewModel;
             _liveViewModel = liveViewModel;
             _settingsViewModel = settingsViewModel;
+            
+            // Services            
             _sensorService = sensorService;
+            _clusterService = clusterService;
+            _plotHelperService = plotHelperService;
 
             this.CurrentView = homeViewModel;
         }
@@ -90,11 +98,7 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels
         public RelayCommand HomeViewCommand =>
             new RelayCommand(delegate
             {
-                // Do not change the view model is on home page
-                if(!(CurrentView.GetType() == typeof(HomeViewModel)))
-                {
                     this.CurrentView = _homeViewModel;
-                }
             });
 
         public RelayCommand LiveViewCommand =>
@@ -118,6 +122,25 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels
             new RelayCommand(delegate
             {
                 this.CurrentView = _settingsViewModel;
+            });
+
+        public RelayCommand RefreshViewCommand =>
+            new RelayCommand(delegate
+            {
+
+            if (CurrentView.GetType() == typeof(HomeViewModel))
+            {
+                this.CurrentView = new HomeViewModel();
+            }
+            else if (CurrentView.GetType() == typeof(LiveViewModel))
+            {
+                this.CurrentView = new LiveViewModel(_clusterService, _sensorService, _plotHelperService);
+            }
+            else if (CurrentView.GetType() == typeof(HistoryViewModel))
+            {
+                    this.CurrentView = new HistoryViewModel(_clusterService, _sensorService, _plotHelperService);
+            }
+                        
             });
 
         #endregion
