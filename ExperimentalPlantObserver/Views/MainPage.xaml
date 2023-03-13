@@ -100,6 +100,8 @@
                     <DockPanel LastChildFill="True">
                         <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top">
 
+                            <StackPanel Orientation="Horizontal">                            
+                            
                             <Button x:Name="ButtonMenu" Background="{StaticResource NavyBlueBrush}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0.2,0,0" Width="75" Height="45" Click="ButtonMenu_OnClick">
                                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                     <Rectangle x:Name="rectangle" Width="40" Height="9" Margin="0 0 0 0" Fill="{StaticResource WhiteColorBrush}" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="-0,0.5">
@@ -125,6 +127,9 @@
                                     <Rectangle x:Name="rectangle2" Width="40" Height="9" Margin="0 12.2 0 0" Fill="{StaticResource WhiteColorBrush}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
                                 </Grid>
                             </Button>
+
+                                <Label Style="{StaticResource WindowTitleStyle}" Content="{Binding Path=TabTitle}" HorizontalAlignment="Center" Margin="10"/>
+                            </StackPanel>
 
                         </DockPanel>
 

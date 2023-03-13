@@ -59,6 +59,8 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels
             _clusterService = clusterService;
             _plotHelperService = plotHelperService;
 
+            // Set to home when software is started
+            TabTitle = "Home";
             this.CurrentView = homeViewModel;
         }
 
@@ -90,6 +92,16 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels
             }
         }
 
+        private string _tabTitle;
+        public string TabTitle
+        {
+            get => _tabTitle;
+            set
+            {
+                _tabTitle = value;
+                OnPropertyChanged(nameof(TabTitle));
+            }
+        }
 
         #endregion
 
@@ -98,30 +110,35 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels
         public RelayCommand HomeViewCommand =>
             new RelayCommand(delegate
             {
-                    this.CurrentView = _homeViewModel;
+                this.CurrentView = _homeViewModel;
+                TabTitle = "Home";
             });
 
         public RelayCommand LiveViewCommand =>
             new RelayCommand(delegate
             {
                 this.CurrentView = _liveViewModel;
+                TabTitle = "Live";
             });
 
         public RelayCommand HistoryViewCommand =>
             new RelayCommand(delegate 
             {
                 this.CurrentView = _historyViewModel;
+                TabTitle = "History";
             });
 
         public RelayCommand CSVReadViewCommand =>
             new RelayCommand(delegate
             {
                 this.CurrentView = _csvReadViewModel;
+                TabTitle = "CSV Read";
             });
         public RelayCommand SettingsViewCommand =>
             new RelayCommand(delegate
             {
                 this.CurrentView = _settingsViewModel;
+                TabTitle = "Settings";
             });
 
         public RelayCommand RefreshViewCommand =>
@@ -139,6 +156,10 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels
             else if (CurrentView.GetType() == typeof(HistoryViewModel))
             {
                     this.CurrentView = new HistoryViewModel(_clusterService, _sensorService, _plotHelperService);
+            }
+            else if (CurrentView.GetType() == typeof(CSVReadViewModel))
+            {
+                    this.CurrentView = new CSVReadViewModel();
             }
                         
             });

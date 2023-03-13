@@ -42,12 +42,51 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
             // Default to a week
             StartDate = DateTime.Now.AddDays(-7);
             EndDate = DateTime.Now;
+
+            // Date will always be valid since its set in the constructor
+            IsDateValid = true;
+            IsSetup = true;
             
         }
 
         #endregion
 
         #region Properties
+
+        // Checks that the page is setup
+        private bool _isSetup;
+        public bool IsSetup
+        {
+            get => _isSetup;
+            set
+            {
+                _isSetup = value;
+                OnPropertyChanged(nameof(IsSetup));
+            }
+        }
+
+        private bool _isDateValid;
+        public bool IsDateValid
+        {
+            get => _isDateValid;
+            set
+            {
+                _isDateValid = value;
+                OnPropertyChanged(nameof(IsDateValid));
+                if (IsSetup)
+                {
+                    if(IsDateValid)
+                    {
+                        IsPlotTypeSelectionVisible = true;
+                    }
+                    else
+                    {
+                        IsPlotTypeSelectionVisible = false;
+                    }
+                }
+            }
+        }
+
 
         // Items source for combo box for cluster
         private ObservableCollection<ClusterDTO> _clusters;
@@ -131,6 +170,10 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
                 if (_selectedMeasurementUnit != null)
                 {
                     IsTimeScaleSelectionVisible = true;
+                    if (IsDateValid)
+                    {
+                        IsPlotTypeSelectionVisible = true;
+                    }
                 }
             }
         }
@@ -146,13 +189,15 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
             {
                 _startDate = value;
                 OnPropertyChanged(nameof(StartDate));
-                if (StartDate < EndDate)
+                if (StartDate > EndDate && IsSetup)
                 {
-                  //  NotificationMessageHandler.AddError("Error", "Start date must be less and end date");
+                    NotificationMessageHandler.AddError("Error", "Start date must be before end date");
+                    IsDateValid = false;
                 }
                 else
                 {
-                    // TODO logic if valid date
+                    NotificationMessageHandler.AddSuccess("Start date set", "Start date set to: " + StartDate);
+                    IsDateValid = true;
                 }
             }
         }
@@ -166,13 +211,18 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
             {
                 _endDate = value;
                 OnPropertyChanged(nameof(EndDate));
-                if (EndDate > StartDate)
+                if (IsSetup)
                 {
-                   // NotificationMessageHandler.AddError("Error", "Start date must be less and end date");
-                }
-                else
-                {
-                    // TODO logic if date is valid
+                    if (StartDate > EndDate)
+                    {
+                        NotificationMessageHandler.AddError("Error", "Start date must be before end date");
+                        IsDateValid = false;
+                    }
+                    else
+                    {
+                        NotificationMessageHandler.AddSuccess("End date set", "End date set to: " + EndDate);
+                        IsDateValid = true;
+                    }
                 }
             }
         }
@@ -233,6 +283,10 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
             {
                 _isPlotTypeSelectionVisible = value;
                 OnPropertyChanged(nameof(IsPlotTypeSelectionVisible));
+                if(IsPlotAverage != null)
+                {
+                    IsPlotVisible = true;
+                }
             }
         }
 
@@ -317,7 +371,7 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
 
              });
 
-        public RelayCommand PlotLiveDataCommand =>
+        public RelayCommand PlotHistoryDataCommand =>
             new RelayCommand(async delegate
             {
                 if (!IsPlotting)
@@ -329,9 +383,26 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
                     else
                     {
                         SensorMeasurements = await _sensorService.GetMeasurementsForAllSensorsWithMeasurementIdStartDateEndDate(SelectedCluster.ClusterSensors, SelectedMeasurementUnit.PK_measurementUnit_Id, StartDate, EndDate);
-                        if (SensorMeasurements.Count() > 0)
+
+                        bool sensorHasMeasurements = false;
+
+                        foreach(SensorMeasurementDTO sensor in SensorMeasurements)
                         {
+                            if(sensor.Measurements.Count() > 0)
+                            {
+                                sensorHasMeasurements = true;
+                            }
                         }
+                        
+                        if (sensorHasMeasurements)
+                        {
+
+                        }
+                        else
+                        {
+                            NotificationMessageHandler.AddError("No data", "There is no sensor measurements available in the chosen time frame");
+                        }
+
                     }
                 }
             });
