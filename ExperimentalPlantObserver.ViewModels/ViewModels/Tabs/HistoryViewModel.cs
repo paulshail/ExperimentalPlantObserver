@@ -331,14 +331,15 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
         }
 
 
-        private ViewResolvingPlotModel _liveDataPlot;
-        public ViewResolvingPlotModel LiveDataPlot
+        private ViewResolvingPlotModel _historyDataPlot;
+        public ViewResolvingPlotModel HistoryDataPlot
         {
-            get => _liveDataPlot;
+            get => _historyDataPlot;
             set
             {
-                _liveDataPlot = value;
-                OnPropertyChanged(nameof(LiveDataPlot));
+                _historyDataPlot = value;
+                OnPropertyChanged(nameof(HistoryDataPlot));
+               
             }
         }
 
@@ -396,7 +397,9 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
                         
                         if (sensorHasMeasurements)
                         {
-
+                            HistoryDataPlot = _plotHelperService.CreateDataPlot(SensorMeasurements, SelectedMeasurementUnit, StartDate, EndDate);
+                        
+                            IsPlotVisible= true;
                         }
                         else
                         {
