@@ -273,6 +273,17 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
             }
         }
 
+        private bool _isCountdownTimerVisible;
+
+        public bool IsCountdownTimerVisible
+        {
+            get => _isCountdownTimerVisible;
+            set
+            {
+                _isCountdownTimerVisible = value;
+                OnPropertyChanged(nameof(IsCountdownTimerVisible));
+            }
+        }
         #endregion
 
         #region Graph Plot Properties
@@ -374,6 +385,12 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
                             if (SensorMeasurements.Count() > 0)
                             {
 
+                                LiveDataPlot = _plotHelperService.CreateDataPlot(SensorMeasurements, SelectedMeasurementUnit, GetStartDate(), DateTime.Now);
+
+                            }
+                            else
+                            {
+                                NotificationMessageHandler.AddInfo("No data", "No sensor measurements are available");
                             }
                         }
                         else

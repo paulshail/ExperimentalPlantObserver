@@ -397,13 +397,25 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
                         
                         if (sensorHasMeasurements)
                         {
-                            HistoryDataPlot = _plotHelperService.CreateDataPlot(SensorMeasurements, SelectedMeasurementUnit, StartDate, EndDate);
-                        
-                            IsPlotVisible= true;
+
+                            if (IsPlotAverage == false)
+                            {
+
+                                HistoryDataPlot = _plotHelperService.CreateDataPlot(SensorMeasurements, SelectedMeasurementUnit, StartDate, EndDate);
+
+                                IsPlotVisible = true;
+                            
+                            }
+                            else if (IsPlotAverage == true)
+                            {
+
+                                // NOT IMPLEMENTED
+
+                            }
                         }
                         else
                         {
-                            NotificationMessageHandler.AddError("No data", "There is no sensor measurements available in the chosen time frame");
+                            NotificationMessageHandler.AddError("No data", "No sensor measurements available in the chosen time frame");
                         }
 
                     }

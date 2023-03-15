@@ -35,11 +35,11 @@
                 </Grid.RowDefinitions>
            
             
-            <Button Style="{StaticResource DefaultButton}" Command="{Binding Path=OpenFileExplorerCommand}" Content="{Binding Path=ReadCSVButtonText}" Grid.Row="0"/>
+            <Button Style="{StaticResource DefaultButton}" Command="{Binding Path=OpenFileExplorerCommand}" Content="{Binding Path=ReadCSVButtonText}" Grid.Row="0" Margin="10,5,10,5"/>
 
-            <Button Style="{StaticResource DefaultButton}" Command="{Binding Path=PlotGraphCommand}" Content="Plot Graph" Grid.Row="1"/>
+            <Button Style="{StaticResource DefaultButton}" Command="{Binding Path=PlotGraphCommand}" Content="Plot Graph" Grid.Row="1" Margin="10,5,10,5"/>
 
-            <Button Style="{StaticResource DefaultButton}" Command="{Binding Path= ClearPlotCommand}" Content="Clear Plot" Grid.Row="2"/>
+            <Button Style="{StaticResource DefaultButton}" Command="{Binding Path= ClearPlotCommand}" Content="Clear Plot" Grid.Row="2" Margin="10,5,10,5"/>
 
             </Grid>
 

@@ -129,6 +129,7 @@
                             </Button>
 
                                 <Label Style="{StaticResource WindowTitleStyle}" Content="{Binding Path=TabTitle}" HorizontalAlignment="Center" Margin="10"/>
+                                <Button Style="{StaticResource BaseButtonStyle}" Command="{Binding Path=RefreshViewCommand}"
                             </StackPanel>
 
                         </DockPanel>

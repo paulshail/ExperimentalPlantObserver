@@ -108,7 +108,9 @@
                 <RowDefinition Height="0.8*"/>
             </Grid.RowDefinitions>
 
-            <oxy:PlotView Model="{Binding Path= PlotModel}" Visibility="{Binding Path=IsPlotVisible, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.Row="1"/>
+            <Label Name="Timer" Grid.Row="0" Content="{Binding Path=TimeUntilNextUpdate}" Style="{StaticResource DefaultDescriptorLabelStyle}" Visibility="{Binding Path=IsTimerVisible,Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+            <oxy:PlotView Model="{Binding Path= LiveDataPlot}" Visibility="{Binding Path=IsPlotVisible, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.Row="1"/>
 
         </Grid>
 
