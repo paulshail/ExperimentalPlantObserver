@@ -74,7 +74,7 @@
                 <Button Grid.Column="2" Style="{StaticResource BaseButtonStyle}" Content="1 month" Margin="5" Height="50" Command="{Binding Path=TimeSelectionCommand}" CommandParameter="month" />
             </Grid>
 
-            <Grid Grid.Row="3" Margin="10" Visibility="{Binding Path=IsRefreshTimerVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid Grid.Row="3" Margin="10" Visibility="{Binding Path=IsRefreshTimeSelectVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.3*"/>
                     <ColumnDefinition Width="0.7*"/>
@@ -102,15 +102,26 @@
         </Grid>
 
         <!-- Graph plot -->
-        <Grid Grid.Column="1">
+        <Grid Grid.Column="1" Visibility="{Binding Path=IsPlotVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.2*"/>
                 <RowDefinition Height="0.8*"/>
             </Grid.RowDefinitions>
 
-            <Label Name="Timer" Grid.Row="0" Content="{Binding Path=TimeUntilNextUpdate}" Style="{StaticResource DefaultDescriptorLabelStyle}" Visibility="{Binding Path=IsTimerVisible,Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            <Label Name="Timer" Grid.Row="0" Style="{StaticResource DefaultDescriptorLabelStyle}">
+                <Label.Content>
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{}Next Refresh: {0}" FallbackValue="L + ratio">
+                                <Binding Path="RefreshTimeSpan"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                    
+                </Label.Content>
+            </Label>
 
-            <oxy:PlotView Model="{Binding Path= LiveDataPlot}" Visibility="{Binding Path=IsPlotVisible, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.Row="1"/>
+            <oxy:PlotView Model="{Binding Path= LiveDataPlot}"  Grid.Row="1"/>
 
         </Grid>
 

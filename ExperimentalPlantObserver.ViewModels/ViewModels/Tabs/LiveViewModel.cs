@@ -16,6 +16,8 @@ using ExperimentalPlantObserver.ViewModels.Commands;
 using System.Diagnostics.Metrics;
 using ExperimentalPlantObserver.Services.Interfaces.DataPlot;
 using ExperimentalPlantObserver.Base.Helpers.PlotViewHelper;
+using System.Windows.Threading;
+using System.Windows;
 
 namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
 {
@@ -27,6 +29,12 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
         private readonly IClusterService _clusterService;
         private readonly ISensorService _sensorService;
         private readonly IPlotHelperService _plotHelperService;
+
+        #endregion
+
+        #region vars
+
+        private DispatcherTimer _refreshDispatchTimer;
 
         #endregion
 
@@ -150,7 +158,7 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
 
                 if (TimeScaleSelection != null)
                 {
-                    IsRefreshTimerVisible = true;
+                    IsRefreshTimeSelectVisible = true;
                 }
             }
         }
@@ -188,6 +196,17 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
             }
         }
 
+        private TimeSpan _refreshTimeSpan;
+        public TimeSpan RefreshTimeSpan
+        {
+            get => _refreshTimeSpan;
+            set
+            {
+                _refreshTimeSpan = value;
+                OnPropertyChanged(nameof(RefreshTimeSpan));
+
+            }
+        }
 
         // Selecting if cluster average or individual sensors are used
         private bool? _isPlotAverage;
@@ -236,15 +255,15 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
             }
         }
 
-        private bool _isRefreshTimerVisible;
+        private bool _isRefreshTimeSelectVisible;
 
-        public bool IsRefreshTimerVisible
+        public bool IsRefreshTimeSelectVisible
         {
-            get => _isRefreshTimerVisible;
+            get => _isRefreshTimeSelectVisible;
             set
             {
-                _isRefreshTimerVisible = value;
-                OnPropertyChanged(nameof(IsRefreshTimerVisible));
+                _isRefreshTimeSelectVisible = value;
+                OnPropertyChanged(nameof(IsRefreshTimeSelectVisible));
             }
         }
 
@@ -259,7 +278,7 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
                 _isPlotTypeSelectionVisible = value;
                 OnPropertyChanged(nameof(IsPlotTypeSelectionVisible));
             }
-        }
+        }        
 
         private bool _isPlotVisible;
 
@@ -270,20 +289,24 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
             {
                 _isPlotVisible = value;
                 OnPropertyChanged(nameof(IsPlotVisible));
+                if (IsPlotVisible == true)
+                {
+                    IsRefreshTimerVisible = true;
+                }
             }
         }
 
-        private bool _isCountdownTimerVisible;
-
-        public bool IsCountdownTimerVisible
+        private bool _isRefreshTimerVisible;
+        public bool IsRefreshTimerVisible
         {
-            get => _isCountdownTimerVisible;
+            get => _isRefreshTimerVisible;
             set
             {
-                _isCountdownTimerVisible = value;
-                OnPropertyChanged(nameof(IsCountdownTimerVisible));
+                _isRefreshTimerVisible = value;
+                OnPropertyChanged(nameof(IsRefreshTimerVisible));
             }
         }
+
         #endregion
 
         #region Graph Plot Properties
@@ -370,13 +393,19 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
         public RelayCommand PlotLiveDataCommand =>
             new RelayCommand(async delegate
             {
-                if (!IsPlotting)
-                {
+            if (!IsPlotting)
+            {
+
+                // Can do double parse since this input is validated earlier in the UI
+                RefreshTimeSpan = ResetRefreshTimer();
+                _refreshDispatchTimer = BeginRefreshTimer();
+                    _refreshDispatchTimer.Start();
+
                     if (IsPlotAverage == true)
                     {
                         NotificationMessageHandler.AddInfo("Not Implemented", "Cluster average has not been implemented");
                     }
-                    else
+                    else if(IsPlotAverage == false)
                     {
                         if (GetStartDate() != DateTime.Now)
                         {
@@ -415,12 +444,34 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
              SelectedCluster.ClusterSensors = await _clusterService.GetSensorsForCluster(clusterId);
         }
 
-    private async Task LoadMeasurements(int clusterId)
+        private async Task LoadMeasurements(int clusterId)
         {
             Measurements = await _clusterService.GetMeasurementUnitsForCluster(clusterId);
         }
 
-        public DateTime GetStartDate()
+        private async Task UpdateSensorReadings()
+        {
+
+        }
+
+        private DispatcherTimer BeginRefreshTimer()
+        {
+            return new DispatcherTimer(new TimeSpan(0,0,1), DispatcherPriority.Normal, (sender, args) =>
+            {
+                if(RefreshTimeSpan == TimeSpan.Zero)
+                {
+                    RefreshTimeSpan = ResetRefreshTimer();
+                }
+                RefreshTimeSpan = RefreshTimeSpan.Add(TimeSpan.FromSeconds(-1));
+            }, Application.Current.Dispatcher);
+        }
+
+        private TimeSpan ResetRefreshTimer()
+        {
+            return TimeSpan.FromMinutes(Double.Parse(RefreshTimer));
+        }
+
+        private DateTime GetStartDate()
         {
 
             switch (TimeScaleSelection)
@@ -436,9 +487,8 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
                     return DateTime.Now;
                     break;
             }
-
-
         }
+
 
         #endregion
 

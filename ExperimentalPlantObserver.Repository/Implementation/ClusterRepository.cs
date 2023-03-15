@@ -11,17 +11,11 @@ using Xceed.Wpf.Toolkit;
 
 namespace ExperimentalPlantObserver.Repository.Implementation
 {
-    public class ClusterRepository : IClusterRepository<int, ClusterDTO>
+    public class ClusterRepository : BaseRepository, IClusterRepository<int, ClusterDTO>
     {
 
-        private PlantDataContext _plantDatabase;
 
-        public ClusterRepository(PlantDataContext _plantDatabase)
-        {
-
-            this._plantDatabase= _plantDatabase;
-
-        }
+        public ClusterRepository(PlantDataContext _plantDatabase) : base(_plantDatabase) { }
 
         public ClusterDTO Get(int id)
         {
