@@ -15,5 +15,7 @@ namespace ExperimentalPlantObserver.Services.Interfaces
 
         public Task<ObservableCollection<SensorMeasurementDTO>> GetMeasurementsForAllSensorsWithMeasurementIdStartDateEndDate(ObservableCollection<int> sensorsInCluster, int measurementId, DateTime startDate, DateTime endDate);
 
+        public Task<SensorMeasurementDTO> GetMeasurementsSinceLastReading(SensorMeasurementDTO measurements, MeasurementUnitDTO measurementUnit, DateTime startDate);
+
     }
 }

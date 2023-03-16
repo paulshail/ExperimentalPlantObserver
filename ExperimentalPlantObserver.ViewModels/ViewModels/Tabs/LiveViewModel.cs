@@ -449,8 +449,24 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
             Measurements = await _clusterService.GetMeasurementUnitsForCluster(clusterId);
         }
 
+        // This is a really poor way of doing the update
         private async Task UpdateSensorReadings()
         {
+
+            
+            var toReplaceSensors = new ObservableCollection<SensorMeasurementDTO>();
+
+            foreach(SensorMeasurementDTO measurements in SensorMeasurements)
+            {
+
+               // Overwrite current readings
+               toReplaceSensors.Add(await _sensorService.GetMeasurementsSinceLastReading(measurements, SelectedMeasurementUnit, GetStartDate()));
+
+            }
+
+            SensorMeasurements = toReplaceSensors;
+
+            LiveDataPlot = _plotHelperService.CreateDataPlot(SensorMeasurements, SelectedMeasurementUnit, GetStartDate(), DateTime.Now);
 
         }
 
@@ -461,6 +477,7 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
                 if(RefreshTimeSpan == TimeSpan.Zero)
                 {
                     RefreshTimeSpan = ResetRefreshTimer();
+                    UpdateSensorReadings();
                 }
                 RefreshTimeSpan = RefreshTimeSpan.Add(TimeSpan.FromSeconds(-1));
             }, Application.Current.Dispatcher);

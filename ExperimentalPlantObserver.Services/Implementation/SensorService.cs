@@ -53,5 +53,29 @@ namespace ExperimentalPlantObserver.Services.Implementation
             return toReturn;
 
         }
+
+        public async Task<SensorMeasurementDTO> GetMeasurementsSinceLastReading(SensorMeasurementDTO measurements, MeasurementUnitDTO measurementUnit, DateTime startDate)
+        {
+
+            // Remove old measurements
+            var toRemove = measurements.Measurements.Where(x => x.DateOfMeasurement <= startDate).ToList();
+
+            foreach (var measurement in toRemove)
+            {
+                measurements.Measurements.Remove(measurement);
+            }
+
+            // Add new measurements
+            var dateOfLastMeasurement = measurements.Measurements.MaxBy(x => x.DateOfMeasurement).DateOfMeasurement;
+
+            var measurementsSinceLast = _sensorRepository.GetMeasurementsForSensor(measurements.FK_sensor_Id, measurementUnit.PK_measurementUnit_Id, dateOfLastMeasurement, DateTime.Now);
+
+            foreach (MeasurementDTO newMeasurement in measurementsSinceLast)
+            {
+                measurements.Measurements.Add(newMeasurement);
+            }
+
+            return measurements;
+        }
     }
 }
