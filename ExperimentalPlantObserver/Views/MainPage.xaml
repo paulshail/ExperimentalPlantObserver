@@ -100,39 +100,49 @@
                     <DockPanel LastChildFill="True">
                         <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top">
 
-                            <StackPanel Orientation="Horizontal">                            
-                            
-                            <Button x:Name="ButtonMenu" Background="{StaticResource NavyBlueBrush}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0.2,0,0" Width="75" Height="45" Click="ButtonMenu_OnClick">
-                                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                                    <Rectangle x:Name="rectangle" Width="40" Height="9" Margin="0 0 0 0" Fill="{StaticResource WhiteColorBrush}" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="-0,0.5">
-                                        <Rectangle.RenderTransform>
-                                            <TransformGroup>
-                                                <ScaleTransform/>
-                                                <SkewTransform/>
-                                                <RotateTransform/>
-                                                <TranslateTransform/>
-                                            </TransformGroup>
-                                        </Rectangle.RenderTransform>
-                                    </Rectangle>
-                                    <Rectangle x:Name="rectangle1" Fill="{StaticResource WhiteColorBrush}" Width="40" Height="9" Margin="0 25 0 0 " HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="-0,0.5">
-                                        <Rectangle.RenderTransform>
-                                            <TransformGroup>
-                                                <ScaleTransform/>
-                                                <SkewTransform/>
-                                                <RotateTransform/>
-                                                <TranslateTransform/>
-                                            </TransformGroup>
-                                        </Rectangle.RenderTransform>
-                                    </Rectangle>
-                                    <Rectangle x:Name="rectangle2" Width="40" Height="9" Margin="0 12.2 0 0" Fill="{StaticResource WhiteColorBrush}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                                </Grid>
-                            </Button>
+                            <Border BorderBrush="{StaticResource LightGreyBrush}" BorderThickness="1">
 
-                                <Label Style="{StaticResource WindowTitleStyle}" Content="{Binding Path=TabTitle}" HorizontalAlignment="Center" Margin="10"/>
-                                <Button Style="{StaticResource BaseButtonStyle}" Command="{Binding Path=RefreshViewCommand}" Content="Refresh" HorizontalAlignment="Right">
-                                    
-                                </Button>
-                            </StackPanel>
+                                <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                    <StackPanel Orientation="Horizontal">
+
+                                    <Button x:Name="ButtonMenu" Background="{StaticResource NavyBlueBrush}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0.2,0,0" Width="75" Height="45" Click="ButtonMenu_OnClick">
+                                        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                            <Rectangle x:Name="rectangle" Width="40" Height="9" Margin="0 0 0 0" Fill="{StaticResource WhiteColorBrush}" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="-0,0.5">
+                                                <Rectangle.RenderTransform>
+                                                    <TransformGroup>
+                                                        <ScaleTransform/>
+                                                        <SkewTransform/>
+                                                        <RotateTransform/>
+                                                        <TranslateTransform/>
+                                                    </TransformGroup>
+                                                </Rectangle.RenderTransform>
+                                            </Rectangle>
+                                            <Rectangle x:Name="rectangle1" Fill="{StaticResource WhiteColorBrush}" Width="40" Height="9" Margin="0 25 0 0 " HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="-0,0.5">
+                                                <Rectangle.RenderTransform>
+                                                    <TransformGroup>
+                                                        <ScaleTransform/>
+                                                        <SkewTransform/>
+                                                        <RotateTransform/>
+                                                        <TranslateTransform/>
+                                                    </TransformGroup>
+                                                </Rectangle.RenderTransform>
+                                            </Rectangle>
+                                            <Rectangle x:Name="rectangle2" Width="40" Height="9" Margin="0 12.2 0 0" Fill="{StaticResource WhiteColorBrush}" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                                        </Grid>
+                                    </Button>
+
+                                    <Label Style="{StaticResource WindowTitleStyle}" Content="{Binding Path=TabTitle}" HorizontalAlignment="left" Grid.Column="0" Margin="10,0,0,0"/>
+
+                                </StackPanel>
+                                <Button Style="{StaticResource BaseButtonStyle}" Command="{Binding Path=RefreshViewCommand}" Content="Refresh" HorizontalAlignment="Right" Grid.Column="1" Width="75"/>
+                            </Grid>
+                            
+                            </Border>
 
                         </DockPanel>
 

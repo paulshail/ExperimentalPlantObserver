@@ -6,9 +6,10 @@
              xmlns:local="clr-namespace:ExperimentalPlantObserver.Views.Tabs"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="Gray">
+    <Grid>
 
-        <Label Content="HOME"/>
+       
+        
         
 
     </Grid>

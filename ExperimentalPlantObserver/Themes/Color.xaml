@@ -58,5 +58,22 @@
     <!-- Orange -->
     <Color x:Key="Orange">#E8752B</Color>
     <SolidColorBrush x:Key="OrangeBrush" Color="{StaticResource Orange}" />
+     
+    <!-- EPO COLOURS -->
+    
+    <!-- Medium Spring Green -->
+    <Color x:Key="MediumSpringGreen">#FF00FA9A</Color>
+    <SolidColorBrush x:Key="MediumSpringGreenBrush" Color="{StaticResource MediumSpringGreen}"/>
 
+    <!-- Lawn Green -->
+    <Color x:Key="SpringGreen">#FF00FF7F</Color>
+    <SolidColorBrush x:Key="SpringGreenBrush" Color="{StaticResource SpringGreen}"/>
+
+    <!-- Forest Green -->
+    <Color x:Key="ForestGreen">#FF228B22</Color>
+    <SolidColorBrush x:Key="ForestGreenBrush" Color="{StaticResource ForestGreen}"/>
+    
+    <!-- Lime Green -->
+    <Color x:Key="LimeGreen">#FF43CD32</Color>
+    <SolidColorBrush x:Key="LimeGreenBrush" Color="{StaticResource LimeGreen}"/>
 </ResourceDictionary>
