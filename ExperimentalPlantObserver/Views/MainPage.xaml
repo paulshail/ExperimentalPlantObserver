@@ -75,7 +75,7 @@
 
               
                 <!-- Navigation Area MinWidth="160" MaxWidth="220" -->
-                <Grid x:Name="GridMenu" Background="{StaticResource NavyBlueBrush}" DockPanel.Dock="Left">
+                <Grid x:Name="GridMenu" Background="{StaticResource OffsetWhiteBrush}" DockPanel.Dock="Left">
                     <Grid x:Name="NavigationSelectionArea" VerticalAlignment="Top">
                         <StackPanel>
                             <!-- Home Page -->
@@ -86,8 +86,8 @@
                             <Button Content="History" Style="{StaticResource NavigationButtonStyle}" Command="{Binding Path=HistoryViewCommand}"/>
                             <!-- Import CSV View -->
                             <Button Content="Read CSV" Style="{StaticResource NavigationButtonStyle}" Command="{Binding Path=CSVReadViewCommand}" />
-                            <!-- Settings -->
-                            <Button Content="Settings" Style="{StaticResource NavigationButtonStyle}" Command="{Binding Path=SettingsViewCommand}"/>
+                            <!-- Settings not implemented in current build due to time constraints -->
+                            <!--<Button Content="Settings" Style="{StaticResource NavigationButtonStyle}" Command="{Binding Path=SettingsViewCommand}"/>-->
                             <!-- Close App -->
                             <Button Content="Exit" Style="{StaticResource NavigationButtonStyle}" window:CloseOnClickBehaviour.CloseWindowProperty="true"/>
 
@@ -100,7 +100,7 @@
                     <DockPanel LastChildFill="True">
                         <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top">
 
-                            <Border BorderBrush="{StaticResource LightGreyBrush}" BorderThickness="1">
+                            <Border Background="{StaticResource OffsetWhiteBrush}" BorderBrush="{StaticResource OffsetBlackBrush}" BorderThickness="1">
 
                                 <Grid>
                                 <Grid.ColumnDefinitions>
@@ -110,7 +110,7 @@
 
                                     <StackPanel Orientation="Horizontal">
 
-                                    <Button x:Name="ButtonMenu" Background="{StaticResource NavyBlueBrush}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0.2,0,0" Width="75" Height="45" Click="ButtonMenu_OnClick">
+                                    <Button x:Name="ButtonMenu" Background="ForestGreen" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0.2,0,0" Width="75" Height="45" Click="ButtonMenu_OnClick">
                                         <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                             <Rectangle x:Name="rectangle" Width="40" Height="9" Margin="0 0 0 0" Fill="{StaticResource WhiteColorBrush}" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="-0,0.5">
                                                 <Rectangle.RenderTransform>

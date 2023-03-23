@@ -76,4 +76,9 @@
     <!-- Lime Green -->
     <Color x:Key="LimeGreen">#FF43CD32</Color>
     <SolidColorBrush x:Key="LimeGreenBrush" Color="{StaticResource LimeGreen}"/>
+    
+    <!-- Olive Drab-->
+    <Color x:Key="OliveDrab">#FF6B8E23</Color>
+    <SolidColorBrush x:Key="OliveDrabBrush" Color="{StaticResource OliveDrab}"/>
+
 </ResourceDictionary>

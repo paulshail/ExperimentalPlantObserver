@@ -14,7 +14,7 @@
     
     <Grid>
 
-        <Grid ShowGridLines="True">
+        <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.5*"/>
                 <ColumnDefinition Width="1*"/>

@@ -66,7 +66,7 @@
     </Style>
 
     <Style x:Key="DefaultButton" TargetType="{x:Type Button}">
-        <Setter Property="Background" Value="Navy" />
+        <Setter Property="Background" Value="ForestGreen" />
         <Setter Property="Foreground" Value="White" />
         <Setter Property="FontSize" Value="{StaticResource FontSize22}" />
         <Setter Property="FontFamily" Value="{StaticResource LatoBold}" />
@@ -92,7 +92,7 @@
                         <EventTrigger RoutedEvent="MouseEnter">
                             <BeginStoryboard>
                                 <Storyboard>
-                                    <ColorAnimation Storyboard.TargetName="Border" Storyboard.TargetProperty="Background.Color" To="Orange" From="Navy" Duration="0:0:0.4" />
+                                    <ColorAnimation Storyboard.TargetName="Border" Storyboard.TargetProperty="Background.Color" To="MediumSpringGreen" From="ForestGreen" Duration="0:0:0.4" />
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger>
@@ -100,7 +100,7 @@
                         <EventTrigger RoutedEvent="MouseLeave">
                             <BeginStoryboard>
                                 <Storyboard>
-                                    <ColorAnimation Storyboard.TargetName="Border" Storyboard.TargetProperty="Background.Color" To="Navy" From="Orange" Duration="0:0:0.4" />
+                                    <ColorAnimation Storyboard.TargetName="Border" Storyboard.TargetProperty="Background.Color" From="MediumSpringGreen" To="ForestGreen" Duration="0:0:0.4" />
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger>
