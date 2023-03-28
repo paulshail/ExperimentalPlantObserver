@@ -189,15 +189,19 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
             {
                 _startDate = value;
                 OnPropertyChanged(nameof(StartDate));
-                if (StartDate > EndDate && IsSetup)
+                if (IsSetup)
                 {
-                    NotificationMessageHandler.AddError("Error", "Start date must be before end date");
-                    IsDateValid = false;
-                }
-                else
-                {
-                    NotificationMessageHandler.AddSuccess("Start date set", "Start date set to: " + StartDate);
-                    IsDateValid = true;
+                    if (StartDate > EndDate && IsSetup)
+                    {
+                        NotificationMessageHandler.AddError("Error", "Start date must be before end date");
+                        IsDateValid = false;
+                    }
+                    else
+                    {
+                        NotificationMessageHandler.AddSuccess("Start date set", "Start date set to: " + StartDate);
+                        IsDateValid = true;
+
+                    }
                 }
             }
         }

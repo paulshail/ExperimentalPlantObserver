@@ -458,10 +458,11 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
 
             foreach(SensorMeasurementDTO measurements in SensorMeasurements)
             {
-
-               // Overwrite current readings
-               toReplaceSensors.Add(await _sensorService.GetMeasurementsSinceLastReading(measurements, SelectedMeasurementUnit, GetStartDate()));
-
+                if (measurements.Measurements.Count > 0)
+                {
+                    // Overwrite current readings
+                    toReplaceSensors.Add(await _sensorService.GetMeasurementsSinceLastReading(measurements, SelectedMeasurementUnit, GetStartDate()));
+                }
             }
 
             SensorMeasurements = toReplaceSensors;
@@ -493,6 +494,9 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
 
             switch (TimeScaleSelection)
             {
+                case "hour":
+                    return DateTime.Now.AddHours(-1);
+                    break;
                 case "day":
                     return DateTime.Now.AddDays(-1);
                     break;

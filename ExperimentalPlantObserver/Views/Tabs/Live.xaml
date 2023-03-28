@@ -68,10 +68,12 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
+                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Style="{StaticResource BaseButtonStyle}" Content="24 hours" Margin="5" Height="50" Command="{Binding Path=TimeSelectionCommand}" CommandParameter="day"/>
-                <Button Grid.Column="1" Style="{StaticResource BaseButtonStyle}" Content="7 days" Margin="5" Height="50" Command="{Binding Path=TimeSelectionCommand}" CommandParameter="week"/>
-                <Button Grid.Column="2" Style="{StaticResource BaseButtonStyle}" Content="1 month" Margin="5" Height="50" Command="{Binding Path=TimeSelectionCommand}" CommandParameter="month" />
+                <Button Grid.Column="0" Style="{StaticResource BaseButtonStyle}" Content="1 hour" Margin="5" Height="50" Command="{Binding Path=TimeSelectionCommand}" CommandParameter="hour"/>
+                <Button Grid.Column="1" Style="{StaticResource BaseButtonStyle}" Content="24 hours" Margin="5" Height="50" Command="{Binding Path=TimeSelectionCommand}" CommandParameter="day"/>
+                <Button Grid.Column="2" Style="{StaticResource BaseButtonStyle}" Content="7 days" Margin="5" Height="50" Command="{Binding Path=TimeSelectionCommand}" CommandParameter="week"/>
+                <Button Grid.Column="3" Style="{StaticResource BaseButtonStyle}" Content="1 month" Margin="5" Height="50" Command="{Binding Path=TimeSelectionCommand}" CommandParameter="month" />
             </Grid>
 
             <Grid Grid.Row="3" Margin="10" Visibility="{Binding Path=IsRefreshTimeSelectVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
