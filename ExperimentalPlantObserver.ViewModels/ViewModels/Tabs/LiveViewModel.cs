@@ -415,7 +415,7 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
                             {
 
                                 LiveDataPlot = _plotHelperService.CreateDataPlot(SensorMeasurements, SelectedMeasurementUnit, GetStartDate(), DateTime.Now);
-
+                                IsPlotting = true;
                             }
                             else
                             {

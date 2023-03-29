@@ -114,7 +114,7 @@
                 <Label.Content>
                     <TextBlock>
                         <TextBlock.Text>
-                            <MultiBinding StringFormat="{}Next Refresh: {0}" FallbackValue="L + ratio">
+                            <MultiBinding StringFormat="{}Next Refresh: {0}">
                                 <Binding Path="RefreshTimeSpan"/>
                             </MultiBinding>
                         </TextBlock.Text>
