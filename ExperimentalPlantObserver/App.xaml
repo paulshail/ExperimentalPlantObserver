@@ -6,6 +6,8 @@
              xmlns:Views="clr-namespace:ExperimentalPlantObserver.Views"
              xmlns:VMs="clr-namespace:ExperimentalPlantObserver.ViewModels.ViewModels;assembly=ExperimentalPlantObserver.ViewModels"
              xmlns:TabVMs="clr-namespace:ExperimentalPlantObserver.ViewModels.ViewModels.Tabs;assembly=ExperimentalPlantObserver.ViewModels"
+             xmlns:CustomControlVMs="clr-namespace:ExperimentalPlantObserver.ViewModels.ViewModels.HeartbeatMonitor;assembly=ExperimentalPlantObserver.ViewModels"
+             xmlns:CustomControl="clr-namespace:ExperimentalPlantObserver.Controls"
              xmlns:TabViews="clr-namespace:ExperimentalPlantObserver.Views.Tabs">
     <prism:PrismApplication.Resources>
         <ResourceDictionary>
@@ -39,6 +41,13 @@
                 <TabViews:Settings DataContext="{Binding}"/>
             </DataTemplate>
 
+            <!-- Heartbeat checker -->
+            <DataTemplate DataType="{x:Type CustomControlVMs:ARHeartbeatMonitor}">
+                <CustomControl:ARHeartbeatChecker DataContext="{Binding}"/>
+            </DataTemplate>
+            
+            
+            <!-- Static resources -->
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
 
             

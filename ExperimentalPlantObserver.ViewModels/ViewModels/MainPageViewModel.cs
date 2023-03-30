@@ -1,7 +1,9 @@
 ﻿using ExperimentalPlantObserver.Services.Interfaces;
 using ExperimentalPlantObserver.Services.Interfaces.DataPlot;
 using ExperimentalPlantObserver.ViewModels.Commands;
+using ExperimentalPlantObserver.ViewModels.ViewModels.HeartbeatMonitor;
 using ExperimentalPlantObserver.ViewModels.ViewModels.Tabs;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -62,6 +64,7 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels
             // Set to home when software is started
             TabTitle = "Home";
             this.CurrentView = homeViewModel;
+
         }
 
         #endregion
@@ -79,6 +82,7 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels
                 OnPropertyChanged(nameof(CurrentView));
             }
         }
+
 
         private bool _isLoadingSpinnerVisible;
 

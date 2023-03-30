@@ -93,8 +93,8 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0"  Style="{StaticResource BaseButtonStyle}" Content="Cluster Average" Margin="5" Height="50" Width="auto" Command="{Binding Path=PlotTypeCommand}" CommandParameter="avg"/>
-                <Button Grid.Column="1" Style="{StaticResource BaseButtonStyle}" Content="Sensors" Margin="5" Height="50" Width="auto" Command="{Binding Path=PlotTypeCommand}" CommandParameter="sensor"/>
+                <Button Grid.Column="0"  Style="{StaticResource BaseButtonStyle}" Content="Scatter plot" Margin="5" Height="50" Width="auto" Command="{Binding Path=PlotTypeCommand}" CommandParameter="avg"/>
+                <Button Grid.Column="1" Style="{StaticResource BaseButtonStyle}" Content="Linear plot" Margin="5" Height="50" Width="auto" Command="{Binding Path=PlotTypeCommand}" CommandParameter="sensor"/>
             </Grid>
 
             <DockPanel Grid.Row="5" Margin="10" Visibility="{Binding Path=IsPlotVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -110,7 +110,25 @@
                 <RowDefinition Height="0.8*"/>
             </Grid.RowDefinitions>
 
-            <Label Name="Timer" Grid.Row="0" Style="{StaticResource DefaultDescriptorLabelStyle}">
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Label Name="ClusterAverage" Grid.Row="0" Style="{StaticResource DefaultDescriptorLabelStyle}">
+                    <Label.Content>
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}Cluster Average: {0}">
+                                    <Binding Path="ClusterAverage"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </Label.Content>
+                </Label>
+                
+            <Label Name="Timer" Grid.Row="1" Style="{StaticResource DefaultDescriptorLabelStyle}">
                 <Label.Content>
                     <TextBlock>
                         <TextBlock.Text>
@@ -122,6 +140,8 @@
                     
                 </Label.Content>
             </Label>
+
+            </Grid>
 
             <oxy:PlotView Model="{Binding Path= LiveDataPlot}"  Grid.Row="1"/>
 

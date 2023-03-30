@@ -1,9 +1,12 @@
 ﻿using ExperimentalPlantObserver.Services.Interfaces;
 using ExperimentalPlantObserver.Services.Interfaces.DataPlot;
+using ExperimentalPlantObserver.ViewModels.ViewModels.HeartbeatMonitor;
 using ExperimentalPlantObserver.ViewModels.ViewModels.Tabs;
+using Microsoft.Extensions.Configuration;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +26,12 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.MainWindow
         private LiveViewModel _liveViewModel;
         private SettingsViewModel _settingsViewModel;
         private MainPageViewModel _mainPageViewModel;
+
+        #endregion
+
+        #region Configuration
+
+        private IConfiguration _configuration;
 
         #endregion
 
@@ -56,12 +65,19 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.MainWindow
             _homeViewModel = homeViewModel;
             _liveViewModel = liveViewModel;
             _settingsViewModel = settingsViewModel;
-            
+
+            //Config
+            //_configuration = configuration;
+
             // sevices
             _sensorService = sensorService;
             _clusterService = clusterSevice;
             _plotHelperService = plotHelperService;
 
+            //AR heartbeat checker
+            this.HeartbeatMonitor = new ARHeartbeatMonitor("Test");
+
+            // Main page
             DisplayedContent = new MainPageViewModel(
             _csvReadViewModel,
             _historyViewModel,
@@ -90,7 +106,19 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.MainWindow
                 OnPropertyChanged(nameof(DisplayedContent));
             }
         }
-        
+
+        private ViewModelBase _heartbeatMonitor;
+
+        public ViewModelBase HeartbeatMonitor
+        {
+            get => _heartbeatMonitor;
+            set
+            {
+                _heartbeatMonitor = value;
+                OnPropertyChanged(nameof(HeartbeatMonitor));
+            }
+        }
+
         #endregion
 
     }

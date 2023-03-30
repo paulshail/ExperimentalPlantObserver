@@ -17,6 +17,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition/>
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
 
         <Border Grid.Row="0">
@@ -44,6 +45,8 @@
         </Border>
             
             <ContentControl Content="{Binding Path=DisplayedContent}" Grid.Row="1"/>
+
+            <ContentControl Content="{Binding Path=HeartbeatMonitor}" Grid.Row="2"/>
 
     </Grid>
 </Window>

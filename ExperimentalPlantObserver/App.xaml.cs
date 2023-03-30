@@ -66,8 +66,8 @@ namespace ExperimentalPlantObserver
                 _configuration = configBuilder.Build();
 
 
-                // Register View model
-                containerRegistry.Register<MainWindowViewModel>();
+            // Register View model
+            containerRegistry.Register<MainWindowViewModel>();
 
             // Register Services
             containerRegistry.Register<IClusterService, ClusterService>();
@@ -79,7 +79,6 @@ namespace ExperimentalPlantObserver
             // Register Repositories
             containerRegistry.Register<IClusterRepository<int, ClusterDTO>, ClusterRepository>();
             containerRegistry.Register<ISensorRepository<int, SensorDTO>, SensorRepository>();
-
 
             // Register DB with connection string
             var builder = new DbContextOptionsBuilder<PlantDataContext>();
