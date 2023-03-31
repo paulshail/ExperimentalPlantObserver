@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ExperimentalPlantObserver.Base\ExperimentalPlantObserver.Base.csproj" />
+    <ProjectReference Include="..\ExperimentalPlantObserver.Models\ExperimentalPlantObserver.Models.csproj" />
+    <ProjectReference Include="..\ExperimentalPlantObserver.Repository\ExperimentalPlantObserver.Repository.csproj" />
+    <ProjectReference Include="..\ExperimentalPlantObserver.Services\ExperimentalPlantObserver.Services.csproj" />
+    <ProjectReference Include="..\ExperimentalPlantObserver.ViewModels\ExperimentalPlantObserver.ViewModels.csproj" />
+    <ProjectReference Include="..\ExperimentalPlantObserver\ExperimentalPlantObserver.csproj" />
+    <ProjectReference Include="..\MessageHandler\MessageHandler.csproj" />
+  </ItemGroup>
+
+</Project>
