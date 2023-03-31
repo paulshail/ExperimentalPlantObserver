@@ -55,6 +55,9 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.HeartbeatMonitor
 
             _fileLocation = fileLocation;
 
+            HeartbeatStatus = "INITAILISING";
+            HeartbeatValue = "INITIALISING";
+
             _heartbeatCheckWorker= new BackgroundWorker();
             _heartbeatCheckWorker.DoWork += _heartbeatCheckWorker_DoWork;
             _heartbeatCheckWorker.WorkerSupportsCancellation = true;
@@ -74,19 +77,19 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.HeartbeatMonitor
             {
                 var heartbeatLastWritten = File.GetLastWriteTime(_fileLocation);
 
-                if (heartbeatLastWritten == null)
+                if (heartbeatLastWritten != null)
                 {
-                    if (heartbeatLastWritten >= DateTime.Now.AddMinutes(-5))
+                    if (heartbeatLastWritten <= DateTime.Now.AddMinutes(-5))
                     {
                         HeartbeatValue = "OFFLINE";
                         HeartbeatStatus = "OFFLINE";
                     }
-                    else if (heartbeatLastWritten >= DateTime.Now.AddMinutes(-2))
+                    else if (heartbeatLastWritten <= DateTime.Now.AddMinutes(-2))
                     {
                         HeartbeatValue = "ALERT";
                         HeartbeatStatus = "ALERT";
                     }
-                    else if (heartbeatLastWritten < DateTime.Now.AddMinutes(-2))
+                    else if (heartbeatLastWritten > DateTime.Now.AddMinutes(-2))
                     {
                         HeartbeatValue = "RUNNING";
                         HeartbeatStatus = "RUNNING";

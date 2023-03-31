@@ -65,6 +65,8 @@ namespace ExperimentalPlantObserver
 
                 _configuration = configBuilder.Build();
 
+            containerRegistry.RegisterInstance<IConfiguration>(_configuration);
+
 
             // Register View model
             containerRegistry.Register<MainWindowViewModel>();

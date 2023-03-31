@@ -53,7 +53,8 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.MainWindow
                                 MainPageViewModel mainPageViewModel,
                                 ISensorService sensorService,
                                 IClusterService clusterSevice,
-                                IPlotHelperService plotHelperService)
+                                IPlotHelperService plotHelperService,
+                                IConfiguration configuration)
         {
 
             // Main page
@@ -67,7 +68,7 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.MainWindow
             _settingsViewModel = settingsViewModel;
 
             //Config
-            //_configuration = configuration;
+            _configuration = configuration;
 
             // sevices
             _sensorService = sensorService;
@@ -75,7 +76,7 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.MainWindow
             _plotHelperService = plotHelperService;
 
             //AR heartbeat checker
-            this.HeartbeatMonitor = new ARHeartbeatMonitor("Test");
+            this.HeartbeatMonitor = new ARHeartbeatMonitor(configuration.GetSection("DataWriterHeartbeat").Value);
 
             // Main page
             DisplayedContent = new MainPageViewModel(

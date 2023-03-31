@@ -17,13 +17,16 @@
                             <Setter Property="Background" Value="{StaticResource ForestGreenBrush}"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding Path=HeartbeatValue}" Value="ALERT">
-                            <Setter Property="Background" Value="Yellow"/>
+                            <Setter Property="Background" Value="OrangeRed"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding Path=HeartbeatValue}" Value="OFFLINE">
                             <Setter Property="Background" Value="{StaticResource BloodRedBrush}"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding Path=HeartbeatValue}" Value="ERROR">
                             <Setter Property="Background" Value="DarkSlateGray"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=HeartbeatValue}" Value="INITIALISING">
+                            <Setter Property="Background" Value="{StaticResource NavyBlueBrush}"/>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
@@ -46,10 +49,10 @@
                 <Style TargetType="{x:Type Label}">
                 <Style.Triggers>
                         <DataTrigger Binding="{Binding Path=HeartbeatValue}" Value="RUNNING">
-                            <Setter Property="Background" Value="{StaticResource SpringGreenBrush}"/>
+                            <Setter Property="Background" Value="{StaticResource ForestGreenBrush}"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding Path=HeartbeatValue}" Value="ALERT">
-                            <Setter Property="Background" Value="Yellow"/>
+                            <Setter Property="Background" Value="OrangeRed"/>
                         </DataTrigger>
                             <DataTrigger Binding="{Binding Path=HeartbeatValue}" Value="OFFLINE">
                                 <Setter Property="Background" Value="{StaticResource BloodRedBrush}"/>
@@ -57,6 +60,9 @@
                             <DataTrigger Binding="{Binding Path=HeartbeatValue}" Value="ERROR">
                             <Setter Property="Background" Value="DarkSlateGray"/>
                         </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=HeartbeatValue}" Value="INITIALISING">
+                                <Setter Property="Background" Value="{StaticResource NavyBlueBrush}"/>
+                            </DataTrigger>
                 </Style.Triggers>
                 </Style>
             </Label.Style>
