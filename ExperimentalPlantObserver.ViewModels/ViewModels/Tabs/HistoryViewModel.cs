@@ -143,7 +143,7 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
 
                     // Cluster selection would mean everything else needs to be nulled
                     SelectedMeasurementUnit = null;
-                    IsPlotAverage = null;
+                    IsPlotScatter = null;
 
 
                     // Hide UI components
@@ -232,17 +232,17 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
         }
 
         // Selecting if cluster average or individual sensors are used
-        private bool? _isPlotAverage;
+        private bool? _isPlotScatter;
 
-        public bool? IsPlotAverage
+        public bool? IsPlotScatter
         {
-            get => _isPlotAverage;
+            get => _isPlotScatter;
             set
             {
-                _isPlotAverage = value;
-                OnPropertyChanged(nameof(IsPlotAverage));
+                _isPlotScatter = value;
+                OnPropertyChanged(nameof(IsPlotScatter));
 
-                if (IsPlotAverage != null)
+                if (IsPlotScatter != null)
                 {
                     IsPlotVisible = true;
                 }
@@ -287,7 +287,7 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
             {
                 _isPlotTypeSelectionVisible = value;
                 OnPropertyChanged(nameof(IsPlotTypeSelectionVisible));
-                if(IsPlotAverage != null)
+                if(IsPlotScatter != null)
                 {
                     IsPlotVisible = true;
                 }
@@ -362,15 +362,15 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
                  switch (plotType)
                  {
                      case "avg":
-                         IsPlotAverage = null;
+                         IsPlotScatter = null;
                          NotificationMessageHandler.AddInfo("Not Implemented", "Cluster average has not been implemented");
                          break;
                      case "sensor":
-                         IsPlotAverage = false;
+                         IsPlotScatter = false;
                          NotificationMessageHandler.AddInfo("Sensors", "Plot type set to individual sensors");
                          break;
                      default:
-                         IsPlotAverage = null;
+                         IsPlotScatter = null;
                          break;
                  }
 
@@ -381,7 +381,7 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
             {
                 if (!IsPlotting)
                 {
-                    if (IsPlotAverage == true)
+                    if (IsPlotScatter == true)
                     {
                         NotificationMessageHandler.AddInfo("Not Implemented", "Cluster average has not been implemented");
                     }
@@ -402,15 +402,15 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
                         if (sensorHasMeasurements)
                         {
 
-                            if (IsPlotAverage == false)
+                            if (IsPlotScatter == false)
                             {
 
-                                HistoryDataPlot = _plotHelperService.CreateDataPlot(SensorMeasurements, SelectedMeasurementUnit, StartDate, EndDate);
+                                HistoryDataPlot = _plotHelperService.CreateLinearDataPlot(SensorMeasurements, SelectedMeasurementUnit, StartDate, EndDate);
 
                                 IsPlotVisible = true;
                             
                             }
-                            else if (IsPlotAverage == true)
+                            else if (IsPlotScatter == true)
                             {
 
                                 // NOT IMPLEMENTED

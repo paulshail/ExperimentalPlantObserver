@@ -18,6 +18,7 @@ using ExperimentalPlantObserver.Services.Interfaces.DataPlot;
 using ExperimentalPlantObserver.Base.Helpers.PlotViewHelper;
 using System.Windows.Threading;
 using System.Windows;
+using ExperimentalPlantObserver.Base.Helpers.Calculations;
 
 namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
 {
@@ -114,13 +115,13 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
 
                     // Cluster selection would mean everything else needs to be nulled
                     SelectedMeasurementUnit = null;
-                    IsPlotAverage = null;
+                    IsPlotScatter = null;
 
 
                     // Hide UI components
                     IsPlotTypeSelectionVisible = false;
                     IsTimeScaleSelectionVisible = false;
-                    IsRefreshTimerVisible = false;
+                    IsPlotButtonVisible = false;
                     IsPlotVisible = false;
 
                 }
@@ -209,20 +210,32 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
         }
 
         // Selecting if cluster average or individual sensors are used
-        private bool? _isPlotAverage;
+        private bool? _isPlotScatter;
 
-        public bool? IsPlotAverage
+        public bool? IsPlotScatter
         {
-            get => _isPlotAverage;
+            get => _isPlotScatter;
             set
             {
-                _isPlotAverage = value;
-                OnPropertyChanged(nameof(IsPlotAverage));
+                _isPlotScatter = value;
+                OnPropertyChanged(nameof(IsPlotScatter));
 
-                if (IsPlotAverage != null)
+                if (IsPlotScatter != null)
                 {
-                    IsPlotVisible = true;
+                    IsPlotButtonVisible = true;
                 }
+            }
+        }
+
+        private double _clusterAverage;
+
+        public double ClusterAverage
+        {
+            get => _clusterAverage;
+            set
+            {
+                _clusterAverage = value;
+                OnPropertyChanged(nameof(ClusterAverage));
             }
         }
 
@@ -278,7 +291,19 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
                 _isPlotTypeSelectionVisible = value;
                 OnPropertyChanged(nameof(IsPlotTypeSelectionVisible));
             }
-        }        
+        }
+
+        private bool _isPlotButtonVisible;
+
+        public bool IsPlotButtonVisible
+        {
+            get => _isPlotButtonVisible;
+            set
+            {
+                _isPlotButtonVisible = value;
+                OnPropertyChanged(nameof(IsPlotButtonVisible));
+            }
+        }
 
         private bool _isPlotVisible;
 
@@ -289,21 +314,6 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
             {
                 _isPlotVisible = value;
                 OnPropertyChanged(nameof(IsPlotVisible));
-                if (IsPlotVisible == true)
-                {
-                    IsRefreshTimerVisible = true;
-                }
-            }
-        }
-
-        private bool _isRefreshTimerVisible;
-        public bool IsRefreshTimerVisible
-        {
-            get => _isRefreshTimerVisible;
-            set
-            {
-                _isRefreshTimerVisible = value;
-                OnPropertyChanged(nameof(IsRefreshTimerVisible));
             }
         }
 
@@ -375,16 +385,16 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
 
                  switch (plotType)
                  {
-                     case "avg":
-                         IsPlotAverage = null;
-                         NotificationMessageHandler.AddInfo("Not Implemented", "Cluster average has not been implemented");
+                     case "scatter":
+                         IsPlotScatter = true;
+                         NotificationMessageHandler.AddInfo("Plot Type", "Plot type set to Scatter Series");
                          break;
-                     case "sensor":
-                         IsPlotAverage = false;
-                         NotificationMessageHandler.AddInfo("Sensors", "Plot type set to individual sensors");
+                     case "line":
+                         IsPlotScatter = false;
+                         NotificationMessageHandler.AddInfo("Plot Type", "Plot type set to Line Series");
                          break;
                      default:
-                         IsPlotAverage = null;
+                         IsPlotScatter = null;
                          break;
                  }
 
@@ -395,26 +405,28 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
             {
             if (!IsPlotting)
             {
-
-                // Can do double parse since this input is validated earlier in the UI
-                RefreshTimeSpan = ResetRefreshTimer();
-                _refreshDispatchTimer = BeginRefreshTimer();
+                IsPlotVisible = true;
+                    // Can do double parse since this input is validated earlier in the UI
+                    RefreshTimeSpan = ResetRefreshTimer();
+                    _refreshDispatchTimer = BeginRefreshTimer();
                     _refreshDispatchTimer.Start();
 
-                    if (IsPlotAverage == true)
-                    {
-                        NotificationMessageHandler.AddInfo("Not Implemented", "Cluster average has not been implemented");
-                    }
-                    else if(IsPlotAverage == false)
-                    {
                         if (GetStartDate() != DateTime.Now)
                         {
-
                             SensorMeasurements = await _sensorService.GetMeasurementsForAllSensorsWithMeasurementIdStartDateEndDate(SelectedCluster.ClusterSensors, SelectedMeasurementUnit.PK_measurementUnit_Id, GetStartDate(), DateTime.Now);
                             if (SensorMeasurements.Count() > 0)
                             {
+                                CalculateAverage();
 
-                                LiveDataPlot = _plotHelperService.CreateDataPlot(SensorMeasurements, SelectedMeasurementUnit, GetStartDate(), DateTime.Now);
+                                if (IsPlotScatter == true)
+                                {
+                                    LiveDataPlot = _plotHelperService.CreateScatterDataPlot(SensorMeasurements, SelectedMeasurementUnit, GetStartDate(), DateTime.Now);
+                                }
+                                else if(IsPlotScatter == false) 
+                                {
+                                    LiveDataPlot = _plotHelperService.CreateLinearDataPlot(SensorMeasurements, SelectedMeasurementUnit, GetStartDate(), DateTime.Now);
+                                }
+                               
                                 IsPlotting = true;
                             }
                             else
@@ -426,7 +438,7 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
                         {
                             NotificationMessageHandler.AddError("Error", "Error setting start date");
                         }
-                    }
+                    
                 }
             });
 
@@ -467,7 +479,9 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
 
             SensorMeasurements = toReplaceSensors;
 
-            LiveDataPlot = _plotHelperService.CreateDataPlot(SensorMeasurements, SelectedMeasurementUnit, GetStartDate(), DateTime.Now);
+            CalculateAverage();
+
+            LiveDataPlot = _plotHelperService.CreateLinearDataPlot(SensorMeasurements, SelectedMeasurementUnit, GetStartDate(), DateTime.Now);
 
         }
 
@@ -510,6 +524,23 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
             }
         }
 
+        private void CalculateAverage()
+        {
+
+            ObservableCollection<double> sensorValues = new ObservableCollection<double>();
+
+
+            // Gather all values from DTOs
+            foreach(SensorMeasurementDTO measurement in SensorMeasurements)
+            {
+                foreach(MeasurementDTO measurements in measurement.Measurements)
+                {
+                    sensorValues.Add(measurements.MeasurementValue);
+                }
+            }
+
+             ClusterAverage = StatisticsCalculator.CalculateAverage(sensorValues);
+        }
 
         #endregion
 

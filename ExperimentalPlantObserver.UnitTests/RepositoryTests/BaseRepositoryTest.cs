@@ -15,11 +15,13 @@ namespace ExperimentalPlantObserver.UnitTests.RepositoryTests
 
         protected PlantDataContext GetPlantDataContext()
         {
-            var options = new DbContextOptionsBuilder<PlantDataContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
+            //var options = new DbContextOptionsBuilder<PlantDataContext>()
+            //    .UseInMemoryDatabase(Guid.NewGuid().ToString())
+            //    .Options;
 
-                return new PlantDataContext(options);
+            //    return new PlantDataContext(options);
+
+            return null;
         }
 
     }

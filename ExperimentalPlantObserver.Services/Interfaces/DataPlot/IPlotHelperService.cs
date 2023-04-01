@@ -12,7 +12,9 @@ namespace ExperimentalPlantObserver.Services.Interfaces.DataPlot
     public interface IPlotHelperService
     {
 
-        public ViewResolvingPlotModel CreateDataPlot(ObservableCollection<SensorMeasurementDTO> sensorMeasurements, MeasurementUnitDTO measurementUnit, DateTime startDate, DateTime endDate);
+        public ViewResolvingPlotModel CreateLinearDataPlot(ObservableCollection<SensorMeasurementDTO> sensorMeasurements, MeasurementUnitDTO measurementUnit, DateTime startDate, DateTime endDate);
+
+        public ViewResolvingPlotModel CreateScatterDataPlot(ObservableCollection<SensorMeasurementDTO> sensorMeasurements, MeasurementUnitDTO measurementUnit, DateTime startDate, DateTime endDate);
 
     }
 }

@@ -15,7 +15,7 @@ namespace ExperimentalPlantObserver.Services.Implementation.DataPlot
 {
     public class PlotHelperService : IPlotHelperService
     {
-        public ViewResolvingPlotModel CreateDataPlot(ObservableCollection<SensorMeasurementDTO> sensorMeasurements, MeasurementUnitDTO measurementUnit, DateTime startDate, DateTime endDate)
+        public ViewResolvingPlotModel CreateLinearDataPlot(ObservableCollection<SensorMeasurementDTO> sensorMeasurements, MeasurementUnitDTO measurementUnit, DateTime startDate, DateTime endDate)
         {
 
             var toReturnPlot = new ViewResolvingPlotModel();
@@ -52,6 +52,49 @@ namespace ExperimentalPlantObserver.Services.Implementation.DataPlot
 
             return toReturnPlot;
 
+        }
+
+        public ViewResolvingPlotModel CreateScatterDataPlot(ObservableCollection<SensorMeasurementDTO> sensorMeasurements, MeasurementUnitDTO measurementUnit, DateTime startDate, DateTime endDate)
+        {
+            var toReturnPlot = new ViewResolvingPlotModel();
+
+            toReturnPlot.Axes.Add(new DateTimeAxis
+            {
+                Position = AxisPosition.Bottom,
+                Minimum = DateTimeAxis.ToDouble(startDate),
+                Maximum = DateTimeAxis.ToDouble(endDate),
+                StringFormat = "dd/MM/yy HH:mm",
+                Angle = 90
+            });
+
+            toReturnPlot.Axes.Add(new LinearAxis()
+            {
+                Position = AxisPosition.Left,
+                Title = measurementUnit.MeasurementUnit + " / " + measurementUnit.MeasurementSymbol
+            });
+
+            ObservableCollection<ScatterSeries> sensorMeasurments = new ObservableCollection<ScatterSeries>();
+
+            foreach (var sensorMeasurement in sensorMeasurements)
+            {
+
+                var scatterSeriesToAdd = new ScatterSeries();
+
+                scatterSeriesToAdd.MarkerType = MarkerType.Cross;
+
+                foreach (var sensorReading in sensorMeasurement.Measurements)
+                {
+
+                    scatterSeriesToAdd.Points.Add(new ScatterPoint(DateTimeAxis.ToDouble(sensorReading.DateOfMeasurement), sensorReading.MeasurementValue)); ;
+
+                }
+
+                toReturnPlot.Series.Add(scatterSeriesToAdd);
+            }
+
+            toReturnPlot.InvalidatePlot(true);
+
+            return toReturnPlot;
         }
     }
 }

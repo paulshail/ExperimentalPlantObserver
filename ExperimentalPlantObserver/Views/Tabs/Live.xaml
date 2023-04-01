@@ -81,7 +81,15 @@
                     <ColumnDefinition Width="0.3*"/>
                     <ColumnDefinition Width="0.7*"/>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" Content="Refresh Timer:" Style="{StaticResource DefaultDescriptorLabelStyle}" FontSize="16" HorizontalAlignment="Left"/>
+                <Label Grid.Column="0" Style="{StaticResource DefaultDescriptorLabelStyle}" FontSize="16" HorizontalAlignment="Left">
+                    <!--<Label.Resources>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource DefaultDescriptorLabelStyle}">
+                            <Setter Property="TextWrapping" Value="Wrap"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                        </Style>-->
+                    <!--</Label.Resources>-->
+                    <TextBlock TextWrapping="Wrap" Text="Refresh Timer (Minutes):" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                </Label>
 
                 <TextBox Grid.Column="1"  Text="{Binding Path=RefreshTimer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="50" Margin="5,0,0,0" FontSize="16"
                           VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
@@ -93,11 +101,11 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0"  Style="{StaticResource BaseButtonStyle}" Content="Scatter plot" Margin="5" Height="50" Width="auto" Command="{Binding Path=PlotTypeCommand}" CommandParameter="avg"/>
-                <Button Grid.Column="1" Style="{StaticResource BaseButtonStyle}" Content="Linear plot" Margin="5" Height="50" Width="auto" Command="{Binding Path=PlotTypeCommand}" CommandParameter="sensor"/>
+                <Button Grid.Column="0"  Style="{StaticResource BaseButtonStyle}" Content="Scatter plot" Margin="5" Height="50" Width="auto" Command="{Binding Path=PlotTypeCommand}" CommandParameter="scatter"/>
+                <Button Grid.Column="1" Style="{StaticResource BaseButtonStyle}" Content="Linear plot" Margin="5" Height="50" Width="auto" Command="{Binding Path=PlotTypeCommand}" CommandParameter="line"/>
             </Grid>
 
-            <DockPanel Grid.Row="5" Margin="10" Visibility="{Binding Path=IsPlotVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <DockPanel Grid.Row="5" Margin="10" Visibility="{Binding Path=IsPlotButtonVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <Button Style="{StaticResource BaseButtonStyle}" Content="PLOT" Height="50" Command="{Binding Path=PlotLiveDataCommand}"/>
             </DockPanel>
             
@@ -110,25 +118,15 @@
                 <RowDefinition Height="0.8*"/>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0">
+            <Grid Grid.Row="0" ShowGridLines="True">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
-                <Label Name="ClusterAverage" Grid.Row="0" Style="{StaticResource DefaultDescriptorLabelStyle}">
-                    <Label.Content>
-                        <TextBlock>
-                            <TextBlock.Text>
-                                <MultiBinding StringFormat="{}Cluster Average: {0}">
-                                    <Binding Path="ClusterAverage"/>
-                                </MultiBinding>
-                            </TextBlock.Text>
-                        </TextBlock>
-                    </Label.Content>
-                </Label>
                 
-            <Label Name="Timer" Grid.Row="1" Style="{StaticResource DefaultDescriptorLabelStyle}">
+                
+            <Label Name="Timer" Grid.Row="0" Style="{StaticResource DefaultDescriptorLabelStyle}">
                 <Label.Content>
                     <TextBlock>
                         <TextBlock.Text>
@@ -140,6 +138,19 @@
                     
                 </Label.Content>
             </Label>
+
+                <Label Name="ClusterAverage" Grid.Row="1" Style="{StaticResource DefaultDescriptorLabelStyle}" VerticalAlignment="Bottom">
+                    <Label.Content>
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}Cluster Average: {0}{1}">
+                                    <Binding Path="ClusterAverage"/>
+                                    <Binding Path="SelectedMeasurementUnit.Symbol"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </Label.Content>
+                </Label>
 
             </Grid>
 

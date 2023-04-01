@@ -100,8 +100,8 @@
                   x:Name="Border" 
                   Grid.ColumnSpan="2"
                   CornerRadius="0"
-                  Background="{StaticResource NavyBlueBrush}"
-                  BorderBrush="{StaticResource NavyBlueBrush}"
+                  Background="{StaticResource ForestGreenBrush}"
+                  BorderBrush="{StaticResource ForestGreenBrush}"
                   BorderThickness="1" />
             <!-- Main Text / Display Area -->
             <Border 
@@ -123,10 +123,10 @@
 
         <ControlTemplate.Triggers>
             <Trigger Property="ToggleButton.IsMouseOver" Value="true">
-                <Setter TargetName="Border" Property="Background" Value="#66b3ff" />
+                <Setter TargetName="Border" Property="Background" Value="#FF00FA9A" />
             </Trigger>
             <Trigger Property="ToggleButton.IsChecked" Value="true">
-                <Setter TargetName="Border" Property="Background" Value="#66b3ff" />
+                <Setter TargetName="Border" Property="Background" Value="#FF00FA9A" />
             </Trigger>
 
             <!-- Styling colorings for when the combobox IsEnabled is false. Changes
@@ -246,7 +246,7 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsHighlighted" Value="true">
-                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource NavyBlueBrush}"/>
+                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource ForestGreenBrush}"/>
                             <Setter Property="Foreground" Value="{StaticResource WhiteColorBrush}" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
