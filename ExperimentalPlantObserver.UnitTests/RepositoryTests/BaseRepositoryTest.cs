@@ -17,9 +17,9 @@ namespace ExperimentalPlantObserver.UnitTests.RepositoryTests
         {
             //var options = new DbContextOptionsBuilder<PlantDataContext>()
             //    .UseInMemoryDatabase(Guid.NewGuid().ToString())
-            //    .Options;
+            //   .Options;
 
-            //    return new PlantDataContext(options);
+            //            return new PlantDataContext(options);
 
             return null;
         }

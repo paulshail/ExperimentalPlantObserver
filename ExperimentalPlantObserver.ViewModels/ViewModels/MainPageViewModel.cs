@@ -151,7 +151,8 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels
 
             if (CurrentView.GetType() == typeof(HomeViewModel))
             {
-                this.CurrentView = new HomeViewModel();
+                    this._homeViewModel = new HomeViewModel();
+                    this.CurrentView = _homeViewModel;
             }
             else if (CurrentView.GetType() == typeof(LiveViewModel))
             {
@@ -160,11 +161,13 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels
             }
             else if (CurrentView.GetType() == typeof(HistoryViewModel))
             {
-                    this.CurrentView = new HistoryViewModel(_clusterService, _sensorService, _plotHelperService);
+                    this._historyViewModel = new HistoryViewModel(_clusterService, _sensorService, _plotHelperService);
+                    this.CurrentView = _historyViewModel;
             }
             else if (CurrentView.GetType() == typeof(CSVReadViewModel))
             {
-                    this.CurrentView = new CSVReadViewModel();
+                    this._csvReadViewModel = new CSVReadViewModel();
+                    this.CurrentView = _csvReadViewModel;
             }
                         
             });
