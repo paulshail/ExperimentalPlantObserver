@@ -20,16 +20,20 @@ namespace ExperimentalPlantObserver.Services.Implementation.DataPlot
 
             var toReturnPlot = new ViewResolvingPlotModel();
 
-            toReturnPlot.Axes.Add(new DateTimeAxis { Position = AxisPosition.Bottom, Minimum = DateTimeAxis.ToDouble(startDate), Maximum = DateTimeAxis.ToDouble(endDate), StringFormat="dd/MM/yy HH:mm",
-            Angle = 90});
+            toReturnPlot.Axes.Add(new DateTimeAxis 
+            { 
+                Position = AxisPosition.Bottom,
+                Minimum = DateTimeAxis.ToDouble(startDate), 
+                Maximum = DateTimeAxis.ToDouble(endDate), 
+                StringFormat="dd/MM/yy HH:mm",
+                Angle = 90
+            });
 
             toReturnPlot.Axes.Add(new LinearAxis()
             {
                 Position = AxisPosition.Left,
                 Title = measurementUnit.MeasurementUnit + " / " + measurementUnit.MeasurementSymbol
             });
-
-            ObservableCollection<LineSeries> sensorMeasurments = new ObservableCollection<LineSeries>();
 
             foreach(var sensorMeasurement in sensorMeasurements)
             {
@@ -73,19 +77,16 @@ namespace ExperimentalPlantObserver.Services.Implementation.DataPlot
                 Title = measurementUnit.MeasurementUnit + " / " + measurementUnit.MeasurementSymbol
             });
 
-            ObservableCollection<ScatterSeries> sensorMeasurments = new ObservableCollection<ScatterSeries>();
-
             foreach (var sensorMeasurement in sensorMeasurements)
             {
 
                 var scatterSeriesToAdd = new ScatterSeries();
 
-                scatterSeriesToAdd.MarkerType = MarkerType.Cross;
 
                 foreach (var sensorReading in sensorMeasurement.Measurements)
                 {
 
-                    scatterSeriesToAdd.Points.Add(new ScatterPoint(DateTimeAxis.ToDouble(sensorReading.DateOfMeasurement), sensorReading.MeasurementValue)); ;
+                    scatterSeriesToAdd.Points.Add(new ScatterPoint(DateTimeAxis.ToDouble(sensorReading.DateOfMeasurement), sensorReading.MeasurementValue));
 
                 }
 

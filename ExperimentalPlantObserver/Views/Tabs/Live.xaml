@@ -118,7 +118,7 @@
                 <RowDefinition Height="0.8*"/>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0" ShowGridLines="True">
+            <Grid Grid.Row="0">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
@@ -145,7 +145,7 @@
                             <TextBlock.Text>
                                 <MultiBinding StringFormat="{}Cluster Average: {0}{1}">
                                     <Binding Path="ClusterAverage"/>
-                                    <Binding Path="SelectedMeasurementUnit.Symbol"/>
+                                    <Binding Path="MeasurementSymbol"/>
                                 </MultiBinding>
                             </TextBlock.Text>
                         </TextBlock>

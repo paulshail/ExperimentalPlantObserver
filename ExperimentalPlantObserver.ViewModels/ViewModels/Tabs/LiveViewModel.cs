@@ -140,8 +140,11 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
                 _selectedMeasurementUnit = value;
                 OnPropertyChanged(nameof(SelectedMeasurementUnit));
 
+                
+
                 if (_selectedMeasurementUnit != null)
                 {
+                    MeasurementSymbol = SelectedMeasurementUnit.MeasurementSymbol;
                     IsTimeScaleSelectionVisible = true;
                 }
             }
@@ -227,6 +230,8 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
             }
         }
 
+        #region Cluster Average String
+
         private double _clusterAverage;
 
         public double ClusterAverage
@@ -239,6 +244,19 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
             }
         }
 
+        private string _measurementSymbol;
+
+        public string MeasurementSymbol
+        {
+            get => _measurementSymbol;
+            set
+            {
+                _measurementSymbol = value;
+                OnPropertyChanged(nameof(MeasurementSymbol));
+            }
+        }
+
+        #endregion
 
         #region Component visibility
 

@@ -19,11 +19,11 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels
 
         #region ViewModels
 
-        private readonly CSVReadViewModel _csvReadViewModel;
-        private readonly HistoryViewModel _historyViewModel;
-        private readonly HomeViewModel _homeViewModel;
-        private readonly LiveViewModel _liveViewModel;
-        private readonly SettingsViewModel _settingsViewModel;
+        private CSVReadViewModel _csvReadViewModel;
+        private HistoryViewModel _historyViewModel;
+        private HomeViewModel _homeViewModel;
+        private LiveViewModel _liveViewModel;
+        private SettingsViewModel _settingsViewModel;
 
         #endregion
 
@@ -155,7 +155,8 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels
             }
             else if (CurrentView.GetType() == typeof(LiveViewModel))
             {
-                this.CurrentView = new LiveViewModel(_clusterService, _sensorService, _plotHelperService);
+                    this._liveViewModel = new LiveViewModel(_clusterService, _sensorService, _plotHelperService);
+                    this.CurrentView = _liveViewModel;
             }
             else if (CurrentView.GetType() == typeof(HistoryViewModel))
             {
