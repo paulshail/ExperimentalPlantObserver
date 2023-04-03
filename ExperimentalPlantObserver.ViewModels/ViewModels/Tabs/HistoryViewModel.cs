@@ -1,4 +1,5 @@
-﻿using ExperimentalPlantObserver.Base.Helpers.PlotViewHelper;
+﻿using ExperimentalPlantObserver.Base.Helpers.Calculations;
+using ExperimentalPlantObserver.Base.Helpers.PlotViewHelper;
 using ExperimentalPlantObserver.Models.DTOs;
 using ExperimentalPlantObserver.Services.Interfaces;
 using ExperimentalPlantObserver.Services.Interfaces.DataPlot;
@@ -347,6 +348,18 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
             }
         }
 
+        private double _clusterAverage;
+
+        public double ClusterAverage
+        {
+            get => _clusterAverage;
+            set
+            {
+                _clusterAverage = value;
+                OnPropertyChanged(nameof(ClusterAverage));
+            }
+        }
+
         #endregion
 
         #endregion
@@ -361,13 +374,13 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
 
                  switch (plotType)
                  {
-                     case "avg":
-                         IsPlotScatter = null;
-                         NotificationMessageHandler.AddInfo("Not Implemented", "Cluster average has not been implemented");
+                     case "scatter":
+                         IsPlotScatter = true;
+                         NotificationMessageHandler.AddInfo("Plot Type", "Plot type set to Scatter Series");
                          break;
-                     case "sensor":
+                     case "line":
                          IsPlotScatter = false;
-                         NotificationMessageHandler.AddInfo("Sensors", "Plot type set to individual sensors");
+                         NotificationMessageHandler.AddInfo("Plot Type", "Plot type set to Line Series");
                          break;
                      default:
                          IsPlotScatter = null;
@@ -381,12 +394,7 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
             {
                 if (!IsPlotting)
                 {
-                    if (IsPlotScatter == true)
-                    {
-                        NotificationMessageHandler.AddInfo("Not Implemented", "Cluster average has not been implemented");
-                    }
-                    else
-                    {
+                    
                         SensorMeasurements = await _sensorService.GetMeasurementsForAllSensorsWithMeasurementIdStartDateEndDate(SelectedCluster.ClusterSensors, SelectedMeasurementUnit.PK_measurementUnit_Id, StartDate, EndDate);
 
                         bool sensorHasMeasurements = false;
@@ -407,23 +415,25 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
 
                                 HistoryDataPlot = _plotHelperService.CreateLinearDataPlot(SensorMeasurements, SelectedMeasurementUnit, StartDate, EndDate);
 
-                                IsPlotVisible = true;
+                                
                             
                             }
                             else if (IsPlotScatter == true)
                             {
 
-                                // NOT IMPLEMENTED
+                                HistoryDataPlot = _plotHelperService.CreateScatterDataPlot(SensorMeasurements, SelectedMeasurementUnit, StartDate, EndDate);
 
                             }
+
+                            CalculateAverage();
+                            IsPlotVisible = true;
+
                         }
                         else
                         {
                             NotificationMessageHandler.AddError("No data", "No sensor measurements available in the chosen time frame");
                         }
-
                     }
-                }
             });
 
         #endregion
@@ -443,6 +453,24 @@ namespace ExperimentalPlantObserver.ViewModels.ViewModels.Tabs
         private async Task LoadMeasurements(int clusterId)
         {
             Measurements = await _clusterService.GetMeasurementUnitsForCluster(clusterId);
+        }
+
+        private void CalculateAverage()
+        {
+
+            ObservableCollection<double> sensorValues = new ObservableCollection<double>();
+
+
+            // Gather all values from DTOs
+            foreach (SensorMeasurementDTO measurement in SensorMeasurements)
+            {
+                foreach (MeasurementDTO measurements in measurement.Measurements)
+                {
+                    sensorValues.Add(measurements.MeasurementValue);
+                }
+            }
+
+            ClusterAverage = StatisticsCalculator.CalculateAverage(sensorValues);
         }
 
         #endregion
